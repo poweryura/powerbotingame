@@ -17,7 +17,7 @@ club_logo = Pattern("club_logo").similar(0.80)
 class Buttons(object):
     select_back = Pattern("button_select_back.png").similar(0.90)
     relist_all = Pattern("relist_all.png").similar(0.90)
-
+    w_clear_sold_items = Pattern("w_clear_sold_items.png").similar(0.99)
     yes = Pattern("yes.png").similar(0.90)
 
 
