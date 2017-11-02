@@ -15,15 +15,33 @@
   </component>
   <component name="FileEditorManager">
     <leaf SIDE_TABS_SIZE_LIMIT_KEY="375">
-      <file leaf-file-name="main.py" pinned="false" current-in-tab="true">
+      <file leaf-file-name="main.py" pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/main.py">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="437">
-              <caret line="93" column="56" lean-forward="false" selection-start-line="93" selection-start-column="56" selection-end-line="93" selection-end-column="56" />
+            <state relative-caret-position="405">
+              <caret line="130" column="0" lean-forward="false" selection-start-line="130" selection-start-column="0" selection-end-line="130" selection-end-column="0" />
               <folding>
                 <element signature="e#0#41#0" expanded="true" />
                 <element signature="e#358#1555#0" expanded="false" />
+                <element signature="e#1610#1897#0" expanded="false" />
+                <element signature="e#1998#2270#0" expanded="false" />
+                <element signature="e#2333#2473#0" expanded="false" />
+                <element signature="e#3607#3889#0" expanded="false" />
+                <element signature="e#4907#5121#0" expanded="false" />
+                <element signature="e#5157#5721#0" expanded="false" />
+                <element signature="e#5857#5953#0" expanded="false" />
+                <marker date="1509595473658" expanded="false" signature="6015:6269" ph="..." />
               </folding>
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file leaf-file-name="Pics.py" pinned="false" current-in-tab="true">
+        <entry file="file://$PROJECT_DIR$/Pics.py">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="380">
+              <caret line="50" column="65" lean-forward="false" selection-start-line="50" selection-start-column="65" selection-end-line="50" selection-end-column="65" />
+              <folding />
             </state>
           </provider>
         </entry>
@@ -31,7 +49,7 @@
       <file leaf-file-name="main.py" pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/../powerbot/main.py">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="2552">
+            <state relative-caret-position="953">
               <caret line="487" column="0" lean-forward="false" selection-start-line="487" selection-start-column="0" selection-end-line="488" selection-end-column="0" />
               <folding>
                 <element signature="e#2649#5805#0" expanded="false" />
@@ -55,17 +73,12 @@
           </provider>
         </entry>
       </file>
-      <file leaf-file-name="Pics.py" pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/Pics.py">
-          <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="616">
-              <caret line="28" column="4" lean-forward="false" selection-start-line="28" selection-start-column="4" selection-end-line="28" selection-end-column="4" />
-              <folding />
-            </state>
-          </provider>
-        </entry>
-      </file>
     </leaf>
+  </component>
+  <component name="FindInProjectRecents">
+    <findStrings>
+      <find>pane</find>
+    </findStrings>
   </component>
   <component name="Git.Settings">
     <option name="RECENT_GIT_ROOT_PATH" value="$PROJECT_DIR$" />
@@ -73,15 +86,15 @@
   <component name="IdeDocumentHistory">
     <option name="CHANGED_PATHS">
       <list>
-        <option value="$PROJECT_DIR$/Pics.py" />
         <option value="$PROJECT_DIR$/../powerbot/main.py" />
         <option value="$PROJECT_DIR$/main.py" />
+        <option value="$PROJECT_DIR$/Pics.py" />
       </list>
     </option>
   </component>
   <component name="ProjectFrameBounds">
     <option name="x" value="1301" />
-    <option name="width" value="1936" />
+    <option name="width" value="2147" />
     <option name="height" value="1398" />
   </component>
   <component name="ProjectView">
@@ -99,6 +112,7 @@
       <foldersAlwaysOnTop value="true" />
     </navigator>
     <panes>
+      <pane id="Scope" />
       <pane id="Scratches" />
       <pane id="ProjectPane">
         <subPane>
@@ -111,11 +125,10 @@
           <select />
         </subPane>
       </pane>
-      <pane id="Scope" />
     </panes>
   </component>
   <component name="PropertiesComponent">
-    <property name="settings.editor.selected.configurable" value="project.scopes" />
+    <property name="settings.editor.selected.configurable" value="com.jetbrains.python.configuration.PyActiveSdkModuleConfigurable" />
     <property name="last_opened_file_path" value="$PROJECT_DIR$" />
   </component>
   <component name="RunDashboard">
@@ -212,21 +225,29 @@
       <option name="presentableId" value="Default" />
       <updated>1509422251027</updated>
     </task>
+    <task id="LOCAL-00001" summary="commi1">
+      <created>1509509647403</created>
+      <option name="number" value="00001" />
+      <option name="presentableId" value="LOCAL-00001" />
+      <option name="project" value="LOCAL" />
+      <updated>1509509647403</updated>
+    </task>
+    <option name="localTasksCounter" value="2" />
     <servers />
   </component>
   <component name="ToolWindowManager">
-    <frame x="1301" y="0" width="1936" height="1398" extended-state="0" />
+    <frame x="1301" y="0" width="2147" height="1398" extended-state="0" />
     <layout>
-      <window_info id="Project" active="true" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" show_stripe_button="true" weight="0.24400418" sideWeight="0.5" order="0" side_tool="false" content_ui="combo" />
+      <window_info id="Project" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" show_stripe_button="true" weight="0.24377643" sideWeight="0.5" order="0" side_tool="false" content_ui="combo" />
       <window_info id="TODO" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="6" side_tool="false" content_ui="tabs" />
       <window_info id="Event Log" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="7" side_tool="true" content_ui="tabs" />
+      <window_info id="Run" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" show_stripe_button="true" weight="0.32882166" sideWeight="0.5" order="2" side_tool="false" content_ui="tabs" />
       <window_info id="Version Control" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="7" side_tool="false" content_ui="tabs" />
       <window_info id="Python Console" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="7" side_tool="false" content_ui="tabs" />
-      <window_info id="Run" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.32882166" sideWeight="0.5" order="2" side_tool="false" content_ui="tabs" />
       <window_info id="Structure" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.25" sideWeight="0.5" order="1" side_tool="false" content_ui="tabs" />
       <window_info id="Terminal" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="7" side_tool="false" content_ui="tabs" />
-      <window_info id="Favorites" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="2" side_tool="true" content_ui="tabs" />
       <window_info id="Debug" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.4" sideWeight="0.5" order="3" side_tool="false" content_ui="tabs" />
+      <window_info id="Favorites" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="2" side_tool="true" content_ui="tabs" />
       <window_info id="Data View" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="3" side_tool="false" content_ui="tabs" />
       <window_info id="Cvs" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.25" sideWeight="0.5" order="4" side_tool="false" content_ui="tabs" />
       <window_info id="Message" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="0" side_tool="false" content_ui="tabs" />
@@ -240,6 +261,10 @@
   <component name="VcsContentAnnotationSettings">
     <option name="myLimit" value="2678400000" />
   </component>
+  <component name="VcsManagerConfiguration">
+    <MESSAGE value="commi1" />
+    <option name="LAST_COMMIT_MESSAGE" value="commi1" />
+  </component>
   <component name="XDebuggerManager">
     <breakpoint-manager />
     <watches-manager />
@@ -252,6 +277,66 @@
           <folding>
             <element signature="e#0#41#0" expanded="true" />
             <element signature="e#358#1555#0" expanded="false" />
+            <element signature="e#1610#1897#0" expanded="false" />
+            <element signature="e#1998#2270#0" expanded="false" />
+            <element signature="e#2333#2473#0" expanded="false" />
+            <element signature="e#3607#3889#0" expanded="false" />
+            <element signature="e#4907#5121#0" expanded="false" />
+            <element signature="e#5157#5721#0" expanded="false" />
+            <element signature="e#5857#5953#0" expanded="false" />
+            <marker date="1509595473658" expanded="false" signature="6015:6269" ph="..." />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/Pics.py">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="616">
+          <caret line="28" column="4" lean-forward="false" selection-start-line="28" selection-start-column="4" selection-end-line="28" selection-end-column="4" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/../powerbot/main.py">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="2552">
+          <caret line="487" column="0" lean-forward="false" selection-start-line="487" selection-start-column="0" selection-end-line="488" selection-end-column="0" />
+          <folding>
+            <element signature="e#2649#5805#0" expanded="false" />
+            <element signature="e#5853#5859#0" expanded="false" />
+            <element signature="e#7362#7907#0" expanded="false" />
+            <element signature="e#8046#8709#0" expanded="false" />
+            <element signature="e#8775#8858#0" expanded="false" />
+            <element signature="e#8918#8993#0" expanded="false" />
+            <element signature="e#9065#9211#0" expanded="false" />
+            <element signature="e#9277#9534#0" expanded="false" />
+            <element signature="e#9634#9887#0" expanded="false" />
+            <element signature="e#9962#12745#0" expanded="false" />
+            <element signature="e#12787#12888#0" expanded="false" />
+            <element signature="e#12941#14672#0" expanded="false" />
+            <element signature="e#14729#16823#0" expanded="false" />
+            <element signature="e#16870#17727#0" expanded="false" />
+            <element signature="e#17777#20446#0" expanded="false" />
+            <element signature="e#20476#20495#0" expanded="false" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/main.py">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="0">
+          <caret line="0" column="0" lean-forward="false" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
+          <folding>
+            <element signature="e#0#41#0" expanded="true" />
+            <element signature="e#358#1555#0" expanded="false" />
+            <element signature="e#1610#1897#0" expanded="false" />
+            <element signature="e#1998#2270#0" expanded="false" />
+            <element signature="e#2333#2473#0" expanded="false" />
+            <element signature="e#3607#3889#0" expanded="false" />
+            <element signature="e#4907#5121#0" expanded="false" />
+            <element signature="e#5157#5721#0" expanded="false" />
+            <element signature="e#5857#5953#0" expanded="false" />
+            <marker date="1509595473658" expanded="false" signature="6015:6269" ph="..." />
           </folding>
         </state>
       </provider>
@@ -296,6 +381,14 @@
           <folding>
             <element signature="e#0#41#0" expanded="true" />
             <element signature="e#358#1555#0" expanded="false" />
+            <element signature="e#1610#1897#0" expanded="false" />
+            <element signature="e#1998#2270#0" expanded="false" />
+            <element signature="e#2333#2473#0" expanded="false" />
+            <element signature="e#3607#3889#0" expanded="false" />
+            <element signature="e#4907#5121#0" expanded="false" />
+            <element signature="e#5157#5721#0" expanded="false" />
+            <element signature="e#5857#5953#0" expanded="false" />
+            <marker date="1509595473658" expanded="false" signature="6015:6269" ph="..." />
           </folding>
         </state>
       </provider>
@@ -315,9 +408,72 @@
         </state>
       </provider>
     </entry>
+    <entry file="file://$PROJECT_DIR$/Tab_transfers_selected.png">
+      <provider selected="true" editor-type-id="images">
+        <state />
+      </provider>
+    </entry>
+    <entry file="file://$USER_HOME$/AppData/Roaming/Sikulix/Lib/sikuli/Sikuli.py">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="271">
+          <caret line="64" column="0" lean-forward="false" selection-start-line="64" selection-start-column="0" selection-end-line="64" selection-end-column="0" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/yes.png">
+      <provider selected="true" editor-type-id="images">
+        <state />
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/w_clear_sold_items.png">
+      <provider selected="true" editor-type-id="images">
+        <state />
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/relist_all.png">
+      <provider selected="true" editor-type-id="images">
+        <state />
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/consumables_selected.png">
+      <provider selected="true" editor-type-id="images">
+        <state />
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/consumables_type_text_selected.png">
+      <provider selected="true" editor-type-id="images">
+        <state />
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/consumables.png">
+      <provider selected="true" editor-type-id="images">
+        <state />
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/consumables_type_text.png">
+      <provider selected="true" editor-type-id="images">
+        <state />
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/consumables_type_contract_selected.png">
+      <provider selected="true" editor-type-id="images">
+        <state />
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/transfer_market_panel.png">
+      <provider selected="true" editor-type-id="images">
+        <state />
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/transfer_list_link.png">
+      <provider selected="true" editor-type-id="images">
+        <state />
+      </provider>
+    </entry>
     <entry file="file://$PROJECT_DIR$/../powerbot/main.py">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="2552">
+        <state relative-caret-position="953">
           <caret line="487" column="0" lean-forward="false" selection-start-line="487" selection-start-column="0" selection-end-line="488" selection-end-column="0" />
           <folding>
             <element signature="e#2649#5805#0" expanded="false" />
@@ -340,27 +496,40 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/Pics.py">
+    <entry file="file://$PROJECT_DIR$/main.py">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="616">
-          <caret line="28" column="4" lean-forward="false" selection-start-line="28" selection-start-column="4" selection-end-line="28" selection-end-column="4" />
-          <folding />
+        <state relative-caret-position="405">
+          <caret line="130" column="0" lean-forward="false" selection-start-line="130" selection-start-column="0" selection-end-line="130" selection-end-column="0" />
+          <folding>
+            <element signature="e#0#41#0" expanded="true" />
+            <element signature="e#358#1555#0" expanded="false" />
+            <element signature="e#1610#1897#0" expanded="false" />
+            <element signature="e#1998#2270#0" expanded="false" />
+            <element signature="e#2333#2473#0" expanded="false" />
+            <element signature="e#3607#3889#0" expanded="false" />
+            <element signature="e#4907#5121#0" expanded="false" />
+            <element signature="e#5157#5721#0" expanded="false" />
+            <element signature="e#5857#5953#0" expanded="false" />
+            <marker date="1509595473658" expanded="false" signature="6015:6269" ph="..." />
+          </folding>
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/Tab_transfers_selected.png">
+    <entry file="file://$PROJECT_DIR$/quality.png">
       <provider selected="true" editor-type-id="images">
         <state />
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/main.py">
+    <entry file="file://$PROJECT_DIR$/quality_selected.png">
+      <provider selected="true" editor-type-id="images">
+        <state />
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/Pics.py">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="437">
-          <caret line="93" column="56" lean-forward="false" selection-start-line="93" selection-start-column="56" selection-end-line="93" selection-end-column="56" />
-          <folding>
-            <element signature="e#0#41#0" expanded="true" />
-            <element signature="e#358#1555#0" expanded="false" />
-          </folding>
+        <state relative-caret-position="380">
+          <caret line="50" column="65" lean-forward="false" selection-start-line="50" selection-start-column="65" selection-end-line="50" selection-end-column="65" />
+          <folding />
         </state>
       </provider>
     </entry>
