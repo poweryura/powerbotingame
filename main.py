@@ -121,32 +121,20 @@ class Navigate(Waiters):
 
     def go_to_consumables(self):
         self.go_to_transfer_market()
-        Waiters.click_first_found_picture(self,(Tabs.Transfers.TransferMarket.consumables_selected, Tabs.Transfers.TransferMarket.consumables), 1)
-        Waiters.click_first_found_picture(self,(Tabs.Transfers.TransferMarket.consumables_type_text_selected, Tabs.Transfers.TransferMarket.consumables_type_text), 1)
+        Waiters.click_first_found_picture(self, (Tabs.Transfers.TransferMarket.consumables_selected, Tabs.Transfers.TransferMarket.consumables), 1)
 
+    def go_to_consumables_contract(self):
+        self.go_to_consumables()
+        Waiters.click_first_found_picture(self, (Tabs.Transfers.TransferMarket.consumables_type_text_selected, Tabs.Transfers.TransferMarket.consumables_type_text), 1)
         for item in range(1, 20):
             try:
                 self.fifa_window_size.wait(Tabs.Transfers.TransferMarket.consumables_type_contract_selected, 0)
                 type(Key.ESC)
-
                 break
             except FindFailed:
                 type(Key.LEFT)
                 type(Key.LEFT)
                 sleep(1)
-            #
-            #
-            # sleep(1);
-            #
-            # sleep(1);
-            # type(Key.LEFT);
-            # type(Key.LEFT);
-            # sleep(1);
-            # type(Key.LEFT);
-            # type(Key.LEFT)
-
-
-
 
 class Actions(Navigate):
 
@@ -195,7 +183,7 @@ if __name__ == '__main__':
 
     Start = Navigate()
     for item in range(1, 10):
-        Start.go_to_consumables()
+        Start.go_to_consumables_contract()
 
     #     Start.go_to_transfer_list()
     #     Start.go_to_transfer_market()
