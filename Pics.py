@@ -21,11 +21,26 @@ class Buttons(object):
     yes = Pattern("yes.png").similar(0.90)
     no = Pattern("no.png").similar(0.90)
     no_selected = Pattern("no_selected.png").similar(0.90)
+    ok_selected = Pattern("ok_selected.png").similar(0.90)
+    s_manually_adjust_price = Pattern("s_manually_adjust_price.png").similar(0.99)
+    d_search = Pattern("d_search.png").similar(0.99)
+    c_next_page = Pattern("c_next_page.png").similar(0.99)
+    actions = Pattern("actions.png").similar(0.90)
+    continue_searching = Pattern("continue_searching.png").similar(0.90)
+    continue_searching_selected = Pattern("continue_searching_selected.png").similar(0.90)
+
+    buy_now = Pattern("buy_now.png").similar(0.90)
+    compare_price = Pattern("compare_price.png").similar(0.90)
+
+
 
 
 
 class Messages(object):
-    message_exit_ut = Pattern("message_exit_from_UT.png").similar(0.90)
+    message_exit_ut = Pattern("message_exit_from_UT.png").similar(0.95)
+    problem_communicating_ea_server = Pattern("problem_communicating_ea_server.png").similar(0.95)
+    message_successful_purchase = Pattern("message_successful_purchase.png").similar(0.98)
+
 
 
 
@@ -37,12 +52,11 @@ class Tabs(object):
         transfer_market_selected = Pattern("transfer_market_selected.png").similar(0.90)
         transfer_market = Pattern("transfer_market.png").similar(0.90)
         transfer_market_panel = Pattern("transfer_market_panel.png").similar(0.60)
-
-
         transfer_list = Pattern("transfer_list.png").similar(0.90)
         transfer_list_selected = Pattern("transfer_list_selected.png").similar(0.90)
         transfer_list_logo = Pattern("transfer_list_logo.png").similar(0.90)
         transfer_list_link = Pattern("transfer_list_link.png").similar(0.90)
+        search_results_link = Pattern("search_results_link.png").similar(0.90)
 
         class TransferMarket(object):
             consumables = Pattern("consumables.png").similar(0.90)
@@ -50,6 +64,11 @@ class Tabs(object):
             consumables_type_text = Pattern("consumables_type_text.png").similar(0.99)
             consumables_type_text_selected = Pattern("consumables_type_text_selected.png").similar(0.99)
             consumables_type_contract_selected = Pattern("consumables_type_contract_selected.png").similar(0.99)
+
+            class Contracts(object):
+                contract_gold_full = Pattern("contract_gold_full.png").similar(0.99)
+                contract_gold_half = Pattern("contract_gold_half.png").similar(0.99)
+
 
         class Quality(object):
             quality_selected = Pattern("quality_selected.png").similar(0.90)
@@ -59,7 +78,11 @@ class Tabs(object):
 
         class Pricing(object):
             max_price = Pattern("max_price.png").similar(0.99)
+            pricing_text = Pattern("pricing_text.png").similar(0.99)
             pricing_text_selected = Pattern("pricing_text_selected.png").similar(0.99)
+            max_buy_now_selected = Pattern("max_buy_now_selected.png").similar(0.99)
+            max_buy_now_200 = Pattern("max_buy_now_200.png").similar(0.99)
+            set_price_form = Pattern("set_price_form.png").similar(0.99)
 
 
 # full_contract=Pattern("full_player_manager.png").exact().targetOffset(-1,-38)

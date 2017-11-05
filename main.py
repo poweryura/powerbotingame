@@ -1,6 +1,8 @@
 import org.sikuli.script.SikulixForJython
+from java.util import *
 from sikuli import *
 import pdb
+#import keyboard
 import os
 from itertools import count
 import inspect
@@ -99,6 +101,7 @@ class Navigate(Waiters):
             for item in range(1, 5):
                     try:
                         type(Key.ESC)
+                        sleep(1)
                         self.fifa_window_size.wait(Tabs.main_panel, 1)
                         # self.fifa_window_size.wait(Messages.message_exit_ut, 1)
                         # Waiters.wait_and_click(self, Buttons.no_selected)
@@ -123,18 +126,55 @@ class Navigate(Waiters):
         self.go_to_transfer_market()
         Waiters.click_first_found_picture(self, (Tabs.Transfers.TransferMarket.consumables_selected, Tabs.Transfers.TransferMarket.consumables), 1)
 
-    def go_to_consumables_contract(self):
+    def go_to_consumables_by_type(self, selected_type):
         self.go_to_consumables()
         Waiters.click_first_found_picture(self, (Tabs.Transfers.TransferMarket.consumables_type_text_selected, Tabs.Transfers.TransferMarket.consumables_type_text), 1)
-        for item in range(1, 20):
+        for item in range(1, 9):
             try:
-                self.fifa_window_size.wait(Tabs.Transfers.TransferMarket.consumables_type_contract_selected, 0)
-                type(Key.ESC)
+                self.fifa_window_size.wait(selected_type, 1)
+                type(Key.ENTER)
                 break
             except FindFailed:
-                type(Key.LEFT)
-                type(Key.LEFT)
-                sleep(1)
+                os.system("left.exe")
+        # for item in range(1, 20):
+        #     try:
+        #         self.fifa_window_size.wait(Tabs.Transfers.TransferMarket.consumables_type_contract_selected, 0)
+        #         type(Key.ENTER)
+        #         sleep(1)
+        #         break
+        #     except FindFailed:
+        #         type(Key.LEFT)
+        #         type(Key.LEFT)
+        #         sleep(1)
+
+    def select_qaulity(self, quality):
+        Waiters.wait_and_click(self, Tabs.Transfers.Quality.quality, 1)
+        for item in range(1, 8):
+            try:
+                self.fifa_window_size.wait(quality, 1)
+                type(Key.ENTER)
+                break
+            except FindFailed:
+                os.system("left.exe")
+
+
+    # fifa_window_size.wait(Tabs.Transfers.Quality.quality_gold_entered, 1)
+
+    def set_pricing(self, max_buy_now):
+        Waiters.wait_and_click(self, Tabs.Transfers.Pricing.pricing_text, 2)
+        for item in range(1, 8):
+            try:
+                self.fifa_window_size.wait(Tabs.Transfers.Pricing.max_buy_now_selected, 1)
+                type(Key.ENTER)
+                break
+            except FindFailed:
+                os.system("up.exe")
+        self.fifa_window_size.wait(Tabs.Transfers.Pricing.set_price_form, 2)
+        type(str(max_buy_now))
+        type(Key.ENTER)
+        self.fifa_window_size.wait(Buttons.s_manually_adjust_price, 2)
+        type(Key.ESC)
+        self.fifa_window_size.wait(Buttons.d_search, 2)
 
 class Actions(Navigate):
 
@@ -154,6 +194,7 @@ class Actions(Navigate):
                 self.wait_and_click(Buttons.w_clear_sold_items, 2)
             except FindFailed:
                 print "Looks nothing to clear"
+                #return
         else:
             self.go_to_transfer_list()
         try:
@@ -166,12 +207,12 @@ if __name__ == '__main__':
     fifa_window_size = Region(App.focusedWindow())
     def wait_and_click(image_name, timeout=0):
         # mozilla_size.click(image_name)
-        wait(image_name, timeout)
-        click(getLastMatch())
+        fifa_window_size.wait(image_name, timeout)
+        click(fifa_window_size.getLastMatch())
     def click_first_found_picture(list_to_search, timeout=0):
         for picture in list_to_search:
             try:
-                wait(picture, timeout)
+                fifa_window_size.wait(picture, timeout)
                 click(fifa_window_size.getLastMatch())
                 return
             except FindFailed:
@@ -180,13 +221,49 @@ if __name__ == '__main__':
     # Relist = Actions()
     # Relist.relist_all()
     # Relist.clear_sold()
-
+    #
     Start = Navigate()
-    for item in range(1, 10):
-        Start.go_to_consumables_contract()
+    #Start.go_to_consumables_by_type(Tabs.Transfers.TransferMarket.consumables_type_contract_selected)
+    # Start.select_qaulity(Tabs.Transfers.Quality.quality_gold_entered)
+    # Start.set_pricing(500)
+    type("d")
+    for page in range(1, 100):
+        try:
+            fifa_window_size.wait(Buttons.actions, 5)
+            print "Searching for ..."
+            wait_and_click(Tabs.Transfers.TransferMarket.Contracts.contract_gold_half, 0)
+            print "Something found, trying to buy"
+            #pdb.set_trace()
+            print '1'
+            try:
+                fifa_window_size.wait(Tabs.Transfers.TransferMarket.Contracts.contract_gold_full, 1)
+            except FindFailed:
+                type(Key.ESC)
+            print '2'
+            fifa_window_size.hover(Buttons.compare_price)
+            print '3'
+            wait_and_click(Buttons.buy_now, 0)
+            print '4'
+            wait_and_click(Buttons.yes, 1)
+            print '5'
+            fifa_window_size.wait(Messages.message_successful_purchase, 3)
+            print "Bought!!!"
+            click_first_found_picture((Buttons.continue_searching, Buttons.continue_searching_selected), 0)
+            print "next page, as made purchase"
+        except FindFailed:
+            print "Nothing found, trying next page"
+            fifa_window_size.wait(Buttons.actions, 1)
+            type("c")
+            sleep(0.5)
 
-    #     Start.go_to_transfer_list()
-    #     Start.go_to_transfer_market()
+#    os.system("down.exe")
+#    os.system("up.exe")
+#    os.system("right.exe")
+#    os.system("left.exe")
+
+
+    #fifa_window_size.wait(Tabs.Transfers.Quality.quality_gold, 5)
+    #fifa_window_size.wait(Tabs.Transfers.Pricing.max_buy_now_200, 5)
     pdb.set_trace()
 
     #Start.go_to_transfer_list()
@@ -213,35 +290,6 @@ if __name__ == '__main__':
 
 
 
-
-click_first_found_picture((Tabs.Transfers.transfer_list_logo, Tabs.Transfers.transfer_list_selected))
-click_first_found_picture(
-    (Tabs.Transfers.TransferMarket.consumables, Tabs.Transfers.TransferMarket.consumables_selected))
-
-Fifa_window_size.click(Tabs.tab_transfers)
-Fifa_window_size.click(Tabs.Transfers.transfer_list_selected)
-Fifa_window_size.click(Buttons.relist_all);
-Fifa_window_size.click(Buttons.yes)
-
-Fifa_window_size.click(Tabs.Transfers.TransferMarket.consumables)
-Fifa_window_size.click(Tabs.Transfers.TransferMarket.consumables_selected)
-
-
-
-Fifa_window_size.hover(relist_all)
-Fifa_window_size.hover(Tabs.Transfers.transfer_list_logo)
-Fifa_window_size.hover(Tabs.Transfers.transfer_market)
-Fifa_window_size.hover(Tabs.Transfers.transfer_market)
-
-Fifa_window_size.click(Tabs.Transfers.TransferMarket.consumables_type_text)
-Fifa_window_size.click(Tabs.Transfers.TransferMarket.consumables_type_text_selected)
-
-Fifa_window_size.hover(Tabs.Transfers.Quality.quality_gold_entered)
-sleep(3); type(Key.LEFT);  sleep(1); type(Key.LEFT);
-
-Fifa_window_size.hover(Tabs.Transfers.Quality.quality_gold)
-
-
 def rectungle():
     power = str(Fifa_window_size).split(']')
     new = power[0]
@@ -250,18 +298,6 @@ def rectungle():
     new = new.replace("R", "")
     new = new.replace("[", "")
     new_tuple = tuple(new.split(','))
-
-
-type(Key.BACKSPACE)
-sleep(3);
-type('q')
-
-wait(transfer_list)
-pdb.set_trace()
-
-sleep(2);
-Fifa_window_size = Region(App.focusedWindow());
-Fifa_window_size
 
 
 # print full_contract_reg.click('contract.png')
