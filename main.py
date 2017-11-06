@@ -126,8 +126,7 @@ class Navigate(Waiters):
         self.go_to_transfer_market()
         Waiters.click_first_found_picture(self, (Tabs.Transfers.TransferMarket.consumables_selected, Tabs.Transfers.TransferMarket.consumables), 1)
 
-    def go_to_consumables_by_type(self, selected_type):
-        self.go_to_consumables()
+    def select_go_to_consumables_by_type(self, selected_type):
         Waiters.click_first_found_picture(self, (Tabs.Transfers.TransferMarket.consumables_type_text_selected, Tabs.Transfers.TransferMarket.consumables_type_text), 1)
         for item in range(1, 9):
             try:
@@ -176,8 +175,8 @@ class Navigate(Waiters):
         type(Key.ESC)
         self.fifa_window_size.wait(Buttons.d_search, 2)
 
-class Actions(Navigate):
 
+class Actions(Navigate):
     def relist_all(self):
         self.go_to_transfer_list()
         try:
@@ -204,11 +203,18 @@ class Actions(Navigate):
 
 if __name__ == '__main__':
 
+    page = 0
+    bought_items = 0
+
     fifa_window_size = Region(App.focusedWindow())
+
+    @Service.timing
     def wait_and_click(image_name, timeout=0):
         # mozilla_size.click(image_name)
         fifa_window_size.wait(image_name, timeout)
         click(fifa_window_size.getLastMatch())
+
+    @Service.timing
     def click_first_found_picture(list_to_search, timeout=0):
         for picture in list_to_search:
             try:
@@ -218,48 +224,114 @@ if __name__ == '__main__':
             except FindFailed:
                 print str(picture) + " not found"
 
+    def hover_mouse():
+        mouseLoc = Env.getMouseLocation()
+        x_position = mouseLoc.getX()
+        y_position = mouseLoc.getY()
+
+        hover(Location(x_position, y_position-40))
+
+        #return x_position, y_position
+
+
     # Relist = Actions()
     # Relist.relist_all()
     # Relist.clear_sold()
     #
     Start = Navigate()
-    #Start.go_to_consumables_by_type(Tabs.Transfers.TransferMarket.consumables_type_contract_selected)
+    # Start.select_go_to_consumables_by_type(Tabs.Transfers.TransferMarket.consumables_type_contract_selected)
     # Start.select_qaulity(Tabs.Transfers.Quality.quality_gold_entered)
-    # Start.set_pricing(500)
-    type("d")
-    for page in range(1, 100):
+    # Start.set_pricing(250)
+    #pdb.set_trace()
+    #type("d")
+
+    def save_bought_items():
+        if fifa_window_size.exists(Buttons.send_all_to_club) is not None:
+            type(Key.ESC)
+            wait_and_click(Buttons.send_all_to_club, 5)
+            type('w')
+            sleep(1)
+        else:
+            print "Nothing to assign, exiting"
+            type(Key.ESC)
+
+
+    pdb.set_trace()
+    save_bought_items()
+
+    exit(1)
+
+
+
+    for page in range(1, 300):
+
+        # Move mouse to top
         try:
-            fifa_window_size.wait(Buttons.actions, 5)
-            print "Searching for ..."
-            wait_and_click(Tabs.Transfers.TransferMarket.Contracts.contract_gold_half, 0)
+            fifa_window_size.hover(Buttons.page)
+        except FindFailed:
+            pass
+
+        print "Page: " + str(page + 1)
+
+        try:
+            # Wait for actions button
+            fifa_window_size.wait(Buttons.actions, 3)
+            print "Searching..."
+
+            # Search for item
+            wait_and_click(Tabs.Transfers.TransferMarket.Contracts.contract_gold_half)
             print "Something found, trying to buy"
-            #pdb.set_trace()
-            print '1'
+            #hover(Location(fifa_window_size.find(Tabs.Transfers.TransferMarket.Contracts.contract_gold_half).getTarget()))
+
             try:
+                print "Checking if item was clicked (FULL size)"
                 fifa_window_size.wait(Tabs.Transfers.TransferMarket.Contracts.contract_gold_full, 1)
             except FindFailed:
-                type(Key.ESC)
-            print '2'
-            fifa_window_size.hover(Buttons.compare_price)
-            print '3'
-            wait_and_click(Buttons.buy_now, 0)
-            print '4'
+                try:
+                    print "bad click"
+                    if exists(Tabs.Transfers.bidding_options, 0) is not None:
+                        print "clicked on wrong item"
+                        type(Key.ESC)
+                        continue
+                    else:
+                        continue
+                except FindFailed:
+                    pass
+
+            # as item was selected, clicking on buy now
+            click_first_found_picture((Buttons.buy_now_selected, Buttons.buy_now), 1)
             wait_and_click(Buttons.yes, 1)
-            print '5'
+
+            #fifa_window_size.exists(Messages.message_sorry_expired, 1)
+            if fifa_window_size.exists(Messages.message_sorry_expired, 1.5)is not None:
+                print "Expired item"
+                fifa_window_size.click(Buttons.ok_selected)
+                fifa_window_size.wait(Tabs.Transfers.TransferMarket.Contracts.contract_gold_full, 1)
+                type(Key.ESC)
+            else:
+                print "Unknown state, doing ESC"
+                type(Key.ESC)
+            # Looks that item bought
             fifa_window_size.wait(Messages.message_successful_purchase, 3)
-            print "Bought!!!"
+
+            print "Bought: %s items !!" % str(page + 1)
             click_first_found_picture((Buttons.continue_searching, Buttons.continue_searching_selected), 0)
-            print "next page, as made purchase"
-        except FindFailed:
-            print "Nothing found, trying next page"
-            fifa_window_size.wait(Buttons.actions, 1)
+            print "Going to next page, as made purchase done here"
             type("c")
-            sleep(0.5)
+            sleep(random.uniform(0.3, 0.6))
+            continue
+
+        except FindFailed:
+            print "Nothing found, trying next page..."
+            fifa_window_size.wait(Buttons.s_manually_adjust_price, 1)
+            type("c")
+            sleep(random.uniform(0.3, 0.6))
 
 #    os.system("down.exe")
 #    os.system("up.exe")
 #    os.system("right.exe")
 #    os.system("left.exe")
+
 
 
     #fifa_window_size.wait(Tabs.Transfers.Quality.quality_gold, 5)

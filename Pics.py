@@ -22,24 +22,31 @@ class Buttons(object):
     no = Pattern("no.png").similar(0.90)
     no_selected = Pattern("no_selected.png").similar(0.90)
     ok_selected = Pattern("ok_selected.png").similar(0.90)
-    s_manually_adjust_price = Pattern("s_manually_adjust_price.png").similar(0.99)
+    s_manually_adjust_price = Pattern("s_manually_adjust_price.png").similar(0.90)
     d_search = Pattern("d_search.png").similar(0.99)
     c_next_page = Pattern("c_next_page.png").similar(0.99)
     actions = Pattern("actions.png").similar(0.90)
     continue_searching = Pattern("continue_searching.png").similar(0.90)
     continue_searching_selected = Pattern("continue_searching_selected.png").similar(0.90)
 
-    buy_now = Pattern("buy_now.png").similar(0.90)
+    buy_now = Pattern("buy_now.png").similar(0.80)
+    buy_now_selected = Pattern("buy_now_selected.png").similar(0.80)
+
     compare_price = Pattern("compare_price.png").similar(0.90)
+    esc = Pattern("esc.png").similar(0.90)
 
+    assign_now = Pattern("assign_now.png").similar(0.80)
+    send_all_to_club = Pattern("send_all_to_club.png").similar(0.90)
 
-
+    page = Pattern("page.png").similar(0.90).targetOffset(0, -200)
 
 
 class Messages(object):
     message_exit_ut = Pattern("message_exit_from_UT.png").similar(0.95)
     problem_communicating_ea_server = Pattern("problem_communicating_ea_server.png").similar(0.95)
     message_successful_purchase = Pattern("message_successful_purchase.png").similar(0.98)
+    message_sorry_expired = Pattern("message_sorry_expired.png").similar(0.80)
+
 
 
 
@@ -57,6 +64,7 @@ class Tabs(object):
         transfer_list_logo = Pattern("transfer_list_logo.png").similar(0.90)
         transfer_list_link = Pattern("transfer_list_link.png").similar(0.90)
         search_results_link = Pattern("search_results_link.png").similar(0.90)
+        bidding_options = Pattern("bidding_options.png").similar(0.90)
 
         class TransferMarket(object):
             consumables = Pattern("consumables.png").similar(0.90)
@@ -66,8 +74,8 @@ class Tabs(object):
             consumables_type_contract_selected = Pattern("consumables_type_contract_selected.png").similar(0.99)
 
             class Contracts(object):
-                contract_gold_full = Pattern("contract_gold_full.png").similar(0.99)
-                contract_gold_half = Pattern("contract_gold_half.png").similar(0.99)
+                contract_gold_full = Pattern("contract_gold_full.png").similar(0.96)
+                contract_gold_half = Pattern("contract_gold_half.png").similar(0.96).targetOffset(-10, 0)
 
 
         class Quality(object):
