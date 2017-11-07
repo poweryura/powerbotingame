@@ -1,6 +1,7 @@
 import org.sikuli.script.SikulixForJython
 from java.util import *
 from sikuli import *
+
 import pdb
 #import keyboard
 import os
@@ -102,7 +103,7 @@ class Navigate(Waiters):
                     try:
                         type(Key.ESC)
                         sleep(1)
-                        self.fifa_window_size.wait(Tabs.main_panel, 1)
+                        self.fifa_window_size.wait(Tabs.main_panel, 2)
                         # self.fifa_window_size.wait(Messages.message_exit_ut, 1)
                         # Waiters.wait_and_click(self, Buttons.no_selected)
                         print "HOME PAGE"
@@ -119,15 +120,15 @@ class Navigate(Waiters):
     def go_to_transfer_market(self):
         self.go_to_home_sceen()
         Waiters.wait_and_click(self, Tabs.tab_transfers)
-        Waiters.click_first_found_picture(self, (Tabs.Transfers.transfer_market, Tabs.Transfers.transfer_market_selected), 1)
+        Waiters.click_first_found_picture(self, (Tabs.Transfers.transfer_market, Tabs.Transfers.transfer_market_selected), 2)
         self.fifa_window_size.wait(Tabs.Transfers.transfer_market_panel, 3)
 
     def go_to_consumables(self):
         self.go_to_transfer_market()
-        Waiters.click_first_found_picture(self, (Tabs.Transfers.TransferMarket.consumables_selected, Tabs.Transfers.TransferMarket.consumables), 1)
+        Waiters.click_first_found_picture(self, (Tabs.Transfers.TransferMarket.consumables_selected, Tabs.Transfers.TransferMarket.consumables), 2)
 
-    def select_go_to_consumables_by_type(self, selected_type):
-        Waiters.click_first_found_picture(self, (Tabs.Transfers.TransferMarket.consumables_type_text_selected, Tabs.Transfers.TransferMarket.consumables_type_text), 1)
+    def select_consumables_by_type(self, selected_type):
+        Waiters.click_first_found_picture(self, (Tabs.Transfers.TransferMarket.consumables_type_text_selected, Tabs.Transfers.TransferMarket.consumables_type_text), 2)
         for item in range(1, 9):
             try:
                 self.fifa_window_size.wait(selected_type, 1)
@@ -239,11 +240,12 @@ if __name__ == '__main__':
     # Relist.clear_sold()
     #
     Start = Navigate()
-    # Start.select_go_to_consumables_by_type(Tabs.Transfers.TransferMarket.consumables_type_contract_selected)
-    # Start.select_qaulity(Tabs.Transfers.Quality.quality_gold_entered)
-    # Start.set_pricing(250)
+    Start.go_to_consumables()
+    Start.select_consumables_by_type(Tabs.Transfers.TransferMarket.consumables_type_contract_selected)
+    Start.select_qaulity(Tabs.Transfers.Quality.quality_gold_entered)
+    Start.set_pricing(200)
     #pdb.set_trace()
-    #type("d")
+    type("d")
 
     def save_bought_items():
         if fifa_window_size.exists(Buttons.send_all_to_club) is not None:
@@ -254,12 +256,6 @@ if __name__ == '__main__':
         else:
             print "Nothing to assign, exiting"
             type(Key.ESC)
-
-
-    pdb.set_trace()
-    save_bought_items()
-
-    exit(1)
 
 
 
@@ -285,7 +281,7 @@ if __name__ == '__main__':
 
             try:
                 print "Checking if item was clicked (FULL size)"
-                fifa_window_size.wait(Tabs.Transfers.TransferMarket.Contracts.contract_gold_full, 1)
+                fifa_window_size.wait(Tabs.Transfers.TransferMarket.Contracts.contract_gold_full, 2)
             except FindFailed:
                 try:
                     print "bad click"
@@ -299,24 +295,35 @@ if __name__ == '__main__':
                     pass
 
             # as item was selected, clicking on buy now
-            click_first_found_picture((Buttons.buy_now_selected, Buttons.buy_now), 1)
-            wait_and_click(Buttons.yes, 1)
+            click_first_found_picture((Buttons.buy_now_selected, Buttons.buy_now), 2)
+            wait_and_click(Buttons.yes, 2)
 
             #fifa_window_size.exists(Messages.message_sorry_expired, 1)
-            if fifa_window_size.exists(Messages.message_sorry_expired, 1.5)is not None:
-                print "Expired item"
-                fifa_window_size.click(Buttons.ok_selected)
-                fifa_window_size.wait(Tabs.Transfers.TransferMarket.Contracts.contract_gold_full, 1)
-                type(Key.ESC)
-            else:
-                print "Unknown state, doing ESC"
-                type(Key.ESC)
-            # Looks that item bought
-            fifa_window_size.wait(Messages.message_successful_purchase, 3)
+            for attempts in range(1, 3):
+                try:
+                    fifa_window_size.wait(Messages.message_successful_purchase, 3)
+                    break
+                except FindFailed:
+                    if fifa_window_size.exists(Messages.message_sorry_expired, 1)is not None:
+                        print "Expired item"
+                        fifa_window_size.click(Buttons.ok_selected)
+                        fifa_window_size.wait(Tabs.Transfers.TransferMarket.Contracts.contract_gold_full, 2)
+                        type(Key.ESC)
+                        break
+                    else:
+                        print "Unknown state, doing ESC, and starting again to parse message"
+                        type(Key.ESC)
+                        try:
+                            fifa_window_size.click(Buttons.arrow_selected)
+                        except FindFailed:
+                            pass
 
-            print "Bought: %s items !!" % str(page + 1)
-            click_first_found_picture((Buttons.continue_searching, Buttons.continue_searching_selected), 0)
-            print "Going to next page, as made purchase done here"
+                    # Looks that item bought
+
+
+                print "Bought: %s items !!" % str(bought_items + 1)
+                click_first_found_picture((Buttons.continue_searching, Buttons.continue_searching_selected), 0)
+            print "Going to the next page, as made purchase done here"
             type("c")
             sleep(random.uniform(0.3, 0.6))
             continue
@@ -326,7 +333,7 @@ if __name__ == '__main__':
             fifa_window_size.wait(Buttons.s_manually_adjust_price, 1)
             type("c")
             sleep(random.uniform(0.3, 0.6))
-
+    save_bought_items()
 #    os.system("down.exe")
 #    os.system("up.exe")
 #    os.system("right.exe")

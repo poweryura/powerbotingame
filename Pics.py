@@ -22,6 +22,7 @@ class Buttons(object):
     no = Pattern("no.png").similar(0.90)
     no_selected = Pattern("no_selected.png").similar(0.90)
     ok_selected = Pattern("ok_selected.png").similar(0.90)
+    arrow_selected = Pattern("arrow_selected.png").similar(0.90)
     s_manually_adjust_price = Pattern("s_manually_adjust_price.png").similar(0.90)
     d_search = Pattern("d_search.png").similar(0.99)
     c_next_page = Pattern("c_next_page.png").similar(0.99)
@@ -52,7 +53,7 @@ class Messages(object):
 
 
 class Tabs(object):
-    main_panel = Pattern("main_panel.png").similar(0.50)
+    main_panel = Pattern("main_panel.png").similar(0.60)
     tab_transfers = Pattern("Tab_transfers.png").similar(0.40)
 
     class Transfers(object):
