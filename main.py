@@ -24,8 +24,8 @@ class Service(object):
     def send_mail():
         server = smtplib.SMTP('smtp.gmail.com', 587)
         server.starttls()
-        server.login("yyura2014@gmail.com", "Power123456")
-        msg = "Check BOT Captcha"
+        server.login("yyura2014@gmail.com", "Power")
+        msg = "Check BOT "
         server.sendmail("yyura2014@gmail.com", "poweryura@gmail.com", msg)
         server.quit()
 
