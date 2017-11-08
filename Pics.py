@@ -93,6 +93,31 @@ class Tabs(object):
             max_buy_now_200 = Pattern("max_buy_now_200.png").similar(0.99)
             set_price_form = Pattern("set_price_form.png").similar(0.99)
 
+    class MyClub(object):
+        my_club = Pattern("my_club.png").similar(0.90)
+        my_club_selected = Pattern("my_club_selected.png").similar(0.90)
+        my_club_inside = Pattern("my_club_inside.png").similar(0.90)
+        my_club_inside_selected = Pattern("my_club_inside_selected.png").similar(0.90)
+
+        class ClubSearch(object):
+            club_reset = Pattern("club_reset.png").similar(0.90)
+            club_reset_selected = Pattern("club_reset_selected.png").similar(0.90)
+
+            club_search_type = Pattern("club_search_type.png").similar(0.90)
+            club_search_type_selected = Pattern("club_search_type_selected.png").similar(0.90)
+
+            club_search_type_consumables_selected = Pattern("club_search_type_consumables_selected.png").similar(0.90)
+            club_search_Item_Type = Pattern("club_search_type_consumables_selected.png").similar(0.90)
+            club_search_Item_Type_contracts_selected = Pattern("club_search_Item_Type_contracts_selected.png").similar(
+                0.90)
+
+            list_on_transfer_market = Pattern("list_on_transfer_market.png").similar(0.90)
+            starting_price = Pattern("starting_price.png").similar(0.90)
+            starting_price_selected = Pattern("starting_price_selected.png").similar(0.90)
+            buy_now_price = Pattern("buy_now_price.png").similar(0.90)
+
+            club_sent_to_transfer_message = Pattern("club_sent_to_transfer_message.png").similar(0.90)
+
 
 # full_contract=Pattern("full_player_manager.png").exact().targetOffset(-1,-38)
 # player_rare=Pattern("player_rare.png").exact()
