@@ -24,7 +24,7 @@ class Buttons(object):
     ok_selected = Pattern("ok_selected.png").similar(0.90)
     arrow_selected = Pattern("arrow_selected.png").similar(0.90)
     s_manually_adjust_price = Pattern("s_manually_adjust_price.png").similar(0.90)
-    d_search = Pattern("d_search.png").similar(0.99)
+    d_search = Pattern("d_search.png").similar(0.95)
     c_next_page = Pattern("c_next_page.png").similar(0.99)
     actions = Pattern("actions.png").similar(0.90)
     continue_searching = Pattern("continue_searching.png").similar(0.90)
@@ -75,9 +75,8 @@ class Tabs(object):
             consumables_type_contract_selected = Pattern("consumables_type_contract_selected.png").similar(0.99)
 
             class Contracts(object):
-                contract_gold_full = Pattern("contract_gold_full.png").similar(0.96)
-                contract_gold_half = Pattern("contract_gold_half.png").similar(0.96).targetOffset(-10, 0)
-
+                contract_gold_full = Pattern("contract_gold_full.png").similar(0.90)
+                contract_gold_half = Pattern("contract_gold_half.png").similar(0.90).targetOffset(-10, 0)
 
         class Quality(object):
             quality_selected = Pattern("quality_selected.png").similar(0.90)
@@ -98,6 +97,7 @@ class Tabs(object):
         my_club_selected = Pattern("my_club_selected.png").similar(0.90)
         my_club_inside = Pattern("my_club_inside.png").similar(0.90)
         my_club_inside_selected = Pattern("my_club_inside_selected.png").similar(0.90)
+        club_search_logo = Pattern("club_search_logo.png").similar(0.90)
 
         class ClubSearch(object):
             club_reset = Pattern("club_reset.png").similar(0.90)
@@ -107,16 +107,29 @@ class Tabs(object):
             club_search_type_selected = Pattern("club_search_type_selected.png").similar(0.90)
 
             club_search_type_consumables_selected = Pattern("club_search_type_consumables_selected.png").similar(0.90)
-            club_search_Item_Type = Pattern("club_search_type_consumables_selected.png").similar(0.90)
+            club_search_Item_Type = Pattern("club_search_Item_Type.png").similar(0.90)
             club_search_Item_Type_contracts_selected = Pattern("club_search_Item_Type_contracts_selected.png").similar(
                 0.90)
 
             list_on_transfer_market = Pattern("list_on_transfer_market.png").similar(0.90)
+            list_on_transfer_market_selected = Pattern("list_on_transfer_market_selected.png").similar(0.90)
+            list_on_transfer_market_big = Pattern("list_on_transfer_market_big.png").similar(0.90)
+            list_on_transfer_market_big_selected = Pattern("list_on_transfer_market_big_selected.png").similar(0.90)
+
             starting_price = Pattern("starting_price.png").similar(0.90)
             starting_price_selected = Pattern("starting_price_selected.png").similar(0.90)
-            buy_now_price = Pattern("buy_now_price.png").similar(0.90)
+            club_set_price_form = Pattern("club_set_price_form.png").similar(0.90)
+
+            club_buy_now_price = Pattern("club_buy_now_price.png").similar(0.80)
+            club_buy_now_price_selected = Pattern("club_buy_now_price_selected.png").similar(0.80)
 
             club_sent_to_transfer_message = Pattern("club_sent_to_transfer_message.png").similar(0.90)
+            club_sent_to_transfer_message_maximum_reached = Pattern("club_sent_to_transfer_message_maximum_reached.png").similar(0.90)
+
+            class Contarcts(object):
+                club_contract_gold_full = Pattern("club_contract_gold_full.png").similar(0.90)
+                club_contract_gold_half = Pattern("club_contract_gold_half.png").similar(0.90).targetOffset(-10, 0)
+                club_contract_gold_mega = Pattern("club_contract_gold_mega.png").similar(0.90)
 
 
 # full_contract=Pattern("full_player_manager.png").exact().targetOffset(-1,-38)

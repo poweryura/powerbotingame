@@ -61,7 +61,6 @@ class Service(object):
         f.close()
         return Picsy
 
-
 class Main(object):
     def __init__(self):
         setAutoWaitTimeout(3)
@@ -74,7 +73,6 @@ class Main(object):
 
 
 class Waiters(Main):
-
     def click_first_found_picture(self, list_to_search, timeout=0):
         for picture in list_to_search:
             try:
@@ -91,7 +89,6 @@ class Waiters(Main):
 
 
 class Navigate(Waiters):
-
     def go_to_home_sceen(self):
         try:
             print "Checking if home page"
@@ -127,6 +124,39 @@ class Navigate(Waiters):
         self.go_to_transfer_market()
         Waiters.click_first_found_picture(self, (Tabs.Transfers.TransferMarket.consumables_selected, Tabs.Transfers.TransferMarket.consumables), 2)
 
+
+    def go_to_my_club(self):
+        self.go_to_home_sceen()
+        Waiters.click_first_found_picture(self,
+                                          (Tabs.MyClub.my_club, Tabs.MyClub.my_club_selected), 2)
+        Waiters.click_first_found_picture(self,
+                                          (Tabs.MyClub.my_club_inside_selected, Tabs.MyClub.my_club_inside), 2)
+        self.fifa_window_size.wait(Tabs.MyClub.club_search_logo, 3)
+
+    def select_contracts_to_sell(self):
+        Waiters.click_first_found_picture(self, (Tabs.MyClub.ClubSearch.club_reset_selected, Tabs.MyClub.ClubSearch.club_reset), 2)
+        Waiters.click_first_found_picture(self, (Tabs.MyClub.ClubSearch.club_search_type_selected, Tabs.MyClub.ClubSearch.club_search_type), 2)
+
+        for item in range(1, 8):
+            try:
+                self.fifa_window_size.wait(Tabs.MyClub.ClubSearch.club_search_type_consumables_selected, 1)
+                break
+            except FindFailed:
+                os.system("left.exe")
+
+        Waiters.wait_and_click(self, Tabs.MyClub.ClubSearch.club_search_Item_Type)
+
+        for item in range(1, 10):
+            try:
+                self.fifa_window_size.wait(Tabs.MyClub.ClubSearch.club_search_Item_Type_contracts_selected, 1)
+                break
+            except FindFailed:
+                os.system("left.exe")
+
+        #self.fifa_window_size.wait(Buttons.d_search)
+        type("d")
+
+
     def select_consumables_by_type(self, selected_type):
         Waiters.click_first_found_picture(self, (Tabs.Transfers.TransferMarket.consumables_type_text_selected, Tabs.Transfers.TransferMarket.consumables_type_text), 2)
         for item in range(1, 9):
@@ -147,7 +177,7 @@ class Navigate(Waiters):
         #         type(Key.LEFT)
         #         sleep(1)
 
-    def select_qaulity(self, quality):
+    def select_quality(self, quality):
         Waiters.wait_and_click(self, Tabs.Transfers.Quality.quality, 1)
         for item in range(1, 8):
             try:
@@ -156,9 +186,6 @@ class Navigate(Waiters):
                 break
             except FindFailed:
                 os.system("left.exe")
-
-
-    # fifa_window_size.wait(Tabs.Transfers.Quality.quality_gold_entered, 1)
 
     def set_pricing(self, max_buy_now):
         Waiters.wait_and_click(self, Tabs.Transfers.Pricing.pricing_text, 2)
@@ -202,6 +229,42 @@ class Actions(Navigate):
         except FindFailed:
             print "Looks nothing to clear"
 
+    def sell_contracts(self, start_price, buy_now_price):
+        sell_item = 0
+        try:
+            for selling in range(1, 100):
+                sell_item = sell_item + 1
+                print "Selling item: %s " % str(sell_item)
+                Waiters.click_first_found_picture(self, (Tabs.MyClub.ClubSearch.Contarcts.club_contract_gold_full, Tabs.MyClub.ClubSearch.Contarcts.club_contract_gold_half), 2)
+                print "contract to sell found"
+
+                self.fifa_window_size.wait(Tabs.MyClub.ClubSearch.Contarcts.club_contract_gold_mega, 2)
+                Waiters.wait_and_click(self, Tabs.MyClub.ClubSearch.list_on_transfer_market_big, 2)
+
+                Waiters.click_first_found_picture(self, (Tabs.MyClub.ClubSearch.starting_price, Tabs.MyClub.ClubSearch.starting_price_selected), 1)
+                self.fifa_window_size.wait(Tabs.MyClub.ClubSearch.club_set_price_form, 2)
+                type(str(start_price))
+                type(Key.ENTER)
+
+                #Waiters.click_first_found_picture(self, (Tabs.MyClub.ClubSearch.club_buy_now_price, Tabs.MyClub.ClubSearch.club_buy_now_selected), 1)
+                Waiters.wait_and_click(self, Tabs.MyClub.ClubSearch.club_buy_now_price)
+                self.fifa_window_size.wait(Tabs.MyClub.ClubSearch.club_set_price_form, 2)
+                type(str(buy_now_price))
+                type(Key.ENTER)
+
+                sleep(random.uniform(0.1, 1.0))
+                Waiters.wait_and_click(self, Tabs.MyClub.ClubSearch.list_on_transfer_market, 1)
+                #Waiters.click_first_found_picture(self, (Tabs.MyClub.ClubSearch.list_on_transfer_market, Tabs.MyClub.ClubSearch.list_on_transfer_market_selected), 1)
+
+                self.fifa_window_size.wait(Tabs.MyClub.ClubSearch.club_sent_to_transfer_message, 3)
+                Waiters.wait_and_click(self, Buttons.arrow_selected)
+        except FindFailed:
+            if self.fifa_window_size.exists(Messages.message_sorry_expired, 1) is not None:
+                print "Maximum items are listed"
+            else:
+                print "Somewhere failed to sell"
+
+
 if __name__ == '__main__':
 
     page = 0
@@ -239,13 +302,19 @@ if __name__ == '__main__':
     # Relist.relist_all()
     # Relist.clear_sold()
     #
+
     Start = Navigate()
-    Start.go_to_consumables()
-    Start.select_consumables_by_type(Tabs.Transfers.TransferMarket.consumables_type_contract_selected)
-    Start.select_qaulity(Tabs.Transfers.Quality.quality_gold_entered)
-    Start.set_pricing(200)
-    #pdb.set_trace()
-    type("d")
+    Start.go_to_my_club()
+    Start.select_contracts_to_sell()
+    Sell = Actions()
+    Sell.sell_contracts(250, 300)
+
+    # Start.select_consumables_by_type(Tabs.Transfers.TransferMarket.consumables_type_contract_selected)
+    # Start.select_qaulity(Tabs.Transfers.Quality.quality_gold_entered)
+    # Start.set_pricing(200)
+    # pdb.set_trace()
+    # type("d")
+    exit(1)
 
     def save_bought_items():
         if fifa_window_size.exists(Buttons.send_all_to_club) is not None:
@@ -256,7 +325,6 @@ if __name__ == '__main__':
         else:
             print "Nothing to assign, exiting"
             type(Key.ESC)
-
 
 
     for page in range(1, 300):
@@ -327,58 +395,24 @@ if __name__ == '__main__':
             type("c")
             sleep(random.uniform(0.3, 0.6))
             continue
-
         except FindFailed:
             print "Nothing found, trying next page..."
             fifa_window_size.wait(Buttons.s_manually_adjust_price, 1)
             type("c")
             sleep(random.uniform(0.3, 0.6))
     save_bought_items()
+
 #    os.system("down.exe")
 #    os.system("up.exe")
 #    os.system("right.exe")
 #    os.system("left.exe")
 
 
-
-    #fifa_window_size.wait(Tabs.Transfers.Quality.quality_gold, 5)
-    #fifa_window_size.wait(Tabs.Transfers.Pricing.max_buy_now_200, 5)
-    pdb.set_trace()
-
-    #Start.go_to_transfer_list()
-
-
-    #Start.go_to_home_sceen();
-
-
-    # relist
-    # sleep(1); type('q')  # relist_all
-    # wait_and_click(Buttons.relist_all, 2)
-    # wait_and_click(Buttons.yes, 2)
-
-
-
-
-    #Clear sold
-    # sleep(1); type('w')  # Clear sold
-    #wait_and_click(Buttons.w_clear_sold_items, 2); sleep(2)
-
-
-
-
-
-
-
-def rectungle():
-    power = str(Fifa_window_size).split(']')
+def rectangle():
+    power = str(fifa_window_size).split(']')
     new = power[0]
     new = new.replace(" ", ",")
     new = new.replace("x", ",")
     new = new.replace("R", "")
     new = new.replace("[", "")
     new_tuple = tuple(new.split(','))
-
-
-# print full_contract_reg.click('contract.png')
-# print full_contract_reg.findall('contract.png')
-# for x in findAll(contract):  a = a + 1; print a
