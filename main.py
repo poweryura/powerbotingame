@@ -61,6 +61,17 @@ class Service(object):
         f.close()
         return Picsy
 
+    @staticmethod
+    def rectangle():
+        power = str(fifa_window_size).split(']')
+        new = power[0]
+        new = new.replace(" ", ",")
+        new = new.replace("x", ",")
+        new = new.replace("R", "")
+        new = new.replace("[", "")
+        new_tuple = tuple(new.split(','))
+
+
 class Main(object):
     def __init__(self):
         setAutoWaitTimeout(3)
@@ -213,6 +224,7 @@ class Actions(Navigate):
             self.wait_and_click(Buttons.yes, 2)
         except FindFailed:
             print "Looks nothing to re-list"
+        sleep(2)
 
     def clear_sold(self):
         if self.fifa_window_size.exists(Tabs.Transfers.transfer_list_link, 0) is not None:
@@ -222,13 +234,13 @@ class Actions(Navigate):
                 self.wait_and_click(Buttons.w_clear_sold_items, 2)
             except FindFailed:
                 print "Looks nothing to clear"
-                #return
         else:
             self.go_to_transfer_list()
         try:
             self.wait_and_click(Buttons.w_clear_sold_items, 2)
         except FindFailed:
             print "Looks nothing to clear"
+        sleep(2)
 
     def sell_contracts(self, start_price, buy_now_price):
         sell_item = 0
@@ -254,7 +266,7 @@ class Actions(Navigate):
                 type(Key.ENTER)
 
                 sleep(random.uniform(0.1, 1.0))
-                Waiters.wait_and_click(self, Tabs.MyClub.ClubSearch.list_on_transfer_market, 1)
+                Waiters.wait_and_click(self, Tabs.MyClub.ClubSearch.list_on_transfer_market, 2)
                 #Waiters.click_first_found_picture(self, (Tabs.MyClub.ClubSearch.list_on_transfer_market, Tabs.MyClub.ClubSearch.list_on_transfer_market_selected), 1)
 
                 self.fifa_window_size.wait(Tabs.MyClub.ClubSearch.club_sent_to_transfer_message, 5)
@@ -300,139 +312,138 @@ if __name__ == '__main__':
 
         #return x_position, y_position
 
-
-    # Relist = Actions()
-    # Relist.relist_all()
-    # Relist.clear_sold()
-    #
-
-    Start = Navigate()
-    Start.go_to_my_club()
-    Start.select_contracts_to_sell()
-    Sell = Actions()
-    Sell.sell_contracts(200, 250)
-
-    Start.go_to_consumables()
-    Start.select_consumables_by_type(Tabs.Transfers.TransferMarket.consumables_type_contract_selected)
-    Start.select_quality(Tabs.Transfers.Quality.quality_gold_entered)
-    Start.set_pricing(200)
-    # pdb.set_trace()
-    type("d")
-
     def save_bought_items():
         for i in range(1, 5):
+            type(Key.ESC)
             try:
                 if fifa_window_size.exists(Messages.message_send_all_items_to_club, 1) is not None:
                     fifa_window_size.click(Messages.message_send_all_items_to_club)
                     break
+                elif fifa_window_size.exists(Tabs.main_panel, 1) is not None:
+                    print "Nothing to save"
+                    break
                 else:
-                    #type(Key.ESC)
-                    sleep(1)
+                    print "Still nothing"
+                sleep(1)
                 # wait_and_click(Buttons.send_all_to_club, 5)
                 # type('w')
             except FindFailed:
-                pass
+                print "Unknown state after purchases"
 
-
-
-    for page in range(1, 30):
-
-        # Move mouse to top
+    while True:
         try:
-            fifa_window_size.hover(Buttons.page)
-        except FindFailed:
-            pass
+            Relist = Actions()
+            Relist.relist_all()
+            Relist.clear_sold()
 
-        print "Page: " + str(page + 1)
+            Start = Navigate()
+            Start.go_to_my_club()
+            Start.select_contracts_to_sell()
 
-        try:
-            # Wait for actions button
-            fifa_window_size.wait(Buttons.actions, 3)
-            print "Searching..."
+            Sell = Actions()
+            Sell.sell_contracts(200, 250)
 
-            # Search for item
-            wait_and_click(Tabs.Transfers.TransferMarket.Contracts.contract_gold_half)
-            print "Something found, trying to buy"
-            #hover(Location(fifa_window_size.find(Tabs.Transfers.TransferMarket.Contracts.contract_gold_half).getTarget()))
+            Start.go_to_consumables()
+            Start.select_consumables_by_type(Tabs.Transfers.TransferMarket.consumables_type_contract_selected)
+            Start.select_quality(Tabs.Transfers.Quality.quality_gold_entered)
+            Start.set_pricing(200)
+            # pdb.set_trace()
 
-            try:
-                print "Checking if right item was clicked (FULL size)"
-                fifa_window_size.wait(Tabs.Transfers.TransferMarket.Contracts.contract_gold_full, 2)
-            except FindFailed:
+            type("d")
+            for page in range(1, 300):
+
+                # Move mouse to top
                 try:
-                    print "bad click"
-                    if exists(Tabs.Transfers.bidding_options, 0) is not None:
-                        print "clicked on wrong item"
-                        type(Key.ESC)
-                        continue
-                    else:
-                        continue
+                    fifa_window_size.hover(Buttons.page)
                 except FindFailed:
                     pass
 
-            # as item was selected, clicking on buy now
-            click_first_found_picture((Buttons.buy_now_selected, Buttons.buy_now), 2)
-            wait_and_click(Buttons.yes, 2)
+                print "Page: " + str(page + 1)
 
-            #fifa_window_size.exists(Messages.message_sorry_expired, 1)
-            for attempts in range(1, 3):
                 try:
-                    fifa_window_size.wait(Messages.message_successful_purchase, 4)
-                    click_first_found_picture((Buttons.continue_searching, Buttons.continue_searching_selected), 2)
-                    bought_items = bought_items + 1
-                    print "Bought: %s items !!" % str(bought_items)
-                    print "Going to the next page, as purchase done here"
-                    break
-                except FindFailed:
-                    if fifa_window_size.exists(Messages.message_sorry_expired, 1)is not None:
-                        expired_items = expired_items +1
-                        print "Expired item"
-                        if expired_items == 10:
-                            print "Too many expired items, does not make sense to continue, goig to start search again"
-                            fifa_window_size.click(Buttons.ok_selected)
-                            fifa_window_size.wait(Tabs.Transfers.search_results_link, 3)
-                            type(Key.ESC)
-                            fifa_window_size.wait(Buttons.d_search, 3)
-                            type('d')
-                            break
-                        fifa_window_size.click(Buttons.ok_selected)
+                    # Wait for actions button
+                    fifa_window_size.wait(Buttons.actions, 3)
+                    print "Searching..."
+
+                    # Search for item
+                    wait_and_click(Tabs.Transfers.TransferMarket.Contracts.contract_gold_half)
+                    print "Something found, trying to buy"
+                    # hover(Location(fifa_window_size.find(Tabs.Transfers.TransferMarket.Contracts.contract_gold_half).getTarget()))
+
+                    try:
+                        print "Checking if right item was clicked (FULL size)"
                         fifa_window_size.wait(Tabs.Transfers.TransferMarket.Contracts.contract_gold_full, 2)
-                        type(Key.ESC)
-                        break
-                    else:
-                        print "Unknown state, and starting again to parse message"
-                        if fifa_window_size.exists(Tabs.Transfers.search_results_link) is not None:
-                            print "Doing ESC"
-                            type(Key.ESC)
-                            break
+                    except FindFailed:
                         try:
-                            fifa_window_size.click(Buttons.arrow_selected)
+                            print "bad click"
+                            if exists(Tabs.Transfers.bidding_options, 0) is not None:
+                                print "clicked on wrong item"
+                                type(Key.ESC)
+                                continue
+                            else:
+                                continue
                         except FindFailed:
                             pass
 
-                    # Looks that item bought
+                    # as item was selected, clicking on buy now
+                    click_first_found_picture((Buttons.buy_now, Buttons.buy_now_selected), 1)
+                    wait_and_click(Buttons.yes, 2)
 
-            type("c")
-            sleep(random.uniform(0.3, 0.6))
-            continue
+                    # fifa_window_size.exists(Messages.message_sorry_expired, 1)
+                    for attempts in range(1, 3):
+                        try:
+                            fifa_window_size.wait(Messages.message_successful_purchase, 4)
+                            click_first_found_picture((Buttons.continue_searching, Buttons.continue_searching_selected),
+                                                      2)
+                            bought_items = bought_items + 1
+                            print "Bought: %s items !!" % str(bought_items)
+                            print "Going to the next page, as purchase done here"
+                            break
+                        except FindFailed:
+                            if fifa_window_size.exists(Messages.message_sorry_expired, 1) is not None:
+                                expired_items = expired_items + 1
+                                print "Expired item"
+                                if expired_items == 10:
+                                    print "Too many expired items, does not make sense to continue, goig to start search again"
+                                    fifa_window_size.click(Buttons.ok_selected)
+                                    fifa_window_size.wait(Tabs.Transfers.search_results_link, 3)
+                                    type(Key.ESC)
+                                    fifa_window_size.wait(Buttons.d_search, 3)
+                                    type('d')
+                                    break
+                                fifa_window_size.click(Buttons.ok_selected)
+                                fifa_window_size.wait(Tabs.Transfers.TransferMarket.Contracts.contract_gold_full, 2)
+                                type(Key.ESC)
+                                break
+                            else:
+                                print "Unknown state, and starting again to parse message"
+                                if fifa_window_size.exists(Tabs.Transfers.search_results_link) is not None:
+                                    print "Doing ESC"
+                                    type(Key.ESC)
+                                    break
+                                try:
+                                    fifa_window_size.click(Buttons.arrow_selected)
+                                except FindFailed:
+                                    pass
+
+                                    # Looks that item bought
+
+                    type("c")
+                    sleep(random.uniform(0.3, 0.6))
+                    continue
+                except FindFailed:
+                    print "Nothing found, trying next page..."
+                    fifa_window_size.wait(Buttons.s_manually_adjust_price, 2)
+                    type("c")
+                    sleep(random.uniform(0.3, 0.6))
+
+            save_bought_items()
+
         except FindFailed:
-            print "Nothing found, trying next page..."
-            fifa_window_size.wait(Buttons.s_manually_adjust_price, 2)
-            type("c")
-            sleep(random.uniform(0.3, 0.6))
-    save_bought_items()
-
-#    os.system("down.exe")
-#    os.system("up.exe")
-#    os.system("right.exe")
-#    os.system("left.exe")
+            print"Starting again"
 
 
-def rectangle():
-    power = str(fifa_window_size).split(']')
-    new = power[0]
-    new = new.replace(" ", ",")
-    new = new.replace("x", ",")
-    new = new.replace("R", "")
-    new = new.replace("[", "")
-    new_tuple = tuple(new.split(','))
+
+
+
+
