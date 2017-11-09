@@ -158,7 +158,7 @@ class Navigate(Waiters):
 
 
     def select_consumables_by_type(self, selected_type):
-        Waiters.click_first_found_picture(self, (Tabs.Transfers.TransferMarket.consumables_type_text_selected, Tabs.Transfers.TransferMarket.consumables_type_text), 2)
+        Waiters.click_first_found_picture(self, (Tabs.Transfers.TransferMarket.consumables_type_text_selected, Tabs.Transfers.TransferMarket.consumables_type_text), 3)
         for item in range(1, 9):
             try:
                 self.fifa_window_size.wait(selected_type, 1)
@@ -241,14 +241,14 @@ class Actions(Navigate):
                 self.fifa_window_size.wait(Tabs.MyClub.ClubSearch.Contarcts.club_contract_gold_mega, 2)
                 Waiters.wait_and_click(self, Tabs.MyClub.ClubSearch.list_on_transfer_market_big, 2)
 
-                Waiters.click_first_found_picture(self, (Tabs.MyClub.ClubSearch.starting_price, Tabs.MyClub.ClubSearch.starting_price_selected), 1)
-                self.fifa_window_size.wait(Tabs.MyClub.ClubSearch.club_set_price_form, 2)
+                Waiters.click_first_found_picture(self, (Tabs.MyClub.ClubSearch.starting_price, Tabs.MyClub.ClubSearch.starting_price_selected), 3)
+                self.fifa_window_size.wait(Tabs.MyClub.ClubSearch.club_set_price_form, 3)
                 type(str(start_price))
                 type(Key.ENTER)
 
                 #Waiters.click_first_found_picture(self, (Tabs.MyClub.ClubSearch.club_buy_now_price, Tabs.MyClub.ClubSearch.club_buy_now_selected), 1)
                 Waiters.wait_and_click(self, Tabs.MyClub.ClubSearch.club_buy_now_price)
-                self.fifa_window_size.wait(Tabs.MyClub.ClubSearch.club_set_price_form, 2)
+                self.fifa_window_size.wait(Tabs.MyClub.ClubSearch.club_set_price_form, 3)
                 type(str(buy_now_price))
                 type(Key.ENTER)
 
@@ -256,7 +256,7 @@ class Actions(Navigate):
                 Waiters.wait_and_click(self, Tabs.MyClub.ClubSearch.list_on_transfer_market, 1)
                 #Waiters.click_first_found_picture(self, (Tabs.MyClub.ClubSearch.list_on_transfer_market, Tabs.MyClub.ClubSearch.list_on_transfer_market_selected), 1)
 
-                self.fifa_window_size.wait(Tabs.MyClub.ClubSearch.club_sent_to_transfer_message, 3)
+                self.fifa_window_size.wait(Tabs.MyClub.ClubSearch.club_sent_to_transfer_message, 5)
                 Waiters.wait_and_click(self, Buttons.arrow_selected)
         except FindFailed:
             if self.fifa_window_size.exists(Messages.message_sorry_expired, 1) is not None:
@@ -269,6 +269,7 @@ if __name__ == '__main__':
 
     page = 0
     bought_items = 0
+    expired_items = 0
 
     fifa_window_size = Region(App.focusedWindow())
 
@@ -304,17 +305,17 @@ if __name__ == '__main__':
     #
 
     Start = Navigate()
-    Start.go_to_my_club()
-    Start.select_contracts_to_sell()
-    Sell = Actions()
-    Sell.sell_contracts(250, 300)
+    # Start.go_to_my_club()
+    # Start.select_contracts_to_sell()
+    # Sell = Actions()
+    # Sell.sell_contracts(200, 250)
 
+    # Start.go_to_consumables()
     # Start.select_consumables_by_type(Tabs.Transfers.TransferMarket.consumables_type_contract_selected)
-    # Start.select_qaulity(Tabs.Transfers.Quality.quality_gold_entered)
+    # Start.select_quality(Tabs.Transfers.Quality.quality_gold_entered)
     # Start.set_pricing(200)
     # pdb.set_trace()
-    # type("d")
-    exit(1)
+    type("d")
 
     def save_bought_items():
         if fifa_window_size.exists(Buttons.send_all_to_club) is not None:
@@ -369,18 +370,33 @@ if __name__ == '__main__':
             #fifa_window_size.exists(Messages.message_sorry_expired, 1)
             for attempts in range(1, 3):
                 try:
-                    fifa_window_size.wait(Messages.message_successful_purchase, 3)
+                    fifa_window_size.wait(Messages.message_successful_purchase, 4)
+                    click_first_found_picture((Buttons.continue_searching, Buttons.continue_searching_selected), 2)
+                    print "Bought: %s items !!" % str(bought_items + 1)
+                    print "Going to the next page, as purchase done here"
                     break
                 except FindFailed:
                     if fifa_window_size.exists(Messages.message_sorry_expired, 1)is not None:
+                        expired_items = expired_items +1
                         print "Expired item"
+                        if expired_items == 10:
+                            print "Too many expired items, does not make sense to continue, goig to start search again"
+                            fifa_window_size.click(Buttons.ok_selected)
+                            fifa_window_size.wait(Tabs.Transfers.search_results_link, 3)
+                            type(Key.ESC)
+                            fifa_window_size.wait(Buttons.d_search, 3)
+                            type('d')
+                            break
                         fifa_window_size.click(Buttons.ok_selected)
                         fifa_window_size.wait(Tabs.Transfers.TransferMarket.Contracts.contract_gold_full, 2)
                         type(Key.ESC)
                         break
                     else:
-                        print "Unknown state, doing ESC, and starting again to parse message"
-                        type(Key.ESC)
+                        print "Unknown state, and starting again to parse message"
+                        if fifa_window_size.exists(Tabs.Transfers.search_results_link) is not None:
+                            print "Doing ESC"
+                            type(Key.ESC)
+                            break
                         try:
                             fifa_window_size.click(Buttons.arrow_selected)
                         except FindFailed:
@@ -388,16 +404,12 @@ if __name__ == '__main__':
 
                     # Looks that item bought
 
-
-                print "Bought: %s items !!" % str(bought_items + 1)
-                click_first_found_picture((Buttons.continue_searching, Buttons.continue_searching_selected), 0)
-            print "Going to the next page, as made purchase done here"
             type("c")
             sleep(random.uniform(0.3, 0.6))
             continue
         except FindFailed:
             print "Nothing found, trying next page..."
-            fifa_window_size.wait(Buttons.s_manually_adjust_price, 1)
+            fifa_window_size.wait(Buttons.s_manually_adjust_price, 2)
             type("c")
             sleep(random.uniform(0.3, 0.6))
     save_bought_items()

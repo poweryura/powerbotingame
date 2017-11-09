@@ -44,8 +44,8 @@ class Buttons(object):
 
 class Messages(object):
     message_exit_ut = Pattern("message_exit_from_UT.png").similar(0.95)
-    problem_communicating_ea_server = Pattern("problem_communicating_ea_server.png").similar(0.95)
-    message_successful_purchase = Pattern("message_successful_purchase.png").similar(0.98)
+    problem_communicating_ea_server = Pattern("problem_communicating_ea_server.png").similar(0.90)
+    message_successful_purchase = Pattern("message_successful_purchase.png").similar(0.80)
     message_sorry_expired = Pattern("message_sorry_expired.png").similar(0.80)
 
 
@@ -70,13 +70,13 @@ class Tabs(object):
         class TransferMarket(object):
             consumables = Pattern("consumables.png").similar(0.90)
             consumables_selected = Pattern("consumables_selected.png").similar(0.90)
-            consumables_type_text = Pattern("consumables_type_text.png").similar(0.99)
-            consumables_type_text_selected = Pattern("consumables_type_text_selected.png").similar(0.99)
-            consumables_type_contract_selected = Pattern("consumables_type_contract_selected.png").similar(0.99)
+            consumables_type_text = Pattern("consumables_type_text.png").similar(0.90)
+            consumables_type_text_selected = Pattern("consumables_type_text_selected.png").similar(0.90)
+            consumables_type_contract_selected = Pattern("consumables_type_contract_selected.png").similar(0.90)
 
             class Contracts(object):
-                contract_gold_full = Pattern("contract_gold_full.png").similar(0.90)
-                contract_gold_half = Pattern("contract_gold_half.png").similar(0.90).targetOffset(-10, 0)
+                contract_gold_full = Pattern("contract_gold_full.png").similar(0.96)
+                contract_gold_half = Pattern("contract_gold_half.png").similar(0.96).targetOffset(-10, 0)
 
         class Quality(object):
             quality_selected = Pattern("quality_selected.png").similar(0.90)
@@ -85,12 +85,12 @@ class Tabs(object):
             quality_gold_entered = Pattern("quality_gold_entered.png").similar(0.90)
 
         class Pricing(object):
-            max_price = Pattern("max_price.png").similar(0.99)
-            pricing_text = Pattern("pricing_text.png").similar(0.99)
-            pricing_text_selected = Pattern("pricing_text_selected.png").similar(0.99)
-            max_buy_now_selected = Pattern("max_buy_now_selected.png").similar(0.99)
-            max_buy_now_200 = Pattern("max_buy_now_200.png").similar(0.99)
-            set_price_form = Pattern("set_price_form.png").similar(0.99)
+            max_price = Pattern("max_price.png").similar(0.90)
+            pricing_text = Pattern("pricing_text.png").similar(0.90)
+            pricing_text_selected = Pattern("pricing_text_selected.png").similar(0.90)
+            max_buy_now_selected = Pattern("max_buy_now_selected.png").similar(0.90)
+            max_buy_now_200 = Pattern("max_buy_now_200.png").similar(0.90)
+            set_price_form = Pattern("set_price_form.png").similar(0.90)
 
     class MyClub(object):
         my_club = Pattern("my_club.png").similar(0.90)
@@ -116,9 +116,9 @@ class Tabs(object):
             list_on_transfer_market_big = Pattern("list_on_transfer_market_big.png").similar(0.90)
             list_on_transfer_market_big_selected = Pattern("list_on_transfer_market_big_selected.png").similar(0.90)
 
-            starting_price = Pattern("starting_price.png").similar(0.90)
-            starting_price_selected = Pattern("starting_price_selected.png").similar(0.90)
-            club_set_price_form = Pattern("club_set_price_form.png").similar(0.90)
+            starting_price = Pattern("starting_price.png").similar(0.80)
+            starting_price_selected = Pattern("starting_price_selected.png").similar(0.80)
+            club_set_price_form = Pattern("club_set_price_form.png").similar(0.80)
 
             club_buy_now_price = Pattern("club_buy_now_price.png").similar(0.80)
             club_buy_now_price_selected = Pattern("club_buy_now_price_selected.png").similar(0.80)
@@ -127,9 +127,9 @@ class Tabs(object):
             club_sent_to_transfer_message_maximum_reached = Pattern("club_sent_to_transfer_message_maximum_reached.png").similar(0.90)
 
             class Contarcts(object):
-                club_contract_gold_full = Pattern("club_contract_gold_full.png").similar(0.90)
-                club_contract_gold_half = Pattern("club_contract_gold_half.png").similar(0.90).targetOffset(-10, 0)
-                club_contract_gold_mega = Pattern("club_contract_gold_mega.png").similar(0.90)
+                club_contract_gold_full = Pattern("club_contract_gold_full.png").similar(0.96)
+                club_contract_gold_half = Pattern("club_contract_gold_half.png").similar(0.96).targetOffset(-10, 0)
+                club_contract_gold_mega = Pattern("club_contract_gold_mega.png").similar(0.96)
 
 
 # full_contract=Pattern("full_player_manager.png").exact().targetOffset(-1,-38)
