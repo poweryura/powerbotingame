@@ -47,6 +47,10 @@ class Messages(object):
     problem_communicating_ea_server = Pattern("problem_communicating_ea_server.png").similar(0.90)
     message_successful_purchase = Pattern("message_successful_purchase.png").similar(0.80)
     message_sorry_expired = Pattern("message_sorry_expired.png").similar(0.80)
+    message_send_all_items_to_club = Pattern("message_send_all_items_to_club.png").similar(0.80)
+    message_send_all_items_to_club_selected = Pattern("message_send_all_items_to_club_selected.png").similar(0.80)
+    message_maximum_items_in_transfer_list = Pattern("message_maximum_items_in_transfer_list.png").similar(0.80)
+
 
 
 
@@ -98,6 +102,7 @@ class Tabs(object):
         my_club_inside = Pattern("my_club_inside.png").similar(0.90)
         my_club_inside_selected = Pattern("my_club_inside_selected.png").similar(0.90)
         club_search_logo = Pattern("club_search_logo.png").similar(0.90)
+        starter_objectives = Pattern("starter_objectives.png").similar(0.90)
 
         class ClubSearch(object):
             club_reset = Pattern("club_reset.png").similar(0.90)
