@@ -43,13 +43,14 @@ class Buttons(object):
 
 
 class Messages(object):
-    message_exit_ut = Pattern("message_exit_from_UT.png").similar(0.95)
+    message_exit_ut = Pattern("message_exit_from_UT.png").similar(0.90)
     problem_communicating_ea_server = Pattern("problem_communicating_ea_server.png").similar(0.90)
     message_successful_purchase = Pattern("message_successful_purchase.png").similar(0.80)
     message_sorry_expired = Pattern("message_sorry_expired.png").similar(0.80)
     message_send_all_items_to_club = Pattern("message_send_all_items_to_club.png").similar(0.80)
     message_send_all_items_to_club_selected = Pattern("message_send_all_items_to_club_selected.png").similar(0.80)
     message_maximum_items_in_transfer_list = Pattern("message_maximum_items_in_transfer_list.png").similar(0.80)
+    message_nothing_found = Pattern("message_nothing_found.png").similar(0.80)
 
 
 
@@ -80,7 +81,8 @@ class Tabs(object):
 
             class Contracts(object):
                 contract_gold_full = Pattern("contract_gold_full.png").similar(0.96)
-                contract_gold_half = Pattern("contract_gold_half.png").similar(0.96).targetOffset(-10, 0)
+                contract_gold_half = Pattern("contract_gold_half.png").similar(0.96).targetOffset(30, 80)
+                #contract_gold_half = Pattern("contract_gold_half.png").similar(0.96)
 
         class Quality(object):
             quality_selected = Pattern("quality_selected.png").similar(0.90)
@@ -103,6 +105,7 @@ class Tabs(object):
         my_club_inside_selected = Pattern("my_club_inside_selected.png").similar(0.90)
         club_search_logo = Pattern("club_search_logo.png").similar(0.90)
         starter_objectives = Pattern("starter_objectives.png").similar(0.90)
+        club_player_stats = Pattern("club_player_stats.png").similar(0.90)
 
         class ClubSearch(object):
             club_reset = Pattern("club_reset.png").similar(0.90)
