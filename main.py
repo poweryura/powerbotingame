@@ -120,7 +120,8 @@ class Navigate(Waiters):
     def go_to_home_sceen(self):
         try:
             print "Checking if home page"
-            self.fifa_window_size.wait(Tabs.main_panel, 0)
+            #self.fifa_window_size.wait(Tabs.main_panel, 0)
+            self.fifa_window_size.wait(Tabs.main_panel_buttons, 0)
             print "Home page by default"
             return
         except FindFailed:
@@ -129,7 +130,7 @@ class Navigate(Waiters):
                     try:
                         type(Key.ESC)
                         sleep(1)
-                        self.fifa_window_size.wait(Tabs.main_panel, 2)
+                        self.fifa_window_size.wait(Tabs.main_panel_buttons, 2)
                         print "HOME PAGE"
                         return
                         #break
@@ -147,8 +148,19 @@ class Navigate(Waiters):
             Waiters.wait_and_click(self, Buttons.no_selected)
         except FindFailed:
             print "Unknown location!!!!"
+
         try:
             self.fifa_window_size.click(Messages.message_send_all_items_to_club)
+        except FindFailed:
+            pass
+
+        try:
+            self.fifa_window_size.click(Buttons.ok_selected)
+        except FindFailed:
+            pass
+
+        try:
+            self.fifa_window_size.click(Buttons.continue_searching_selected)
         except FindFailed:
             pass
 
@@ -332,7 +344,7 @@ class Actions(Navigate):
 
                     # as item was selected, clicking on buy now
                     Waiters.click_first_found_picture(self, (Buttons.buy_now, Buttons.buy_now_selected), 1)
-                    Waiters.wait_and_click(self, Buttons.yes, 2)
+                    Waiters.wait_and_click(self, Buttons.yes, 3)
 
                     # fifa_window_size.exists(Messages.message_sorry_expired, 1)
                     for attempts in range(1, 3):
