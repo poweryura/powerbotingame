@@ -500,12 +500,12 @@ if __name__ == '__main__':
             Sell.sell_contracts(200, 250)
 
             #Buy
-            Navigation.go_to_consumables()
-            Navigation.select_consumables_by_type(Tabs.Transfers.TransferMarket.consumables_type_contract_selected)
-            Navigation.select_quality(Tabs.Transfers.Quality.quality_gold_entered)
-            Navigation.set_pricing(200)
-            Sell.buy_contracts(300)
-            Sell.save_bought_items()
+            # Navigation.go_to_consumables()
+            # Navigation.select_consumables_by_type(Tabs.Transfers.TransferMarket.consumables_type_contract_selected)
+            # Navigation.select_quality(Tabs.Transfers.Quality.quality_gold_entered)
+            # Navigation.set_pricing(200)
+            # Sell.buy_contracts(300)
+            # Sell.save_bought_items()
 
         except FindFailed:
             print "Starting again"
