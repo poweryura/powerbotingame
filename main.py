@@ -3,7 +3,7 @@ from java.util import *
 from sikuli import *
 
 import pdb
-#import keyboard
+# import keyboard
 import os
 from itertools import count
 import inspect
@@ -18,12 +18,10 @@ import smtplib
 import datetime
 import random
 
-
-
-#Settings.MinSimilarity = 0.7
-#Settings.MoveMouseDelay = 0.3
-#Settings.Highlight = True
-#setAutoWaitTimeout(1)
+# Settings.MinSimilarity = 0.7
+# Settings.MoveMouseDelay = 0.3
+# Settings.Highlight = True
+# setAutoWaitTimeout(1)
 getAutoWaitTimeout()
 
 
@@ -84,19 +82,20 @@ class Service(object):
         mouseLoc = Env.getMouseLocation()
         x_position = mouseLoc.getX()
         y_position = mouseLoc.getY()
-        hover(Location(x_position+x, y_position+y))
+        hover(Location(x_position + x, y_position + y))
+
 
 class Main(object):
     def __init__(self):
         setAutoWaitTimeout(3)
         print "Activating Fifa Window"
-        #click(fifa_window, 3)
-        #self.fifa_window_size = Region(App.focusedWindow())
+        # click(fifa_window, 3)
+        # self.fifa_window_size = Region(App.focusedWindow())
         self.fifa_window_size = Region(0, 0, 1280, 750)
         self.fifa_window_size_left_up = Region(0, 0, 600, 600)
-        #self.fifa_window_size.highlight(1)
+        # self.fifa_window_size.highlight(1)
         print self.fifa_window_size
-        #self.fifa_window_size.click(club_logo)
+        # self.fifa_window_size.click(club_logo)
         print "Window is activated, as club logo found"
 
 
@@ -120,22 +119,22 @@ class Navigate(Waiters):
     def go_to_home_sceen(self):
         try:
             print "Checking if home page"
-            #self.fifa_window_size.wait(Tabs.main_panel, 0)
+            # self.fifa_window_size.wait(Tabs.main_panel, 0)
             self.fifa_window_size.wait(Tabs.main_panel_buttons, 0)
             print "Home page by default"
             return
         except FindFailed:
             print "Not HOME PAGE"
             for item in range(1, 5):
-                    try:
-                        type(Key.ESC)
-                        sleep(1)
-                        self.fifa_window_size.wait(Tabs.main_panel_buttons, 2)
-                        print "HOME PAGE"
-                        return
-                        #break
-                    except FindFailed:
-                        print " Not HOME PAGE yet"
+                try:
+                    type(Key.ESC)
+                    sleep(1)
+                    self.fifa_window_size.wait(Tabs.main_panel_buttons, 2)
+                    print "HOME PAGE"
+                    return
+                    # break
+                except FindFailed:
+                    print " Not HOME PAGE yet"
             if self.fifa_window_size.exists(Messages.message_exit_ut, 1) is not None:
                 try:
                     Waiters.wait_and_click(self, Buttons.no_selected)
@@ -167,19 +166,21 @@ class Navigate(Waiters):
     def go_to_transfer_list(self):
         self.go_to_home_sceen()
         Waiters.wait_and_click(self, Tabs.tab_transfers)
-        Waiters.click_first_found_picture(self, (Tabs.Transfers.transfer_list_selected, Tabs.Transfers.transfer_list_logo), 1)
+        Waiters.click_first_found_picture(self,
+                                          (Tabs.Transfers.transfer_list_selected, Tabs.Transfers.transfer_list_logo), 1)
         self.fifa_window_size.wait(Tabs.Transfers.transfer_list_link, 3)
 
     def go_to_transfer_market(self):
         self.go_to_home_sceen()
         Waiters.wait_and_click(self, Tabs.tab_transfers)
-        Waiters.click_first_found_picture(self, (Tabs.Transfers.transfer_market, Tabs.Transfers.transfer_market_selected), 2)
+        Waiters.click_first_found_picture(self,
+                                          (Tabs.Transfers.transfer_market, Tabs.Transfers.transfer_market_selected), 2)
         self.fifa_window_size.wait(Tabs.Transfers.transfer_market_panel, 3)
 
     def go_to_consumables(self):
         self.go_to_transfer_market()
-        Waiters.click_first_found_picture(self, (Tabs.Transfers.TransferMarket.consumables_selected, Tabs.Transfers.TransferMarket.consumables), 2)
-
+        Waiters.click_first_found_picture(self, (
+        Tabs.Transfers.TransferMarket.consumables_selected, Tabs.Transfers.TransferMarket.consumables), 2)
 
     def go_to_my_club(self):
         self.go_to_home_sceen()
@@ -190,8 +191,10 @@ class Navigate(Waiters):
         self.fifa_window_size.wait(Tabs.MyClub.club_search_logo, 3)
 
     def select_contracts_to_sell(self):
-        Waiters.click_first_found_picture(self, (Tabs.MyClub.ClubSearch.club_reset_selected, Tabs.MyClub.ClubSearch.club_reset), 2)
-        Waiters.click_first_found_picture(self, (Tabs.MyClub.ClubSearch.club_search_type_selected, Tabs.MyClub.ClubSearch.club_search_type), 2)
+        Waiters.click_first_found_picture(self, (
+        Tabs.MyClub.ClubSearch.club_reset_selected, Tabs.MyClub.ClubSearch.club_reset), 2)
+        Waiters.click_first_found_picture(self, (
+        Tabs.MyClub.ClubSearch.club_search_type_selected, Tabs.MyClub.ClubSearch.club_search_type), 2)
 
         for item in range(1, 8):
             try:
@@ -209,12 +212,12 @@ class Navigate(Waiters):
             except FindFailed:
                 os.system("left.exe")
 
-        #self.fifa_window_size.wait(Buttons.d_search)
+        # self.fifa_window_size.wait(Buttons.d_search)
         type("d")
 
-
     def select_consumables_by_type(self, selected_type):
-        Waiters.click_first_found_picture(self, (Tabs.Transfers.TransferMarket.consumables_type_text_selected, Tabs.Transfers.TransferMarket.consumables_type_text), 3)
+        Waiters.click_first_found_picture(self, (Tabs.Transfers.TransferMarket.consumables_type_text_selected,
+                                                 Tabs.Transfers.TransferMarket.consumables_type_text), 3)
         for item in range(1, 9):
             try:
                 self.fifa_window_size.wait(selected_type, 1)
@@ -222,16 +225,16 @@ class Navigate(Waiters):
                 break
             except FindFailed:
                 os.system("left.exe")
-        # for item in range(1, 20):
-        #     try:
-        #         self.fifa_window_size.wait(Tabs.Transfers.TransferMarket.consumables_type_contract_selected, 0)
-        #         type(Key.ENTER)
-        #         sleep(1)
-        #         break
-        #     except FindFailed:
-        #         type(Key.LEFT)
-        #         type(Key.LEFT)
-        #         sleep(1)
+                # for item in range(1, 20):
+                #     try:
+                #         self.fifa_window_size.wait(Tabs.Transfers.TransferMarket.consumables_type_contract_selected, 0)
+                #         type(Key.ENTER)
+                #         sleep(1)
+                #         break
+                #     except FindFailed:
+                #         type(Key.LEFT)
+                #         type(Key.LEFT)
+                #         sleep(1)
 
     def select_quality(self, quality):
         Waiters.wait_and_click(self, Tabs.Transfers.Quality.quality, 1)
@@ -268,31 +271,60 @@ class Actions(Navigate):
     def relist_all(self):
         self.go_to_transfer_list()
         try:
-            self.wait_and_click(Buttons.relist_all, 2)
+            self.fifa_window_size.wait(Buttons.relist_all, 2)
+            type("e")
             self.wait_and_click(Buttons.yes, 2)
         except FindFailed:
             print "Looks nothing to re-list"
         sleep(4)
 
+        if self.fifa_window_size.wait(Buttons.relist_all, 5) is not None:
+            print "Need to relist manually "
+        for page in range(1, 11):
+            print page
+            type("c")
+            sleep(1)
+            try:
+                self.fifa_window_size.wait(Buttons.c_next_page, 3)
+            except FindFailed:
+                print "looks that last page"
+                break
+        try:
+            for items_to_re_list in range(1, 100):
+                self.fifa_window_size.wait(Buttons.expired_cross, 1)
+                self.fifa_window_size.wait(Buttons.button_list_on_transfer_market, 1)
+                type(Key.ENTER)
+                Waiters.click_first_found_picture(self, (
+                Tabs.Transfers.TransferList.transfer_list_List_on_transfer_market,
+                Tabs.Transfers.TransferList.transfer_list_List_on_transfer_market), 1)
+                self.fifa_window_size.wait(Tabs.MyClub.ClubSearch.club_sent_to_transfer_message, 5)
+                Waiters.wait_and_click(self, Buttons.arrow_selected)
+                sleep(2)
+        except FindFailed:
+            print "Done with manual re-listing"
+
     def clear_sold(self):
         if self.fifa_window_size.exists(Tabs.Transfers.transfer_list_link, 3) is not None:
             print "already in transfer list"
-            #self.fifa_window_size.wait(Tabs.Transfers.transfer_list_link, 3)
+            # self.fifa_window_size.wait(Tabs.Transfers.transfer_list_link, 3)
             try:
                 sleep(4)
-                self.wait_and_click(Buttons.w_clear_sold_items, 5)
-                sleep(3)
+                if  self.fifa_window_size.exists(Buttons.w_clear_sold_items, 1) is not None:
+                    print "Clearing..."
+                    type("w")
+                    #self.wait_and_click(Buttons.w_clear_sold_items, 5)
+                #sleep(3)
             except FindFailed:
                 print "Looks nothing to clear"
         else:
             print "Looks nothing to clear"
             pass
-        #
-        # try:
-        #     self.wait_and_click(Buttons.w_clear_sold_items, 2)
-        # except FindFailed:
-        #     print "Looks nothing to clear"
-        # sleep(2)
+            #
+            # try:
+            #     self.wait_and_click(Buttons.w_clear_sold_items, 2)
+            # except FindFailed:
+            #     print "Looks nothing to clear"
+            # sleep(2)
 
     def buy_contracts(self, pages):
         bought_items = 0
@@ -305,7 +337,7 @@ class Actions(Navigate):
                     return
                 # Move mouse to top
                 try:
-                    #self.fifa_window_size.hover(Buttons.page)
+                    # self.fifa_window_size.hover(Buttons.page)
                     self.fifa_window_size.hover(Location(0, 766))
 
                 except FindFailed:
@@ -319,19 +351,20 @@ class Actions(Navigate):
                     print "Searching..."
 
                     # Search for item
-                    #pdb.set_trace()
+                    # pdb.set_trace()
                     Waiters.wait_and_click(self, Tabs.Transfers.TransferMarket.Contracts.contract_gold_half)
-                    #location = fifa_window_size.wait(Tabs.Transfers.TransferMarket.Contracts.contract_gold_half).getCenter()
+                    # location = fifa_window_size.wait(Tabs.Transfers.TransferMarket.Contracts.contract_gold_half).getCenter()
                     print "Something found, trying to selected and buy"
-                    #hover(location); Service.hover_mouse(0, 100); Service.hover_mouse(0, -100); click(getLastMatch())
-                    #fifa_window_size.wait(Tabs.Transfers.TransferMarket.Contracts.contract_gold_half, 0); hover(getLastMatch()); Service.hover_mouse(0, 100); Service.hover_mouse(0, -100); click()
+                    # hover(location); Service.hover_mouse(0, 100); Service.hover_mouse(0, -100); click(getLastMatch())
+                    # fifa_window_size.wait(Tabs.Transfers.TransferMarket.Contracts.contract_gold_half, 0); hover(getLastMatch()); Service.hover_mouse(0, 100); Service.hover_mouse(0, -100); click()
 
                     try:
                         print "Checking if right item was clicked (FULL size)"
-                        self.fifa_window_size_left_up.wait(Tabs.Transfers.TransferMarket.Contracts.contract_gold_full, 2)
+                        self.fifa_window_size_left_up.wait(Tabs.Transfers.TransferMarket.Contracts.contract_gold_full,
+                                                           2)
                     except FindFailed:
                         try:
-                            #pdb.set_trace()
+                            # pdb.set_trace()
                             print "bad click"
                             if self.fifa_window_size.exists(Tabs.Transfers.bidding_options, 0) is not None:
                                 print "clicked on wrong item"
@@ -350,7 +383,8 @@ class Actions(Navigate):
                     for attempts in range(1, 3):
                         try:
                             self.fifa_window_size.wait(Messages.message_successful_purchase, 4)
-                            Waiters.click_first_found_picture(self, (Buttons.continue_searching, Buttons.continue_searching_selected), 2)
+                            Waiters.click_first_found_picture(self, (
+                            Buttons.continue_searching, Buttons.continue_searching_selected), 2)
                             bought_items = bought_items + 1
                             print "Bought: %s items !!" % str(bought_items)
                             print "Going to the next page, as purchase done here"
@@ -368,7 +402,8 @@ class Actions(Navigate):
                                     # type('d')
                                     return
                                 self.fifa_window_size.click(Buttons.ok_selected)
-                                self.fifa_window_size.wait(Tabs.Transfers.TransferMarket.Contracts.contract_gold_full, 2)
+                                self.fifa_window_size.wait(Tabs.Transfers.TransferMarket.Contracts.contract_gold_full,
+                                                           2)
                                 type(Key.ESC)
                                 break
                             else:
@@ -390,7 +425,6 @@ class Actions(Navigate):
                                     self.fifa_window_size.click(Buttons.arrow_selected)
                                 except FindFailed:
                                     pass
-
 
                     print "Clicking next page"
                     type("c")
@@ -414,18 +448,20 @@ class Actions(Navigate):
             for selling in range(1, 100):
                 sell_item = sell_item + 1
                 print "Selling item: %s " % str(sell_item)
-                Waiters.click_first_found_picture(self, (Tabs.MyClub.ClubSearch.Contarcts.club_contract_gold_full, Tabs.MyClub.ClubSearch.Contarcts.club_contract_gold_half), 2)
+                Waiters.click_first_found_picture(self, (Tabs.MyClub.ClubSearch.Contarcts.club_contract_gold_full,
+                                                         Tabs.MyClub.ClubSearch.Contarcts.club_contract_gold_half), 2)
                 print "contract to sell found"
 
                 self.fifa_window_size.wait(Tabs.MyClub.ClubSearch.Contarcts.club_contract_gold_mega, 2)
                 Waiters.wait_and_click(self, Tabs.MyClub.ClubSearch.list_on_transfer_market_big, 2)
 
-                Waiters.click_first_found_picture(self, (Tabs.MyClub.ClubSearch.starting_price, Tabs.MyClub.ClubSearch.starting_price_selected), 3)
+                Waiters.click_first_found_picture(self, (
+                Tabs.MyClub.ClubSearch.starting_price, Tabs.MyClub.ClubSearch.starting_price_selected), 3)
                 self.fifa_window_size.wait(Tabs.MyClub.ClubSearch.club_set_price_form, 3)
                 type(str(start_price))
                 type(Key.ENTER)
 
-                #Waiters.click_first_found_picture(self, (Tabs.MyClub.ClubSearch.club_buy_now_price, Tabs.MyClub.ClubSearch.club_buy_now_selected), 1)
+                # Waiters.click_first_found_picture(self, (Tabs.MyClub.ClubSearch.club_buy_now_price, Tabs.MyClub.ClubSearch.club_buy_now_selected), 1)
                 Waiters.wait_and_click(self, Tabs.MyClub.ClubSearch.club_buy_now_price)
                 self.fifa_window_size.wait(Tabs.MyClub.ClubSearch.club_set_price_form, 3)
                 type(str(buy_now_price))
@@ -433,7 +469,7 @@ class Actions(Navigate):
 
                 sleep(random.uniform(0.1, 1.0))
                 Waiters.wait_and_click(self, Tabs.MyClub.ClubSearch.list_on_transfer_market, 2)
-                #Waiters.click_first_found_picture(self, (Tabs.MyClub.ClubSearch.list_on_transfer_market, Tabs.MyClub.ClubSearch.list_on_transfer_market_selected), 1)
+                # Waiters.click_first_found_picture(self, (Tabs.MyClub.ClubSearch.list_on_transfer_market, Tabs.MyClub.ClubSearch.list_on_transfer_market_selected), 1)
 
                 self.fifa_window_size.wait(Tabs.MyClub.ClubSearch.club_sent_to_transfer_message, 5)
                 Waiters.wait_and_click(self, Buttons.arrow_selected)
@@ -467,11 +503,13 @@ if __name__ == '__main__':
 
     fifa_window_size = Region(App.focusedWindow())
 
+
     @Service.timing
     def wait_and_click(image_name, timeout=0):
         # mozilla_size.click(image_name)
         fifa_window_size.wait(image_name, timeout)
         click(fifa_window_size.getLastMatch())
+
 
     @Service.timing
     def click_first_found_picture(list_to_search, timeout=0):
@@ -483,23 +521,24 @@ if __name__ == '__main__':
             except FindFailed:
                 print str(picture) + " not found"
 
-        #return x_position, y_position
+                # return x_position, y_position
+
 
     while True:
         try:
             Relist = Actions()
-            Relist.relist_all()
             Relist.clear_sold()
+            Relist.relist_all()
 
             Navigation = Navigate()
             Sell = Actions()
 
-            #Sell
+            # Sell
             Navigation.go_to_my_club()
             Navigation.select_contracts_to_sell()
             Sell.sell_contracts(200, 250)
 
-            #Buy
+            # Buy
             # Navigation.go_to_consumables()
             # Navigation.select_consumables_by_type(Tabs.Transfers.TransferMarket.consumables_type_contract_selected)
             # Navigation.select_quality(Tabs.Transfers.Quality.quality_gold_entered)
