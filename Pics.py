@@ -65,7 +65,7 @@ class Messages(object):
 class Tabs(object):
     #main_panel = Pattern("main_panel.png").similar(0.99)
     main_panel = Pattern("main_panel.png").exact()
-    main_panel_buttons = Pattern("main_panel_buttons.png").similar(0.90)
+    main_panel_buttons = Pattern("main_panel_buttons.png").similar(0.80)
 
     tab_transfers = Pattern("Tab_transfers.png").similar(0.40)
 
@@ -78,7 +78,7 @@ class Tabs(object):
         transfer_list = Pattern("transfer_list.png").similar(0.90)
         transfer_list_selected = Pattern("transfer_list_selected.png").similar(0.90)
         transfer_list_logo = Pattern("transfer_list_logo.png").similar(0.90)
-        transfer_list_link = Pattern("transfer_list_link.png").similar(0.90)
+        transfer_list_link = Pattern("transfer_list_link.png").similar(0.80)
         search_results_link = Pattern("search_results_link.png").similar(0.90)
         bidding_options = Pattern("bidding_options.png").similar(0.90)
 

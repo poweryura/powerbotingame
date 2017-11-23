@@ -120,16 +120,16 @@ class Navigate(Waiters):
         try:
             print "Checking if home page"
             # self.fifa_window_size.wait(Tabs.main_panel, 0)
-            self.fifa_window_size.wait(Tabs.main_panel_buttons, 0)
+            self.fifa_window_size.wait(Tabs.main_panel_buttons, 1)
             print "Home page by default"
             return
         except FindFailed:
             print "Not HOME PAGE"
-            for item in range(1, 5):
+            for item in range(1, 4):
                 try:
                     type(Key.ESC)
                     sleep(1)
-                    self.fifa_window_size.wait(Tabs.main_panel_buttons, 2)
+                    self.fifa_window_size.wait(Tabs.main_panel_buttons, 3)
                     print "HOME PAGE"
                     return
                     # break
@@ -185,16 +185,14 @@ class Navigate(Waiters):
     def go_to_my_club(self):
         self.go_to_home_sceen()
         Waiters.click_first_found_picture(self, (Tabs.MyClub.my_club, Tabs.MyClub.my_club_selected), 2)
-        self.fifa_window_size.hover(Tabs.MyClub.club_player_stats)
+        self.fifa_window_size.hover(Tabs.main_panel_buttons)
         Waiters.click_first_found_picture(self,
                                           (Tabs.MyClub.my_club_inside_selected, Tabs.MyClub.my_club_inside), 2)
         self.fifa_window_size.wait(Tabs.MyClub.club_search_logo, 3)
 
     def select_contracts_to_sell(self):
-        Waiters.click_first_found_picture(self, (
-        Tabs.MyClub.ClubSearch.club_reset_selected, Tabs.MyClub.ClubSearch.club_reset), 2)
-        Waiters.click_first_found_picture(self, (
-        Tabs.MyClub.ClubSearch.club_search_type_selected, Tabs.MyClub.ClubSearch.club_search_type), 2)
+        Waiters.click_first_found_picture(self, (Tabs.MyClub.ClubSearch.club_reset, Tabs.MyClub.ClubSearch.club_reset_selected), 2)
+        Waiters.click_first_found_picture(self, (Tabs.MyClub.ClubSearch.club_search_type, Tabs.MyClub.ClubSearch.club_search_type_selected), 2)
 
         for item in range(1, 8):
             try:
@@ -304,27 +302,17 @@ class Actions(Navigate):
             print "Done with manual re-listing"
 
     def clear_sold(self):
-        if self.fifa_window_size.exists(Tabs.Transfers.transfer_list_link, 3) is not None:
-            print "already in transfer list"
-            # self.fifa_window_size.wait(Tabs.Transfers.transfer_list_link, 3)
-            try:
-                sleep(4)
-                if  self.fifa_window_size.exists(Buttons.w_clear_sold_items, 1) is not None:
-                    print "Clearing..."
-                    type("w")
-                    #self.wait_and_click(Buttons.w_clear_sold_items, 5)
-                #sleep(3)
-            except FindFailed:
+        self.go_to_transfer_list()
+        try:
+            sleep(2)
+            if self.fifa_window_size.exists(Buttons.w_clear_sold_items, 1) is not None:
+                print "Clearing..."
+                type("w")
+                sleep(3)
+            else:
                 print "Looks nothing to clear"
-        else:
-            print "Looks nothing to clear"
-            pass
-            #
-            # try:
-            #     self.wait_and_click(Buttons.w_clear_sold_items, 2)
-            # except FindFailed:
-            #     print "Looks nothing to clear"
-            # sleep(2)
+        except FindFailed:
+                pass
 
     def buy_contracts(self, pages):
         bought_items = 0
@@ -526,9 +514,9 @@ if __name__ == '__main__':
 
     while True:
         try:
-            Relist = Actions()
-            Relist.clear_sold()
-            Relist.relist_all()
+            # Relist = Actions()
+            # Relist.clear_sold()
+            # Relist.relist_all()
 
             Navigation = Navigate()
             Sell = Actions()
@@ -539,12 +527,12 @@ if __name__ == '__main__':
             Sell.sell_contracts(200, 250)
 
             # Buy
-            # Navigation.go_to_consumables()
-            # Navigation.select_consumables_by_type(Tabs.Transfers.TransferMarket.consumables_type_contract_selected)
-            # Navigation.select_quality(Tabs.Transfers.Quality.quality_gold_entered)
-            # Navigation.set_pricing(200)
-            # Sell.buy_contracts(300)
-            # Sell.save_bought_items()
+            Navigation.go_to_consumables()
+            Navigation.select_consumables_by_type(Tabs.Transfers.TransferMarket.consumables_type_contract_selected)
+            Navigation.select_quality(Tabs.Transfers.Quality.quality_gold_entered)
+            Navigation.set_pricing(200)
+            Sell.buy_contracts(300)
+            Sell.save_bought_items()
 
         except FindFailed:
             print "Starting again"
