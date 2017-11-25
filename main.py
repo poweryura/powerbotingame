@@ -120,7 +120,7 @@ class Navigate(Waiters):
         try:
             print "Checking if home page"
             # self.fifa_window_size.wait(Tabs.main_panel, 0)
-            self.fifa_window_size.wait(Tabs.main_panel_buttons, 1)
+            self.fifa_window_size.wait(Tabs.main_panel_buttons, 2)
             print "Home page by default"
             return
         except FindFailed:
@@ -276,30 +276,35 @@ class Actions(Navigate):
             print "Looks nothing to re-list"
         sleep(4)
 
-        if self.fifa_window_size.wait(Buttons.relist_all, 5) is not None:
-            print "Need to relist manually "
-        for page in range(1, 11):
-            print page
-            type("c")
-            sleep(1)
-            try:
-                self.fifa_window_size.wait(Buttons.c_next_page, 3)
-            except FindFailed:
-                print "looks that last page"
-                break
         try:
-            for items_to_re_list in range(1, 100):
-                self.fifa_window_size.wait(Buttons.expired_cross, 1)
-                self.fifa_window_size.wait(Buttons.button_list_on_transfer_market, 1)
-                type(Key.ENTER)
-                Waiters.click_first_found_picture(self, (
-                Tabs.Transfers.TransferList.transfer_list_List_on_transfer_market,
-                Tabs.Transfers.TransferList.transfer_list_List_on_transfer_market), 1)
-                self.fifa_window_size.wait(Tabs.MyClub.ClubSearch.club_sent_to_transfer_message, 5)
-                Waiters.wait_and_click(self, Buttons.arrow_selected)
-                sleep(2)
+            if self.fifa_window_size.wait(Buttons.relist_all, 5) is not None:
+                print "Need to relist manually "
+                for page in range(1, 11):
+                    print page
+                    type("c")
+                    sleep(1)
+                    try:
+                        self.fifa_window_size.wait(Buttons.c_next_page, 3)
+                    except FindFailed:
+                        print "looks that last page"
+                        break
+                try:
+                    for items_to_re_list in range(1, 100):
+                        self.fifa_window_size.wait(Buttons.expired_cross, 1)
+                        self.fifa_window_size.wait(Buttons.button_list_on_transfer_market, 1)
+                        type(Key.ENTER)
+                        Waiters.click_first_found_picture(self, (
+                        Tabs.Transfers.TransferList.transfer_list_List_on_transfer_market,
+                        Tabs.Transfers.TransferList.transfer_list_List_on_transfer_market), 1)
+                        self.fifa_window_size.wait(Tabs.MyClub.ClubSearch.club_sent_to_transfer_message, 5)
+                        Waiters.wait_and_click(self, Buttons.arrow_selected)
+                        sleep(2)
+                except FindFailed:
+                    print "Done with manual re-listing"
+            else:
+                print "Done with re-listing"
         except FindFailed:
-            print "Done with manual re-listing"
+            print "Done withre-listing"
 
     def clear_sold(self):
         self.go_to_transfer_list()
@@ -437,7 +442,9 @@ class Actions(Navigate):
                 sell_item = sell_item + 1
                 print "Selling item: %s " % str(sell_item)
                 Waiters.click_first_found_picture(self, (Tabs.MyClub.ClubSearch.Contarcts.club_contract_gold_full,
-                                                         Tabs.MyClub.ClubSearch.Contarcts.club_contract_gold_half), 2)
+                                                         Tabs.MyClub.ClubSearch.Contarcts.club_contract_gold_full_1,
+                                                         Tabs.MyClub.ClubSearch.Contarcts.club_contract_gold_half,
+                                                         Tabs.MyClub.ClubSearch.Contarcts.club_contract_gold_half_1), 2)
                 print "contract to sell found"
 
                 self.fifa_window_size.wait(Tabs.MyClub.ClubSearch.Contarcts.club_contract_gold_mega, 2)
@@ -514,17 +521,23 @@ if __name__ == '__main__':
 
     while True:
         try:
-            # Relist = Actions()
-            # Relist.clear_sold()
-            # Relist.relist_all()
+            try:
+                Relist = Actions()
+                Relist.clear_sold()
+                Relist.relist_all()
+            except FindFailed:
+                print "Failed with relist"
 
             Navigation = Navigate()
             Sell = Actions()
 
             # Sell
-            Navigation.go_to_my_club()
-            Navigation.select_contracts_to_sell()
-            Sell.sell_contracts(200, 250)
+            try:
+                Navigation.go_to_my_club()
+                Navigation.select_contracts_to_sell()
+                Sell.sell_contracts(200, 250)
+            except FindFailed:
+                print "Failed with sell"
 
             # Buy
             Navigation.go_to_consumables()

@@ -65,7 +65,7 @@ class Messages(object):
 class Tabs(object):
     #main_panel = Pattern("main_panel.png").similar(0.99)
     main_panel = Pattern("main_panel.png").exact()
-    main_panel_buttons = Pattern("main_panel_buttons.png").similar(0.80)
+    main_panel_buttons = Pattern("main_panel_buttons.png").similar(0.85)
 
     tab_transfers = Pattern("Tab_transfers.png").similar(0.40)
 
@@ -152,7 +152,11 @@ class Tabs(object):
 
             class Contarcts(object):
                 club_contract_gold_full = Pattern("club_contract_gold_full.png").similar(0.80)
+                club_contract_gold_full_1 = Pattern("club_contract_gold_full_1.png").similar(0.80)
+
                 club_contract_gold_half = Pattern("club_contract_gold_half.png").similar(0.80)
+                club_contract_gold_half_1 = Pattern("club_contract_gold_half_1.png").similar(0.80)
+
                 club_contract_gold_mega = Pattern("club_contract_gold_mega.png").similar(0.95)
 
 
