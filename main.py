@@ -125,11 +125,11 @@ class Navigate(Waiters):
             return
         except FindFailed:
             print "Not HOME PAGE"
-            for item in range(1, 4):
+            for item in range(1, 5):
                 try:
                     type(Key.ESC)
                     sleep(1)
-                    self.fifa_window_size.wait(Tabs.main_panel_buttons, 3)
+                    self.fifa_window_size.wait(Tabs.main_panel_buttons, 2)
                     print "HOME PAGE"
                     return
                     # break
@@ -172,7 +172,8 @@ class Navigate(Waiters):
 
     def go_to_transfer_market(self):
         self.go_to_home_sceen()
-        Waiters.wait_and_click(self, Tabs.tab_transfers)
+        print "Going to transfer market"
+        Waiters.click_first_found_picture(self, (Tabs.tab_transfers,Tabs.tab_transfers_selected), 2)
         Waiters.click_first_found_picture(self,
                                           (Tabs.Transfers.transfer_market, Tabs.Transfers.transfer_market_selected), 2)
         self.fifa_window_size.wait(Tabs.Transfers.transfer_market_panel, 3)
@@ -181,6 +182,25 @@ class Navigate(Waiters):
         self.go_to_transfer_market()
         Waiters.click_first_found_picture(self, (
         Tabs.Transfers.TransferMarket.consumables_selected, Tabs.Transfers.TransferMarket.consumables), 2)
+
+    def go_to_players(self):
+
+        if self.fifa_window_size.exists(Tabs.Transfers.Players.Players_selected, 1) is not None:
+            print "Reset all"
+            type('q')
+            return
+        self.go_to_transfer_market()
+        Waiters.click_first_found_picture(self, (
+        Tabs.Transfers.Players.Players_selected,  Tabs.Transfers.Players.Players), 2)
+        print "Reset all"
+        type('q')
+
+    def set_player_name(self, name):
+        Waiters.click_first_found_picture(self, (Tabs.Transfers.Players.Player_name_selected, Tabs.Transfers.Players.Player_name), 2)
+        self.fifa_window_size.wait(Tabs.Transfers.Players.Player_pricing, 2)
+        type(name)
+        self.fifa_window_size.wait(Buttons.arrow_selected, 1)
+        type(Key.ENTER)
 
     def go_to_my_club(self):
         self.go_to_home_sceen()
@@ -277,7 +297,7 @@ class Actions(Navigate):
         sleep(4)
 
         try:
-            if self.fifa_window_size.wait(Buttons.relist_all, 5) is not None:
+            if self.fifa_window_size.exists(Buttons.relist_all, 5) is not None:
                 print "Need to relist manually "
                 for page in range(1, 11):
                     print page
@@ -319,11 +339,70 @@ class Actions(Navigate):
         except FindFailed:
                 pass
 
+
+    def sell_contracts(self, start_price, buy_now_price):
+        sell_item = 0
+        try:
+            for selling in range(1, 100):
+                sell_item = sell_item + 1
+                print "Selling item: %s " % str(sell_item)
+                Waiters.click_first_found_picture(self, (Tabs.MyClub.ClubSearch.Contarcts.club_contract_gold_full,
+                                                         Tabs.MyClub.ClubSearch.Contarcts.club_contract_gold_full_1,
+                                                         Tabs.MyClub.ClubSearch.Contarcts.club_contract_gold_half,
+                                                         Tabs.MyClub.ClubSearch.Contarcts.club_contract_gold_half_1), 2)
+                print "contract to sell found"
+
+                self.fifa_window_size.wait(Tabs.MyClub.ClubSearch.Contarcts.club_contract_gold_mega, 2)
+                Waiters.wait_and_click(self, Tabs.MyClub.ClubSearch.list_on_transfer_market_big, 2)
+
+                Waiters.click_first_found_picture(self, (
+                Tabs.MyClub.ClubSearch.starting_price, Tabs.MyClub.ClubSearch.starting_price_selected), 3)
+                self.fifa_window_size.wait(Tabs.MyClub.ClubSearch.club_set_price_form, 3)
+                type(str(start_price))
+                type(Key.ENTER)
+
+                # Waiters.click_first_found_picture(self, (Tabs.MyClub.ClubSearch.club_buy_now_price, Tabs.MyClub.ClubSearch.club_buy_now_selected), 1)
+                Waiters.wait_and_click(self, Tabs.MyClub.ClubSearch.club_buy_now_price)
+                self.fifa_window_size.wait(Tabs.MyClub.ClubSearch.club_set_price_form, 3)
+                type(str(buy_now_price))
+                type(Key.ENTER)
+
+                sleep(random.uniform(0.1, 1.0))
+                Waiters.wait_and_click(self, Tabs.MyClub.ClubSearch.list_on_transfer_market, 2)
+                # Waiters.click_first_found_picture(self, (Tabs.MyClub.ClubSearch.list_on_transfer_market, Tabs.MyClub.ClubSearch.list_on_transfer_market_selected), 1)
+
+                self.fifa_window_size.wait(Tabs.MyClub.ClubSearch.club_sent_to_transfer_message, 5)
+                Waiters.wait_and_click(self, Buttons.arrow_selected)
+        except FindFailed:
+            if self.fifa_window_size.exists(Messages.message_maximum_items_in_transfer_list, 1) is not None:
+                print "Maximum items are listed"
+                Waiters.wait_and_click(self, Buttons.ok_selected)
+            else:
+                print "Somewhere failed to sell"
+
+    def save_bought_items(self):
+        for i in range(1, 5):
+            type(Key.ESC)
+            try:
+                if self.fifa_window_size.exists(Messages.message_send_all_items_to_club, 2) is not None:
+                    self.fifa_window_size.click(Messages.message_send_all_items_to_club)
+                    break
+                elif self.fifa_window_size.exists(Tabs.main_panel, 1) is not None:
+                    print "Nothing to save"
+                    break
+                else:
+                    print "Still nothing"
+                sleep(1)
+                # wait_and_click(Buttons.send_all_to_club, 5)
+                # type('w')
+            except FindFailed:
+                print "Unknown state after purchases"
+
     def buy_contracts(self, pages):
         bought_items = 0
         expired_items = 0
         type("d")
-        if self.fifa_window_size.wait(Buttons.page, 5) is not None:
+        if self.fifa_window_size.exists(Buttons.page, 5) is not None:
             for page in range(1, pages):
                 if bought_items == 29:
                     self.save_bought_items()
@@ -435,76 +514,44 @@ class Actions(Navigate):
             print "Dont know current stage, going home screen"
             self.go_to_home_sceen()
 
-    def sell_contracts(self, start_price, buy_now_price):
-        sell_item = 0
-        try:
-            for selling in range(1, 100):
-                sell_item = sell_item + 1
-                print "Selling item: %s " % str(sell_item)
-                Waiters.click_first_found_picture(self, (Tabs.MyClub.ClubSearch.Contarcts.club_contract_gold_full,
-                                                         Tabs.MyClub.ClubSearch.Contarcts.club_contract_gold_full_1,
-                                                         Tabs.MyClub.ClubSearch.Contarcts.club_contract_gold_half,
-                                                         Tabs.MyClub.ClubSearch.Contarcts.club_contract_gold_half_1), 2)
-                print "contract to sell found"
-
-                self.fifa_window_size.wait(Tabs.MyClub.ClubSearch.Contarcts.club_contract_gold_mega, 2)
-                Waiters.wait_and_click(self, Tabs.MyClub.ClubSearch.list_on_transfer_market_big, 2)
-
-                Waiters.click_first_found_picture(self, (
-                Tabs.MyClub.ClubSearch.starting_price, Tabs.MyClub.ClubSearch.starting_price_selected), 3)
-                self.fifa_window_size.wait(Tabs.MyClub.ClubSearch.club_set_price_form, 3)
-                type(str(start_price))
-                type(Key.ENTER)
-
-                # Waiters.click_first_found_picture(self, (Tabs.MyClub.ClubSearch.club_buy_now_price, Tabs.MyClub.ClubSearch.club_buy_now_selected), 1)
-                Waiters.wait_and_click(self, Tabs.MyClub.ClubSearch.club_buy_now_price)
-                self.fifa_window_size.wait(Tabs.MyClub.ClubSearch.club_set_price_form, 3)
-                type(str(buy_now_price))
-                type(Key.ENTER)
-
-                sleep(random.uniform(0.1, 1.0))
-                Waiters.wait_and_click(self, Tabs.MyClub.ClubSearch.list_on_transfer_market, 2)
-                # Waiters.click_first_found_picture(self, (Tabs.MyClub.ClubSearch.list_on_transfer_market, Tabs.MyClub.ClubSearch.list_on_transfer_market_selected), 1)
-
-                self.fifa_window_size.wait(Tabs.MyClub.ClubSearch.club_sent_to_transfer_message, 5)
-                Waiters.wait_and_click(self, Buttons.arrow_selected)
-        except FindFailed:
-            if self.fifa_window_size.exists(Messages.message_maximum_items_in_transfer_list, 1) is not None:
-                print "Maximum items are listed"
-                Waiters.wait_and_click(self, Buttons.ok_selected)
-            else:
-                print "Somewhere failed to sell"
-
-    def save_bought_items(self):
-        for i in range(1, 5):
-            type(Key.ESC)
+    def buy_players(self):
+        self.fifa_window_size.wait(Buttons.d_search, 1)
+        type('d')
+        if self.fifa_window_size.exists(Buttons.actions, 2) is not None:
+            type(Key.ENTER)
+            Waiters.click_first_found_picture(self, (Buttons.buy_now, Buttons.buy_now_selected), 1)
+            Waiters.wait_and_click(self, Buttons.yes, 3)
             try:
-                if self.fifa_window_size.exists(Messages.message_send_all_items_to_club, 2) is not None:
-                    self.fifa_window_size.click(Messages.message_send_all_items_to_club)
-                    break
-                elif self.fifa_window_size.exists(Tabs.main_panel, 1) is not None:
-                    print "Nothing to save"
-                    break
-                else:
-                    print "Still nothing"
+                self.fifa_window_size.wait(Messages.message_successful_purchase, 3)
+                Waiters.click_first_found_picture(self, (Buttons.assign_now_after_buy, Buttons.assign_now_after_buy_selected), 2)
+                self.fifa_window_size.wait(Buttons.place_on_transfer_list, 3)
                 sleep(1)
-                # wait_and_click(Buttons.send_all_to_club, 5)
-                # type('w')
+                type('d')
+                try:
+                    Waiters.click_first_found_picture(self, (Buttons.arrow_selected, Buttons.yes_selected), 3)
+                except FindFailed:
+                    type(Key.ESC)
             except FindFailed:
-                print "Unknown state after purchases"
+                print "Nothing found, or expired"
+                Waiters.click_first_found_picture(self, (Buttons.arrow_selected, Buttons.yes_selected), 2)
+        else:
+            print "Nothing found"
+            Waiters.click_first_found_picture(self, (Buttons.arrow_selected, Buttons.yes_selected), 2)
+            sleep(random.uniform(0.1, 5.0))
+
 
 
 if __name__ == '__main__':
 
     fifa_window_size = Region(App.focusedWindow())
 
+    @Service.timing
 
     @Service.timing
     def wait_and_click(image_name, timeout=0):
         # mozilla_size.click(image_name)
         fifa_window_size.wait(image_name, timeout)
         click(fifa_window_size.getLastMatch())
-
 
     @Service.timing
     def click_first_found_picture(list_to_search, timeout=0):
@@ -521,31 +568,48 @@ if __name__ == '__main__':
 
     while True:
         try:
-            try:
-                Relist = Actions()
-                Relist.clear_sold()
-                Relist.relist_all()
-            except FindFailed:
-                print "Failed with relist"
+            # try:
+            #     Relist = Actions()
+            #     Relist.clear_sold()
+            #     Relist.relist_all()
+            # except FindFailed:
+            #     print "Failed with relist"
 
             Navigation = Navigate()
             Sell = Actions()
 
-            # Sell
-            try:
-                Navigation.go_to_my_club()
-                Navigation.select_contracts_to_sell()
-                Sell.sell_contracts(200, 250)
-            except FindFailed:
-                print "Failed with sell"
+            # #Sell
+            # try:
+            #     Navigation.go_to_my_club()
+            #     Navigation.select_contracts_to_sell()
+            #     Sell.sell_contracts(200, 250)
+            # except FindFailed:
+            #     print "Failed with sell"
 
-            # Buy
-            Navigation.go_to_consumables()
-            Navigation.select_consumables_by_type(Tabs.Transfers.TransferMarket.consumables_type_contract_selected)
-            Navigation.select_quality(Tabs.Transfers.Quality.quality_gold_entered)
-            Navigation.set_pricing(200)
-            Sell.buy_contracts(300)
-            Sell.save_bought_items()
+            # Buy contract
+            # Navigation.go_to_consumables()
+            # Navigation.select_consumables_by_type(Tabs.Transfers.TransferMarket.consumables_type_contract_selected)
+            # Navigation.select_quality(Tabs.Transfers.Quality.quality_gold_entered)
+            # Navigation.set_pricing(200)
+            # Sell.buy_contracts(300)q
+            # Sell.save_bought_items()
+
+            # Buy contract
+            player83 = random.choice(Tabs.Transfers.Players.Names.EightyThree.Rate_83_1)
+            print "!!!!! Going to search for:     " + player83
+            Navigation.go_to_players()
+            Navigation.set_player_name(player83)
+            Navigation.set_pricing(3000)
+            Sell.buy_players()
+
+            # #
+            player84 = random.choice(Tabs.Transfers.Players.Names.EightyFour.Rate_84_1)
+            print "!!!!! Going to search for:     " + player84
+            Navigation.go_to_players()
+            Navigation.set_player_name(player84)
+            Navigation.set_pricing(5000)
+            Sell.buy_players()
+
 
         except FindFailed:
             print "Starting again"

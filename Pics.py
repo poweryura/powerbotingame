@@ -42,6 +42,10 @@ class Buttons(object):
     esc = Pattern("esc.png").similar(0.90)
 
     assign_now = Pattern("assign_now.png").similar(0.80)
+    assign_now_after_buy = Pattern("assign_now_after_buy.png").similar(0.90)
+    assign_now_after_buy_selected = Pattern("assign_now_after_buy_selected.png").similar(0.90)
+    place_on_transfer_list = Pattern("place_on_transfer_list.png").similar(0.90)
+
     send_all_to_club = Pattern("send_all_to_club.png").similar(0.90)
 
     page = Pattern("page.png").similar(0.90).targetOffset(0, -200)
@@ -65,9 +69,11 @@ class Messages(object):
 class Tabs(object):
     #main_panel = Pattern("main_panel.png").similar(0.99)
     main_panel = Pattern("main_panel.png").exact()
-    main_panel_buttons = Pattern("main_panel_buttons.png").similar(0.85)
+    main_panel_buttons = Pattern("main_panel_buttons.png").similar(0.90)
 
-    tab_transfers = Pattern("Tab_transfers.png").similar(0.40)
+    tab_transfers = Pattern("Tab_transfers.png").similar(0.80)
+    tab_transfers_selected = Pattern("Tab_transfers_selected.png").similar(0.80)
+
 
 
 
@@ -113,6 +119,33 @@ class Tabs(object):
             transfer_list_List_on_transfer_market = Pattern("transfer_list_List_on_transfer_market.png").similar(0.90)
             transfer_list_List_on_transfer_market_selected = Pattern("transfer_list_List_on_transfer_market_selected.png").similar(0.90)
 
+        class Players(object):
+            Players = Pattern("Players.png").similar(0.90)
+            Players_selected = Pattern("Players_selected.png").similar(0.90)
+            Player_name = Pattern("Player_name.png").similar(0.90)
+            Player_name_selected = Pattern("Player_name_selected.png").similar(0.90)
+            Player_pricing = Pattern("Player_pricing.png").similar(0.90)
+
+            class Names(object):
+                class EightyThree(object):
+                    Rate_83_1 = ['Cazorla', 'Aspas', 'Adam Lallana', 'Morgan Schneiderlin', 'Kasper Schmeichel',
+                                 'Diego Lopez', 'Mateo Musacchio', 'Riyad Mahrez', 'Andrea Belotti', 'Otamendi',
+                                 'Perrin', 'Emil Forsberg', 'Stefan de Vrij', 'Naby', 'Biglia', 'Yann Sommer',
+                                 'Steven N', 'Bas Dost','Rulli', 'Benedikt', 'Bonaventura', 'Nemanja', 'Casillas',
+                                 'Gimenez', 'Quaresma', 'Danilo Pereira', 'Rui Patr', 'Nani', 'Niklas S', 'Idrissa Gueye',
+                                 'Fabinho', 'Vitolo', 'Mario Mand', ' Sneijder', 'Shinji Kagawa', 'Ezequiel Garay',
+                                 'Piszczek', 'Virgil van Dijk', 'Callej', 'Banega', 'Lopes', 'Ederson', 'Adrien Silva',
+                                 'Juanfran', 'Toprak', 'Jonas', 'Umtiti', 'Mascherano', 'Firmino', 'Daniele', 'Gameiro',
+                                 'Valero', 'Lemar', 'Pastore']
+
+                class EightyFour(object):
+                    Rate_84_1 = ['Dzeko',  'Bernardo Silva', 'Dani Alves', 'Timo Horn', 'Dimitri Payet', 'Kevin Strootman',
+                                 'Aduriz', 'Sergio Asenjo', 'Alejandro Gomez', 'Dani Alves', 'Mauro Icardi', 'Roman Burki',
+                                 'Julian Draxler', 'Koke', 'Ralf F', 'Bruno', 'Laporte', 'Kalidou Kouli', 'Shkodran Must',
+                                 'Kostas', 'Khedira', 'Alejandro G', 'Ivan Peri', 'Gary Cahil', 'Mauro Icard', 'Morata',
+                                 'Pedro', 'Mata', 'Asensio', 'Herrera', 'Benatia', 'Falcao', 'Carvajal']
+
+
 
     class MyClub(object):
         my_club = Pattern("my_club.png").similar(0.90)
@@ -151,11 +184,11 @@ class Tabs(object):
             club_sent_to_transfer_message_maximum_reached = Pattern("club_sent_to_transfer_message_maximum_reached.png").similar(0.90)
 
             class Contarcts(object):
-                club_contract_gold_full = Pattern("club_contract_gold_full.png").similar(0.80)
-                club_contract_gold_full_1 = Pattern("club_contract_gold_full_1.png").similar(0.80)
+                club_contract_gold_full = Pattern("club_contract_gold_full.png").similar(0.85)
+                club_contract_gold_full_1 = Pattern("club_contract_gold_full_1.png").similar(0.85)
 
-                club_contract_gold_half = Pattern("club_contract_gold_half.png").similar(0.80)
-                club_contract_gold_half_1 = Pattern("club_contract_gold_half_1.png").similar(0.80)
+                club_contract_gold_half = Pattern("club_contract_gold_half.png").similar(0.85)
+                club_contract_gold_half_1 = Pattern("club_contract_gold_half_1.png").similar(0.85)
 
                 club_contract_gold_mega = Pattern("club_contract_gold_mega.png").similar(0.95)
 
