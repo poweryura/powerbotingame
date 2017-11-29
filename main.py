@@ -599,15 +599,16 @@ if __name__ == '__main__':
             print "!!!!! Going to search for:     " + player83
             Navigation.go_to_players()
             Navigation.set_player_name(player83)
-            Navigation.set_pricing(3000)
+            Navigation.set_pricing(3300)
             Sell.buy_players()
 
+            sleep(random.uniform(3, 7))
             # #
             player84 = random.choice(Tabs.Transfers.Players.Names.EightyFour.Rate_84_1)
             print "!!!!! Going to search for:     " + player84
             Navigation.go_to_players()
             Navigation.set_player_name(player84)
-            Navigation.set_pricing(5000)
+            Navigation.set_pricing(6000)
             Sell.buy_players()
 
 
