@@ -37,13 +37,17 @@ class Service(object):
 
     @staticmethod
     def initiate_market_wipe(first_hour):
-        print(inspect.stack()[0][3])
         print(first_hour)
         current_hour = datetime.datetime.strftime(datetime.datetime.now(), '%Y-%m-%d %H')
         print(current_hour)
         if first_hour != current_hour:
             print("doing market WIPE")
             first_hour = current_hour
+            Relist = Actions()
+            Relist.clear_sold()
+            Relist.relist_all()
+
+            #first_hour = current_hour
         else:
             pass
         return first_hour
@@ -117,6 +121,7 @@ class Waiters(Main):
 
 class Navigate(Waiters):
     def go_to_home_sceen(self):
+        print(inspect.stack()[0][3])
         try:
             print "Checking if home page"
             # self.fifa_window_size.wait(Tabs.main_panel, 0)
@@ -165,7 +170,8 @@ class Navigate(Waiters):
 
     def go_to_transfer_list(self):
         self.go_to_home_sceen()
-        Waiters.wait_and_click(self, Tabs.tab_transfers)
+        print 'power1'
+        Waiters.click_first_found_picture(self, (Tabs.tab_transfers, Tabs.tab_transfers_selected))
         Waiters.click_first_found_picture(self,
                                           (Tabs.Transfers.transfer_list_selected, Tabs.Transfers.transfer_list_logo), 1)
         self.fifa_window_size.wait(Tabs.Transfers.transfer_list_link, 3)
@@ -287,7 +293,10 @@ class Actions(Navigate):
     expired_items = 0
 
     def relist_all(self):
+        print(inspect.stack()[0][3])
+
         self.go_to_transfer_list()
+
         try:
             self.fifa_window_size.wait(Buttons.relist_all, 2)
             type("e")
@@ -296,37 +305,39 @@ class Actions(Navigate):
             print "Looks nothing to re-list"
         sleep(4)
 
-        try:
-            if self.fifa_window_size.exists(Buttons.relist_all, 5) is not None:
-                print "Need to relist manually "
-                for page in range(1, 11):
-                    print page
-                    type("c")
-                    sleep(1)
-                    try:
-                        self.fifa_window_size.wait(Buttons.c_next_page, 3)
-                    except FindFailed:
-                        print "looks that last page"
-                        break
-                try:
-                    for items_to_re_list in range(1, 100):
-                        self.fifa_window_size.wait(Buttons.expired_cross, 1)
-                        self.fifa_window_size.wait(Buttons.button_list_on_transfer_market, 1)
-                        type(Key.ENTER)
-                        Waiters.click_first_found_picture(self, (
-                        Tabs.Transfers.TransferList.transfer_list_List_on_transfer_market,
-                        Tabs.Transfers.TransferList.transfer_list_List_on_transfer_market), 1)
-                        self.fifa_window_size.wait(Tabs.MyClub.ClubSearch.club_sent_to_transfer_message, 5)
-                        Waiters.wait_and_click(self, Buttons.arrow_selected)
-                        sleep(2)
-                except FindFailed:
-                    print "Done with manual re-listing"
-            else:
-                print "Done with re-listing"
-        except FindFailed:
-            print "Done withre-listing"
+        # try:
+        #     if self.fifa_window_size.exists(Buttons.relist_all, 5) is not None:
+        #         print "Need to relist manually "
+        #         for page in range(1, 11):
+        #             print page
+        #             type("c")
+        #             sleep(1)
+        #             try:
+        #                 self.fifa_window_size.wait(Buttons.c_next_page, 3)
+        #             except FindFailed:
+        #                 print "looks that last page"
+        #                 break
+        #         try:
+        #             for items_to_re_list in range(1, 100):
+        #                 self.fifa_window_size.wait(Buttons.expired_cross, 1)
+        #                 self.fifa_window_size.wait(Buttons.button_list_on_transfer_market, 1)
+        #                 type(Key.ENTER)
+        #                 Waiters.click_first_found_picture(self, (
+        #                 Tabs.Transfers.TransferList.transfer_list_List_on_transfer_market,
+        #                 Tabs.Transfers.TransferList.transfer_list_List_on_transfer_market), 1)
+        #                 self.fifa_window_size.wait(Tabs.MyClub.ClubSearch.club_sent_to_transfer_message, 5)
+        #                 Waiters.wait_and_click(self, Buttons.arrow_selected)
+        #                 sleep(2)
+        #         except FindFailed:
+        #             print "Done with manual re-listing"
+        #     else:
+        #         print "Done with re-listing"
+        # except FindFailed:
+        #     print "Done with re-listing"
 
     def clear_sold(self):
+        print(inspect.stack()[0][3])
+
         self.go_to_transfer_list()
         try:
             sleep(2)
@@ -565,8 +576,12 @@ if __name__ == '__main__':
 
                 # return x_position, y_position
 
+    first_hour = datetime.datetime.strftime(datetime.datetime.now(), '%Y-%m-%d %H')
+
 
     while True:
+        first_hour = Service.initiate_market_wipe(first_hour)
+
         try:
             # try:
             #     Relist = Actions()
@@ -586,12 +601,12 @@ if __name__ == '__main__':
             # except FindFailed:
             #     print "Failed with sell"
 
-            # Buy contract
+            #Buy contract
             # Navigation.go_to_consumables()
             # Navigation.select_consumables_by_type(Tabs.Transfers.TransferMarket.consumables_type_contract_selected)
             # Navigation.select_quality(Tabs.Transfers.Quality.quality_gold_entered)
             # Navigation.set_pricing(200)
-            # Sell.buy_contracts(300)q
+            # Sell.buy_contracts(300)
             # Sell.save_bought_items()
 
             # Buy contract
@@ -599,18 +614,18 @@ if __name__ == '__main__':
             print "!!!!! Going to search for:     " + player83
             Navigation.go_to_players()
             Navigation.set_player_name(player83)
-            Navigation.set_pricing(3300)
+            Navigation.set_pricing(3000)
             Sell.buy_players()
-
+            #
             sleep(random.uniform(3, 7))
             # #
             player84 = random.choice(Tabs.Transfers.Players.Names.EightyFour.Rate_84_1)
             print "!!!!! Going to search for:     " + player84
             Navigation.go_to_players()
             Navigation.set_player_name(player84)
-            Navigation.set_pricing(6000)
+            Navigation.set_pricing(5000)
             Sell.buy_players()
-
+            sleep(3)
 
         except FindFailed:
             print "Starting again"
