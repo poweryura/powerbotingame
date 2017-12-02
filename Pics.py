@@ -184,13 +184,13 @@ class Tabs(object):
             club_sent_to_transfer_message_maximum_reached = Pattern("club_sent_to_transfer_message_maximum_reached.png").similar(0.90)
 
             class Contarcts(object):
-                club_contract_gold_full = Pattern("club_contract_gold_full.png").similar(0.85)
-                club_contract_gold_full_1 = Pattern("club_contract_gold_full_1.png").similar(0.85)
+                club_contract_gold_full = Pattern("club_contract_gold_full.png").similar(0.90)
+                club_contract_gold_full_1 = Pattern("club_contract_gold_full_1.png").similar(0.90)
 
-                club_contract_gold_half = Pattern("club_contract_gold_half.png").similar(0.85)
-                club_contract_gold_half_1 = Pattern("club_contract_gold_half_1.png").similar(0.85)
+                club_contract_gold_half = Pattern("club_contract_gold_half.png").similar(0.90)
+                club_contract_gold_half_1 = Pattern("club_contract_gold_half_1.png").similar(0.90)
 
-                club_contract_gold_mega = Pattern("club_contract_gold_mega.png").similar(0.95)
+                club_contract_gold_mega = Pattern("club_contract_gold_mega.png").similar(0.90)
 
 
 
