@@ -26,7 +26,6 @@ getAutoWaitTimeout()
 Settings.TypeDelay = 0.1
 
 
-
 class Service(object):
     @staticmethod
     def send_mail():
@@ -571,6 +570,35 @@ if __name__ == '__main__':
 
     fifa_window_size = Region(App.focusedWindow())
 
+    Navigation = Navigate()
+    Sell = Actions()
+
+    def buy_player_func(name, price):
+        try:
+            name = random.choice(name)
+        except KeyError:
+            name_for_exc = name
+            name = random.choice(list(name))
+            print name
+            price = name_for_exc[name]
+        print "!!!!! Going to search for: " + name + " for: " + str(price)
+        Navigation.go_to_players()
+        Navigation.set_player_name(name)
+        Navigation.set_pricing(price)
+        Sell.buy_players()
+        sleep(random.uniform(1, 3))
+
+    def buy_contract():
+        try:
+            Navigation.go_to_consumables()
+            Navigation.select_consumables_by_type(Tabs.Transfers.TransferMarket.consumables_type_contract_selected)
+            Navigation.select_quality(Tabs.Transfers.Quality.quality_gold_entered)
+            Navigation.set_pricing(200)
+            Sell.buy_contracts(100)
+            Sell.save_bought_items()
+        except FindFailed:
+            print "Failed with buy contract"
+
     @Service.timing
     def wait_and_click(image_name, timeout=0):
         # mozilla_size.click(image_name)
@@ -603,54 +631,17 @@ if __name__ == '__main__':
                 # return x_position, y_position
 
     first_hour = datetime.datetime.strftime(datetime.datetime.now(), '%Y-%m-%d %H')
+    # Service.initiate_market_wipe(first_hour, run='yes')
 
     while True:
-
         first_hour = Service.initiate_market_wipe(first_hour)
 
-        # try:
-        #     Navigation = Navigate()
-        #     Sell = Actions()
-        #     Service.initiate_market_wipe(first_hour, run='yes')
-        #     Navigation = Navigate()
-        #     Sell = Actions()
-        #     Navigation.go_to_my_club()
-        #     Navigation.select_contracts_to_sell()
-        #     Sell.sell_contracts(200, 250)
-        # except FindFailed:
-        #     print "Failed with buy contract"
+        buy_player_func(Tabs.Transfers.Players.Names.EightyThree.Rate_83_1, 1500)
+        buy_player_func(Tabs.Transfers.Players.Names.EightyFour.Rate_84_1, 3000)
+        buy_player_func(Tabs.Transfers.Players.Names.Exceptional.around10, None)
+        buy_player_func(Tabs.Transfers.Players.Names.Exceptional.around50, None)
+        buy_player_func(Tabs.Transfers.Players.Names.Exceptional.around100, None)
+        buy_player_func(Tabs.Transfers.Players.Names.Exceptional.around200, None)
 
-
-         # Buy contract
-        try:
-            Navigation = Navigate()
-            Sell = Actions()
-            Navigation.go_to_consumables()
-            Navigation.select_consumables_by_type(Tabs.Transfers.TransferMarket.consumables_type_contract_selected)
-            Navigation.select_quality(Tabs.Transfers.Quality.quality_gold_entered)
-            Navigation.set_pricing(200)
-            Sell.buy_contracts(100)
-            Sell.save_bought_items()
-        except FindFailed:
-            print "Failed with buy contract"
-
-            # # Buy player
-            # player83 = random.choice(Tabs.Transfers.Players.Names.EightyThree.Rate_83_1)
-            # print "!!!!! Going to search for:     " + player83
-            # Navigation.go_to_players()
-            # Navigation.set_player_name(player83)
-            # Navigation.set_pricing(2000)
-            # Sell.buy_players()
-            # sleep(random.uniform(1, 3))
-            #
-            # # Buy player
-            # player84 = random.choice(Tabs.Transfers.Players.Names.EightyFour.Rate_84_1)
-            # print "!!!!! Going to search for:   " + player84
-            # Navigation.go_to_players()
-            # Navigation.set_player_name(player84)
-            # Navigation.set_pricing(3500)
-            # Sell.buy_players()
-            # sleep(random.uniform(1, 3))
-
-        except FindFailed:
-            print "Starting everything again"
+        buy_contract()
+        Service.initiate_market_wipe(first_hour, run='yes')
