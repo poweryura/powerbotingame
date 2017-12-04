@@ -151,7 +151,7 @@ class Tabs(object):
                                  'Romelu Lukaku': 100000, 'David Alaba': 150000}
                     around50 = {'Ousmane Demb': 25000, 'David Silva': 30000, 'Martial': 40000, 'Ilkai': 20000,
                                 'Kyle Walker': 40000, 'Thiago': 40000}
-                    around10 = {'Ander Herrera': 10000, 'Willian': 10000, 'Bakayoko': 10000, 'Rashford': 10000,
+                    around10 = {'Ander Herrera': 10000, 'Willian': 8000, 'Bakayoko': 8000, 'Rashford': 8000,
                                 'Ederson': 5000}
 
 

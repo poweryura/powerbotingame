@@ -637,7 +637,7 @@ if __name__ == '__main__':
 
     while True:
         first_hour = Service.initiate_market_wipe(first_hour)
-        for i in range(1, 10):
+        for i in range(1, 5):
             buy_player_func(Tabs.Transfers.Players.Names.EightyThree.Rate_83_1, 1500)
             buy_player_func(Tabs.Transfers.Players.Names.EightyFour.Rate_84_1, 3000)
             buy_player_func(Tabs.Transfers.Players.Names.Exceptional.around10, None)
