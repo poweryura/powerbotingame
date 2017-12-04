@@ -604,36 +604,36 @@ if __name__ == '__main__':
 
     first_hour = datetime.datetime.strftime(datetime.datetime.now(), '%Y-%m-%d %H')
 
-
-
     while True:
 
         first_hour = Service.initiate_market_wipe(first_hour)
 
+        # try:
+        #     Navigation = Navigate()
+        #     Sell = Actions()
+        #     Service.initiate_market_wipe(first_hour, run='yes')
+        #     Navigation = Navigate()
+        #     Sell = Actions()
+        #     Navigation.go_to_my_club()
+        #     Navigation.select_contracts_to_sell()
+        #     Sell.sell_contracts(200, 250)
+        # except FindFailed:
+        #     print "Failed with buy contract"
+
+
+         # Buy contract
         try:
             Navigation = Navigate()
             Sell = Actions()
+            Navigation.go_to_consumables()
+            Navigation.select_consumables_by_type(Tabs.Transfers.TransferMarket.consumables_type_contract_selected)
+            Navigation.select_quality(Tabs.Transfers.Quality.quality_gold_entered)
+            Navigation.set_pricing(200)
+            Sell.buy_contracts(100)
+            Sell.save_bought_items()
+        except FindFailed:
+            print "Failed with buy contract"
 
-            Service.initiate_market_wipe(first_hour, run='yes')
-
-            Navigation = Navigate()
-            Sell = Actions()
-            Navigation.go_to_my_club()
-            Navigation.select_contracts_to_sell()
-            Sell.sell_contracts(200, 250)
-
-
-            # Buy contract
-            # try:
-            #     Navigation.go_to_consumables()
-            #     Navigation.select_consumables_by_type(Tabs.Transfers.TransferMarket.consumables_type_contract_selected)
-            #     Navigation.select_quality(Tabs.Transfers.Quality.quality_gold_entered)
-            #     Navigation.set_pricing(200)
-            #     Sell.buy_contracts(100)
-            #     Sell.save_bought_items()
-            # except FindFailed:
-            #     print "Failed with buy contract"
-            #
             # # Buy player
             # player83 = random.choice(Tabs.Transfers.Players.Names.EightyThree.Rate_83_1)
             # print "!!!!! Going to search for:     " + player83
