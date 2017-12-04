@@ -575,18 +575,21 @@ if __name__ == '__main__':
 
     def buy_player_func(name, price):
         try:
-            name = random.choice(name)
-        except KeyError:
-            name_for_exc = name
-            name = random.choice(list(name))
-            print name
-            price = name_for_exc[name]
-        print "!!!!! Going to search for: " + name + " for: " + str(price)
-        Navigation.go_to_players()
-        Navigation.set_player_name(name)
-        Navigation.set_pricing(price)
-        Sell.buy_players()
-        sleep(random.uniform(1, 3))
+            try:
+                name = random.choice(name)
+            except KeyError:
+                name_for_exc = name
+                name = random.choice(list(name))
+                print name
+                price = name_for_exc[name]
+            print "!!!!! Going to search for: " + name + " for: " + str(price)
+            Navigation.go_to_players()
+            Navigation.set_player_name(name)
+            Navigation.set_pricing(price)
+            Sell.buy_players()
+            #sleep(random.uniform(1, 3))
+        except FindFailed:
+            print "Failed with buy player"
 
     def buy_contract():
         try:
@@ -618,7 +621,6 @@ if __name__ == '__main__':
     @Service.timing
     def click_any_first_found_picture(list_to_search, timeout=2):
         for times in range(0, timeout):
-            print "searching " + str(times)
             for picture in list_to_search:
                 try:
                     fifa_window_size.wait(picture, 1)
@@ -635,13 +637,13 @@ if __name__ == '__main__':
 
     while True:
         first_hour = Service.initiate_market_wipe(first_hour)
-
-        buy_player_func(Tabs.Transfers.Players.Names.EightyThree.Rate_83_1, 1500)
-        buy_player_func(Tabs.Transfers.Players.Names.EightyFour.Rate_84_1, 3000)
-        buy_player_func(Tabs.Transfers.Players.Names.Exceptional.around10, None)
-        buy_player_func(Tabs.Transfers.Players.Names.Exceptional.around50, None)
-        buy_player_func(Tabs.Transfers.Players.Names.Exceptional.around100, None)
-        buy_player_func(Tabs.Transfers.Players.Names.Exceptional.around200, None)
+        for i in range(1, 10):
+            buy_player_func(Tabs.Transfers.Players.Names.EightyThree.Rate_83_1, 1500)
+            buy_player_func(Tabs.Transfers.Players.Names.EightyFour.Rate_84_1, 3000)
+            buy_player_func(Tabs.Transfers.Players.Names.Exceptional.around10, None)
+            buy_player_func(Tabs.Transfers.Players.Names.Exceptional.around50, None)
+            buy_player_func(Tabs.Transfers.Players.Names.Exceptional.around100, None)
+            buy_player_func(Tabs.Transfers.Players.Names.Exceptional.around200, None)
 
         buy_contract()
         Service.initiate_market_wipe(first_hour, run='yes')
