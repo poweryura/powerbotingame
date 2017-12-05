@@ -93,12 +93,12 @@ class Tabs(object):
             consumables_selected = Pattern("consumables_selected.png").similar(0.90)
             consumables_type_text = Pattern("consumables_type_text.png").similar(0.90)
             consumables_type_text_selected = Pattern("consumables_type_text_selected.png").similar(0.90)
-            consumables_type_contract_selected = Pattern("consumables_type_contract_selected.png").similar(0.90)
+            consumables_type_contract_selected = Pattern("consumables_type_contract_selected.png").similar(0.93)
 
             class Contracts(object):
                 contract_gold_full = Pattern("contract_gold_full.png").similar(0.96)
                 #contract_gold_half = Pattern("contract_gold_half.png").similar(0.96).targetOffset(10, 60)
-                contract_gold_half = Pattern("contract_gold_half.png").similar(0.96).targetOffset(10, 10)
+                contract_gold_half = Pattern("contract_gold_half.png").similar(0.96).targetOffset(-20, 10)
                 contract_gold_common = Pattern("contract_gold_common.png").exact()
 
         class Quality(object):

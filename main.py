@@ -436,7 +436,7 @@ class Actions(Navigate):
                 # Move mouse to top
                 try:
                     # self.fifa_window_size.hover(Buttons.page)
-                    self.fifa_window_size.hover(Location(0, 766))
+                    self.fifa_window_size.hover(Location(0, 750))
 
                 except FindFailed:
                     pass
@@ -493,7 +493,7 @@ class Actions(Navigate):
                                 print "Expired item: %s" % str(expired_items)
                                 if expired_items == 10:
                                     print "Too many expired items, does not make sense to continue, goig to start search again"
-                                    # self.fifa_window_size.click(Buttons.ok_selected)
+                                    self.fifa_window_size.click(Buttons.ok_selected)
                                     # self.fifa_window_size.wait(Tabs.Transfers.search_results_link, 3)
                                     # type(Key.ESC)
                                     # self.fifa_window_size.wait(Buttons.d_search, 3)
@@ -637,13 +637,13 @@ if __name__ == '__main__':
 
     while True:
         first_hour = Service.initiate_market_wipe(first_hour)
-        for i in range(1, 5):
-            buy_player_func(Tabs.Transfers.Players.Names.EightyThree.Rate_83_1, 1500)
-            buy_player_func(Tabs.Transfers.Players.Names.EightyFour.Rate_84_1, 3000)
-            buy_player_func(Tabs.Transfers.Players.Names.Exceptional.around10, None)
-            buy_player_func(Tabs.Transfers.Players.Names.Exceptional.around50, None)
-            buy_player_func(Tabs.Transfers.Players.Names.Exceptional.around100, None)
-            buy_player_func(Tabs.Transfers.Players.Names.Exceptional.around200, None)
+            # for i in range(1, 5):
+        #     buy_player_func(Tabs.Transfers.Players.Names.EightyThree.Rate_83_1, 1500)
+        #     buy_player_func(Tabs.Transfers.Players.Names.EightyFour.Rate_84_1, 3000)
+        #     buy_player_func(Tabs.Transfers.Players.Names.Exceptional.around10, None)
+        #     buy_player_func(Tabs.Transfers.Players.Names.Exceptional.around50, None)
+        #     buy_player_func(Tabs.Transfers.Players.Names.Exceptional.around100, None)
+        #     buy_player_func(Tabs.Transfers.Players.Names.Exceptional.around200, None)
 
         buy_contract()
-        Service.initiate_market_wipe(first_hour, run='yes')
+        #Service.initiate_market_wipe(first_hour, run='yes')
