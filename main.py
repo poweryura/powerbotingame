@@ -555,6 +555,7 @@ class Actions(Navigate):
                 type('d')
                 try:
                     Waiters.click_first_found_picture(self, (Buttons.arrow_selected, Buttons.yes_selected), 3)
+                    print "player bought!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!! "
                 except FindFailed:
                     type(Key.ESC)
             except FindFailed:
@@ -637,13 +638,13 @@ if __name__ == '__main__':
 
     while True:
         first_hour = Service.initiate_market_wipe(first_hour)
-            # for i in range(1, 5):
-        #     buy_player_func(Tabs.Transfers.Players.Names.EightyThree.Rate_83_1, 1500)
-        #     buy_player_func(Tabs.Transfers.Players.Names.EightyFour.Rate_84_1, 3000)
-        #     buy_player_func(Tabs.Transfers.Players.Names.Exceptional.around10, None)
-        #     buy_player_func(Tabs.Transfers.Players.Names.Exceptional.around50, None)
-        #     buy_player_func(Tabs.Transfers.Players.Names.Exceptional.around100, None)
-        #     buy_player_func(Tabs.Transfers.Players.Names.Exceptional.around200, None)
+        for i in range(1, 5):
+             buy_player_func(Tabs.Transfers.Players.Names.EightyThree.Rate_83_1, 1500)
+             buy_player_func(Tabs.Transfers.Players.Names.EightyFour.Rate_84_1, 3000)
+             buy_player_func(Tabs.Transfers.Players.Names.Exceptional.around10, None)
+             buy_player_func(Tabs.Transfers.Players.Names.Exceptional.around50, None)
+             buy_player_func(Tabs.Transfers.Players.Names.Exceptional.around100, None)
+             #buy_player_func(Tabs.Transfers.Players.Names.Exceptional.around200, None)
 
         buy_contract()
-        #Service.initiate_market_wipe(first_hour, run='yes')
+        Service.initiate_market_wipe(first_hour, run='yes')
