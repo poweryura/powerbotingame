@@ -125,6 +125,13 @@ class Tabs(object):
             Player_name = Pattern("Player_name.png").similar(0.90)
             Player_name_selected = Pattern("Player_name_selected.png").similar(0.90)
             Player_pricing = Pattern("Player_pricing.png").similar(0.90)
+            league = Pattern("league.png").similar(0.95)
+            league_selected = Pattern("league_selected.png").similar(0.95)
+            icons_selected = Pattern("icons_selected.png").similar(0.95)
+            icons = Pattern("icons.png").similar(0.95)
+
+
+
 
             class Names(object):
                 class EightyThree(object):

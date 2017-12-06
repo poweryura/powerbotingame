@@ -227,6 +227,33 @@ class Navigate(Waiters):
         print "Reset all"
         type('q')
 
+    def go_to_icons(self):
+
+        if self.fifa_window_size.exists(Tabs.Transfers.Players.icons, 1) is not None:
+            return
+        self.go_to_transfer_market()
+
+        Waiters.click_first_found_picture(self, (Tabs.Transfers.Players.Players_selected,  Tabs.Transfers.Players.Players), 2)
+
+        self.fifa_window_size.wait(Tabs.Transfers.Players.Players_selected, 1)
+
+        sleep(1)
+        print "Reset all"
+        type('q')
+        sleep(1)
+
+        Waiters.wait_and_click(self, Tabs.Transfers.Players.league)
+        self.fifa_window_size.wait(Tabs.Transfers.Players.league_selected, 1)
+
+        for item in range(1, 40):
+            try:
+                self.fifa_window_size.wait(Tabs.Transfers.Players.icons_selected, 1)
+                type(Key.ESC)
+                break
+            except FindFailed:
+                os.system("left.exe")
+
+
     def set_player_name(self, name):
         Waiters.click_first_found_picture(self, (Tabs.Transfers.Players.Player_name_selected, Tabs.Transfers.Players.
                                                  Player_name), 2)
@@ -289,7 +316,12 @@ class Navigate(Waiters):
                 os.system("left.exe")
 
     def set_pricing(self, max_buy_now):
-        Waiters.wait_and_click(self, Tabs.Transfers.Pricing.pricing_text, 2)
+        try:
+            Waiters.wait_and_click(self, Tabs.Transfers.Pricing.pricing_text, 2)
+            print "1"
+        except FindFailed:
+            print "2"
+            Waiters.wait_and_click(self, Tabs.Transfers.Pricing.pricing_text_selected, 2)
         for item in range(1, 8):
             try:
                 self.fifa_window_size.wait(Tabs.Transfers.Pricing.max_buy_now_selected, 2)
@@ -636,15 +668,20 @@ if __name__ == '__main__':
     first_hour = datetime.datetime.strftime(datetime.datetime.now(), '%Y-%m-%d %H')
     # Service.initiate_market_wipe(first_hour, run='yes')
 
+
+
     while True:
         first_hour = Service.initiate_market_wipe(first_hour)
         for i in range(1, 5):
-             buy_player_func(Tabs.Transfers.Players.Names.EightyThree.Rate_83_1, 1500)
-             buy_player_func(Tabs.Transfers.Players.Names.EightyFour.Rate_84_1, 3000)
-             buy_player_func(Tabs.Transfers.Players.Names.Exceptional.around10, None)
-             buy_player_func(Tabs.Transfers.Players.Names.Exceptional.around50, None)
-             buy_player_func(Tabs.Transfers.Players.Names.Exceptional.around100, None)
-             #buy_player_func(Tabs.Transfers.Players.Names.Exceptional.around200, None)
-
-        buy_contract()
-        Service.initiate_market_wipe(first_hour, run='yes')
+            # Navigation.go_to_icons()
+            # Navigation.set_pricing(200000)
+            # Sell.buy_players()
+            buy_player_func(Tabs.Transfers.Players.Names.EightyThree.Rate_83_1, 1500)
+            buy_player_func(Tabs.Transfers.Players.Names.EightyFour.Rate_84_1, 3000)
+            buy_player_func(Tabs.Transfers.Players.Names.Exceptional.around10, None)
+            buy_player_func(Tabs.Transfers.Players.Names.Exceptional.around50, None)
+            buy_player_func(Tabs.Transfers.Players.Names.Exceptional.around100, None)
+            #buy_player_func(Tabs.Transfers.Players.Names.Exceptional.around200, None)
+        #
+        # buy_contract()
+            Service.initiate_market_wipe(first_hour, run='yes')
