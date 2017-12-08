@@ -18,6 +18,15 @@ import smtplib
 import datetime
 import random
 
+# from selenium import webdriver
+# from selenium.webdriver.common.keys import Keys
+
+# options = webdriver.ChromeOptions()
+# options.add_argument(r"user-data-dir=C:\Users\power\AppData\Local\Google\Chrome\User Data")
+# driver = webdriver.Chrome(executable_path="chromedriver.exe", chrome_options=options)
+# driver.get('https://www.futbin.com/')
+
+
 # Settings.MinSimilarity = 0.7
 # Settings.MoveMouseDelay = 0.3
 # Settings.Highlight = True
@@ -676,11 +685,12 @@ if __name__ == '__main__':
     while True:
         first_hour = Service.initiate_market_wipe(first_hour)
         for i in range(1, 3):
+            print 'power'
             # Navigation.go_to_icons()
             # Navigation.set_pricing(150000)
             # Sell.buy_players()
-            # #buy_player_func(Tabs.Transfers.Players.Names.EightyThree.Rate_83_1, 1500)
-            # buy_player_func(Tabs.Transfers.Players.Names.EightyFour.Rate_84_1, 3000)
+            #buy_player_func(Tabs.Transfers.Players.Names.EightyThree.Rate_83_1, 1500)
+            buy_player_func(Tabs.Transfers.Players.Names.EightyFour.Rate_84_1, 3000)
             buy_player_func(Tabs.Transfers.Players.Names.Exceptional.around10, None)
             buy_player_func(Tabs.Transfers.Players.Names.Exceptional.around50, None)
             buy_player_func(Tabs.Transfers.Players.Names.Exceptional.around100, None)
