@@ -614,7 +614,10 @@ if __name__ == '__main__':
                 name_for_exc = name
                 name = random.choice(list(name))
                 print name
-                price = name_for_exc[name]
+                price_range =  random.randrange(0, name_for_exc[name]/10, 100)
+                print price_range
+                price = name_for_exc[name] + price_range
+                print price
             print "!!!!! Going to search for: " + name + " for: " + str(price)
             Navigation.go_to_players()
             Navigation.set_player_name(name)
@@ -672,16 +675,15 @@ if __name__ == '__main__':
 
     while True:
         first_hour = Service.initiate_market_wipe(first_hour)
-        for i in range(1, 5):
+        for i in range(1, 3):
             # Navigation.go_to_icons()
-            # Navigation.set_pricing(200000)
+            # Navigation.set_pricing(150000)
             # Sell.buy_players()
-            buy_player_func(Tabs.Transfers.Players.Names.EightyThree.Rate_83_1, 1500)
-            buy_player_func(Tabs.Transfers.Players.Names.EightyFour.Rate_84_1, 3000)
+            # #buy_player_func(Tabs.Transfers.Players.Names.EightyThree.Rate_83_1, 1500)
+            # buy_player_func(Tabs.Transfers.Players.Names.EightyFour.Rate_84_1, 3000)
             buy_player_func(Tabs.Transfers.Players.Names.Exceptional.around10, None)
             buy_player_func(Tabs.Transfers.Players.Names.Exceptional.around50, None)
             buy_player_func(Tabs.Transfers.Players.Names.Exceptional.around100, None)
-            #buy_player_func(Tabs.Transfers.Players.Names.Exceptional.around200, None)
-        #
-        # buy_contract()
+            # buy_player_func(Tabs.Transfers.Players.Names.Exceptional.around200, None)
+            #buy_contract()
             Service.initiate_market_wipe(first_hour, run='yes')
