@@ -11,6 +11,7 @@ from selenium.common.exceptions import TimeoutException
 from selenium.webdriver.common.action_chains import ActionChains
 
 from selenium.webdriver.common.keys import Keys
+import locators as el
 
 import os
 from itertools import count
@@ -27,7 +28,7 @@ import re
 from random import randint
 import smtplib
 import random
-import locators as el
+
 
 
 # connect to another process spawned by explorer.exe

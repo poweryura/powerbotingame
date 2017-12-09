@@ -152,15 +152,6 @@ class Tabs(object):
                                  'Kostas', 'Khedira', 'Alejandro G', 'Ivan Peri', 'Gary Cahil', 'Mauro Icard', 'Morata',
                                  'Pedro', 'Mata', 'Asensio', 'Herrera', 'Benatia', 'Falcao', 'Carvajal']
 
-                class Exceptional(object):
-                    around200 = {'Vidal': 200000, }
-                    around100 = {'Kylian Mbapp': 80000, 'Thibaut Courtois': 80000, 'Lacazette': 100000,
-                                 'Romelu Lukaku': 100000, 'David Alaba': 150000}
-                    around50 = {'Ousmane Demb': 25000, 'David Silva': 30000, 'Martial': 40000, 'Ilkai': 20000,
-                                'Kyle Walker': 40000, 'Thiago': 40000}
-                    around10 = {'Ander Herrera': 10000, 'Willian': 8000, 'Bakayoko': 8000, 'Rashford': 8000,
-                                'Ederson': 5000}
-
 
     class MyClub(object):
         my_club = Pattern("my_club.png").similar(0.90)

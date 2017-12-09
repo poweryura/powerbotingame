@@ -2,6 +2,8 @@ import org.sikuli.script.SikulixForJython
 from java.util import *
 from sikuli import *
 
+import players
+
 import pdb
 # import keyboard
 import os
@@ -9,9 +11,21 @@ from itertools import count
 import inspect
 from Pics import *
 import smtplib
-# import pyautogui
-# zfrom pywinauto.application import Application
-# import win32gui
+import yaml
+
+import sys
+from selenium import webdriver
+from selenium.webdriver.chrome.options import Options
+from selenium.webdriver.common.by import By
+from selenium.webdriver.support.ui import WebDriverWait
+from selenium.webdriver.support import expected_conditions as EC
+from selenium.common.exceptions import TimeoutException
+from selenium.webdriver.common.action_chains import ActionChains
+from selenium.webdriver.common.keys import Keys
+from selenium.common.exceptions import TimeoutException
+
+
+import locators as el
 import re
 from random import randint
 import smtplib
@@ -33,6 +47,36 @@ import random
 # setAutoWaitTimeout(1)
 getAutoWaitTimeout()
 Settings.TypeDelay = 0.1
+
+
+class Page(object):
+
+    def __init__(self, player_link):
+        try:
+            #os.system("taskkill /im chrome.exe")
+            os.system("taskkill /f /im  chrome.exe")
+        except:
+             pass
+        self.sent = []
+
+        options = webdriver.ChromeOptions()
+        options.add_argument(r"user-data-dir=C:\Users\power\AppData\Local\Google\Chrome\User Data")
+
+        #self.driver = webdriver.Chrome(executable_path="geckodriver.exe")
+        self.driver = webdriver.Chrome(chrome_options=options)
+        self.driver.get(player_link)
+        #self.driver.implicitly_wait(5)
+
+    def get_lowest_player_price(self, time=10, ):
+        #price = self.driver.find_element_by_id("pc-lowest-5")
+        try:
+            element = WebDriverWait(self.driver, time).until(
+                EC.presence_of_element_located((By.ID, "pc-lowest-5"))
+            )
+            return element.text
+        except:
+            print "Web price not found, returning none"
+            return None
 
 
 class Service(object):
@@ -327,9 +371,7 @@ class Navigate(Waiters):
     def set_pricing(self, max_buy_now):
         try:
             Waiters.wait_and_click(self, Tabs.Transfers.Pricing.pricing_text, 2)
-            print "1"
         except FindFailed:
-            print "2"
             Waiters.wait_and_click(self, Tabs.Transfers.Pricing.pricing_text_selected, 2)
         for item in range(1, 8):
             try:
@@ -603,7 +645,7 @@ class Actions(Navigate):
                 print "Nothing found, or expired"
                 Waiters.click_any_first_found_picture(self, (Buttons.arrow_selected, Buttons.yes_selected), 2)
         else:
-            print "Nothing found"
+            print "Player not found"
             Waiters.click_any_first_found_picture(self, (Buttons.arrow_selected, Buttons.yes_selected), 2)
             sleep(random.uniform(0.1, 5.0))
 
@@ -622,13 +664,36 @@ if __name__ == '__main__':
             except KeyError:
                 name_for_exc = name
                 name = random.choice(list(name))
-                print name
-                price_range =  random.randrange(0, name_for_exc[name]/10, 100)
-                print price_range
-                price = name_for_exc[name] + price_range
-                print price
+
+                Futbin = Page(name_for_exc[name][1])
+                price = Futbin.get_lowest_player_price()
+                Futbin.driver.quit()
+                #pdb.set_trace()
+
+                if price == '0' or price == None:
+                    price = name_for_exc[name][0]
+                    print "Taking default price from script " + str(price)
+                    price = str(price)
+                elif "," in price:
+                    pass
+                else:
+                    return
+
+                print 'FUTBIN price: ' + name + ': ' + price
+
+                    #price_range = random.randrange(0, int(name_for_exc[name][0])/20, 100)
+                    #print price_range
+                try:
+                    price = int(price.replace(",", ""))
+                except:
+                    pass
+
+                price = price - float((name_for_exc[name][0]))*0.30
+                price = int(float(price))
+
             print "!!!!! Going to search for: " + name + " for: " + str(price)
             Navigation.go_to_players()
+
             Navigation.set_player_name(name)
             Navigation.set_pricing(price)
             Sell.buy_players()
@@ -680,20 +745,24 @@ if __name__ == '__main__':
     first_hour = datetime.datetime.strftime(datetime.datetime.now(), '%Y-%m-%d %H')
     # Service.initiate_market_wipe(first_hour, run='yes')
 
-
-
+    #pdb.set_trace()
     while True:
-        first_hour = Service.initiate_market_wipe(first_hour)
-        for i in range(1, 3):
-            print 'power'
-            # Navigation.go_to_icons()
-            # Navigation.set_pricing(150000)
-            # Sell.buy_players()
-            #buy_player_func(Tabs.Transfers.Players.Names.EightyThree.Rate_83_1, 1500)
-            buy_player_func(Tabs.Transfers.Players.Names.EightyFour.Rate_84_1, 3000)
-            buy_player_func(Tabs.Transfers.Players.Names.Exceptional.around10, None)
-            buy_player_func(Tabs.Transfers.Players.Names.Exceptional.around50, None)
-            buy_player_func(Tabs.Transfers.Players.Names.Exceptional.around100, None)
-            # buy_player_func(Tabs.Transfers.Players.Names.Exceptional.around200, None)
-            #buy_contract()
-            Service.initiate_market_wipe(first_hour, run='yes')
+
+        #sys.exit()
+        #
+        # first_hour = Service.initiate_market_wipe(first_hour)
+        # for i in range(1, 3):
+        #     print 'power'
+        #     # Navigation.go_to_icons()
+        #     # Navigation.set_pricing(150000)
+        #     # Sell.buy_players()
+        #     #buy_player_func(Tabs.Transfers.Players.Names.EightyThree.Rate_83_1, 1500)
+        #     buy_player_func(Tabs.Transfers.Players.Names.EightyFour.Rate_84_1, 3000)
+        #buy_player_func(players.Exceptional.around10, None)
+
+        #players.Exceptional.around10['Ander Herrera'][0]
+        #     buy_player_func(Tabs.Transfers.Players.Names.Exceptional.around50, None)
+        #     buy_player_func(Tabs.Transfers.Players.Names.Exceptional.around100, None)
+        #     # buy_player_func(Tabs.Transfers.Players.Names.Exceptional.around200, None)
+        buy_contract()
+        Service.initiate_market_wipe(first_hour, run='yes')
