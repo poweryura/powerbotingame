@@ -71,7 +71,7 @@ class Page(object):
         #price = self.driver.find_element_by_id("pc-lowest-5")
         try:
             element = WebDriverWait(self.driver, time).until(
-                EC.presence_of_element_located((By.ID, "pc-lowest-5"))
+                EC.presence_of_element_located((By.ID, "pc-lowest-1"))
             )
             return element.text
         except:
@@ -203,7 +203,7 @@ class Navigate(Waiters):
         try:
             print "Checking if home page"
             # self.fifa_window_size.wait(Tabs.main_panel, 0)
-            self.fifa_window_size.wait(Tabs.main_panel_buttons, 2)
+            self.fifa_window_size.wait(Tabs.main_panel_buttons, 3)
             print "Home page by default"
             return
         except FindFailed:
@@ -546,16 +546,14 @@ class Actions(Navigate):
                         self.fifa_window_size_left_up.wait(Tabs.Transfers.TransferMarket.Contracts.contract_gold_full,
                                                            2)
                     except FindFailed:
+
                         try:
                             # pdb.set_trace()
-                            print "bad click"
-                            print "bad click: " + str(count_bad_click)
-                            count_bad_click = count_bad_click + 1
-                            if count_bad_click is 3:
-                                type("c")
-                                sleep(1)
-                                continue
+                            type("c")
 
+                            print "bad click"
+                            type("c")
+                            print "Next page"
 
                             if self.fifa_window_size.exists(Tabs.Transfers.bidding_options, 0) is not None:
                                 print "clicked on wrong item"
