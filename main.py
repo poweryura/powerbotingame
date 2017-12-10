@@ -508,11 +508,13 @@ class Actions(Navigate):
                 print "Unknown state after purchases"
 
     def buy_contracts(self, pages):
+        print "Going to search for %s pages" % pages
         bought_items = 0
         expired_items = 0
         type("d")
         if self.fifa_window_size.exists(Buttons.page, 5) is not None:
             for page in range(1, pages):
+                count_bad_click = 0
                 if bought_items == 29:
                     self.save_bought_items()
                     return
@@ -547,6 +549,14 @@ class Actions(Navigate):
                         try:
                             # pdb.set_trace()
                             print "bad click"
+                            print "bad click: " + str(count_bad_click)
+                            count_bad_click = count_bad_click + 1
+                            if count_bad_click is 3:
+                                type("c")
+                                sleep(1)
+                                continue
+
+
                             if self.fifa_window_size.exists(Tabs.Transfers.bidding_options, 0) is not None:
                                 print "clicked on wrong item"
                                 type(Key.ESC)
@@ -665,6 +675,7 @@ if __name__ == '__main__':
                 name_for_exc = name
                 name = random.choice(list(name))
 
+                print "Opening WEB of FUTBIN for latest price...  "
                 Futbin = Page(name_for_exc[name][1])
                 price = Futbin.get_lowest_player_price()
                 Futbin.driver.quit()
@@ -693,10 +704,26 @@ if __name__ == '__main__':
 
             print "!!!!! Going to search for: " + name + " for: " + str(price)
             Navigation.go_to_players()
-
             Navigation.set_player_name(name)
             Navigation.set_pricing(price)
+
+            # file_name = 'players_' + str(datetime.datetime.strftime(datetime.datetime.now(), '%Y-%m-%d-%H')) + '.txt'
+            # file_name = 'test.txt'
+            # # try:
+            # #     file_name = open(file_name, 'r+')
+            # # except:
+            # #     # if file does not exist, create it
+            # #     file_name = open(file_name, 'w+')
+            # pdb.set_trace()
+            # file_name = open(file_name, 'w')
+            # with open(str(file_name), "a") as myfile: myfile.write(str(name))
+            # file_name.close()
+
+            #pdb.set_trace()
+
             Sell.buy_players()
+
+
             #sleep(random.uniform(1, 3))
         except FindFailed:
             print "Failed with buy player"
@@ -707,7 +734,7 @@ if __name__ == '__main__':
             Navigation.select_consumables_by_type(Tabs.Transfers.TransferMarket.consumables_type_contract_selected)
             Navigation.select_quality(Tabs.Transfers.Quality.quality_gold_entered)
             Navigation.set_pricing(200)
-            Sell.buy_contracts(100)
+            Sell.buy_contracts(int(random.uniform(100, 300)))
             Sell.save_bought_items()
         except FindFailed:
             print "Failed with buy contract"
@@ -758,10 +785,10 @@ if __name__ == '__main__':
         #     # Sell.buy_players()
         #     #buy_player_func(Tabs.Transfers.Players.Names.EightyThree.Rate_83_1, 1500)
         #     buy_player_func(Tabs.Transfers.Players.Names.EightyFour.Rate_84_1, 3000)
-        #buy_player_func(players.Exceptional.around10, None)
 
-        #players.Exceptional.around10['Ander Herrera'][0]
-        #     buy_player_func(Tabs.Transfers.Players.Names.Exceptional.around50, None)
+        buy_player_func(players.Exceptional.around20, None)
+        buy_player_func(players.Exceptional.around10, None)
+
         #     buy_player_func(Tabs.Transfers.Players.Names.Exceptional.around100, None)
         #     # buy_player_func(Tabs.Transfers.Players.Names.Exceptional.around200, None)
         buy_contract()
