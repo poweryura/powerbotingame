@@ -62,7 +62,7 @@ class Exceptional(object):
                 'Cesc Fabregas': [15000, 'https://www.futbin.com/18/player/151/Cesc%20F%C3%A0bregas/'],
                 'Petr Cech': [15000, 'https://www.futbin.com/18/player/148/Petr%20%C4%8Cech/'],
                 'Claudio Marchisio': [15000, 'https://www.futbin.com/18/player/189/Claudio%20Marchisio/'],
-                'Javi Martinez': [20000, 'https://www.futbin.com/18/player/156/Javi%20Martinez/'],
+                #'Javi Martinez': [20000, 'https://www.futbin.com/18/player/156/Javi%20Martinez/'],
                 'Sadio Mane': [25000, 'https://www.futbin.com/18/player/250/Sadio%20Man%C3%A9/'],
                 'Casemiro': [25000, 'https://www.futbin.com/18/player/203/Casemiro/'],
                 'Coutinho': [20000, 'https://www.futbin.com/18/player/162/Coutinho/'],

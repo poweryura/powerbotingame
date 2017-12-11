@@ -60,7 +60,7 @@ class Page(object):
         self.sent = []
 
         options = webdriver.ChromeOptions()
-        options.add_argument(r"user-data-dir=C:\Users\power\AppData\Local\Google\Chrome\User Data")
+        options.add_argument(r"user-data-dir=C:\Users\power.DESKTOP-J1SIG46\AppData\Local\Google\Chrome\User Data")
 
         #self.driver = webdriver.Chrome(executable_path="geckodriver.exe")
         self.driver = webdriver.Chrome(chrome_options=options)
