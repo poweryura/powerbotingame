@@ -624,9 +624,14 @@ class Actions(Navigate):
                     self.fifa_window_size.wait(Buttons.s_manually_adjust_price, 2)
                     type("c")
                     sleep(random.uniform(0.3, 0.6))
-        elif self.fifa_window_size.wait(Messages.message_nothing_found, 5) is not None:
+        elif self.fifa_window_size.wait(Messages.message_nothing_found, 4) is not None:
             Waiters.wait_and_click(self, Buttons.ok_selected)
             print "Nothing found in search results"
+        elif self.fifa_window_size.wait(Messages.problem_communicating_ea_server, 2) is not None:
+            Waiters.wait_and_click(self, Buttons.ok_selected)
+            print "Looks that EA blocked access, waiting for 10 mins"
+            sleep(600)
+            return
         else:
             print "Dont know current stage, going home screen"
             self.go_to_home_sceen()
@@ -652,9 +657,14 @@ class Actions(Navigate):
             except FindFailed:
                 print "Nothing found, or expired"
                 Waiters.click_any_first_found_picture(self, (Buttons.arrow_selected, Buttons.yes_selected), 2)
+        elif self.fifa_window_size.wait(Messages.problem_communicating_ea_server, 1) is not None:
+            Waiters.wait_and_click(self, Buttons.ok_selected)
+            print "Looks that EA blocked access, waiting for 10 mins"
+            sleep(600)
+            return
         else:
             print "Player not found"
-            Waiters.click_any_first_found_picture(self, (Buttons.arrow_selected, Buttons.yes_selected), 2)
+            Waiters.click_any_first_found_picture(self, (Buttons.arrow_selected, Buttons.yes_selected), 1)
             sleep(random.uniform(0.1, 5.0))
 
 
