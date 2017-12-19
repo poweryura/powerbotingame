@@ -105,14 +105,14 @@ class Service(object):
             except FindFailed:
                 print "Failed with sell re-list or clear"
             # Sell contract
-            try:
-                Navigation = Navigate()
-                Sell = Actions()
-                Navigation.go_to_my_club()
-                Navigation.select_contracts_to_sell()
-                Sell.sell_contracts(200, 250)
-            except FindFailed:
-                print "Failed with sell contract"
+            # try:
+            #     Navigation = Navigate()
+            #     Sell = Actions()
+            #     Navigation.go_to_my_club()
+            #     Navigation.select_contracts_to_sell()
+            #     Sell.sell_contracts(200, 250)
+            # except FindFailed:
+            #     print "Failed with sell contract"
 
             #first_hour = current_hour
         else:
@@ -160,14 +160,15 @@ class Main(object):
     def __init__(self):
         setAutoWaitTimeout(3)
         print "Activating Fifa Window"
-        # click(fifa_window, 3)
-        # self.fifa_window_size = Region(App.focusedWindow())
-        self.fifa_window_size = Region(0, 0, 1280, 750)
+        click(fifa_window, 3)
+        self.fifa_window_size = Region(App.focusedWindow())
+        #self.fifa_window_size = Region(0, 0, 1280, 750)
         self.fifa_window_size_left_up = Region(0, 0, 600, 600)
         # self.fifa_window_size.highlight(1)
         print self.fifa_window_size
         # self.fifa_window_size.click(club_logo)
         print "Window is activated, as club logo found"
+
 
 
 class Waiters(Main):
@@ -180,7 +181,7 @@ class Waiters(Main):
             except FindFailed:
                 print str(picture) + " not found"
 
-    def click_any_first_found_picture(self, list_to_search, timeout=2):
+    def click_any_first_found_picture(self, list_to_search, timeout=1):
         for times in range(0, timeout):
             print "searching " + str(times)
             for picture in list_to_search:
@@ -200,6 +201,13 @@ class Waiters(Main):
 class Navigate(Waiters):
     def go_to_home_sceen(self):
         print(inspect.stack()[0][3])
+
+        try:
+            wait(Buttons.team_viewer_ok, 2)
+            click(getLastMatch())
+        except FindFailed:
+            pass
+
         try:
             print "Checking if home page"
             # self.fifa_window_size.wait(Tabs.main_panel, 0)
@@ -325,6 +333,7 @@ class Navigate(Waiters):
         self.fifa_window_size.wait(Tabs.MyClub.club_search_logo, 3)
 
     def select_contracts_to_sell(self):
+        print(inspect.stack()[0][3])
         Waiters.click_first_found_picture(self, (Tabs.MyClub.ClubSearch.club_reset, Tabs.MyClub.ClubSearch.club_reset_selected), 2)
         Waiters.click_first_found_picture(self, (Tabs.MyClub.ClubSearch.club_search_type, Tabs.MyClub.ClubSearch.club_search_type_selected), 2)
 
@@ -348,6 +357,7 @@ class Navigate(Waiters):
         type("d")
 
     def select_consumables_by_type(self, selected_type):
+        print(inspect.stack()[0][3])
         Waiters.click_first_found_picture(self, (Tabs.Transfers.TransferMarket.consumables_type_text_selected,
                                                  Tabs.Transfers.TransferMarket.consumables_type_text), 3)
         for item in range(1, 9):
@@ -359,6 +369,7 @@ class Navigate(Waiters):
                 os.system("left.exe")
 
     def select_quality(self, quality):
+        print(inspect.stack()[0][3])
         Waiters.wait_and_click(self, Tabs.Transfers.Quality.quality, 1)
         for item in range(1, 8):
             try:
@@ -369,6 +380,7 @@ class Navigate(Waiters):
                 os.system("left.exe")
 
     def set_pricing(self, max_buy_now):
+        print(inspect.stack()[0][3])
         try:
             Waiters.wait_and_click(self, Tabs.Transfers.Pricing.pricing_text, 2)
         except FindFailed:
@@ -450,6 +462,7 @@ class Actions(Navigate):
                 pass
 
     def sell_contracts(self, start_price, buy_now_price):
+        print(inspect.stack()[0][3])
         sell_item = 0
         try:
             for selling in range(1, 100):
@@ -490,6 +503,7 @@ class Actions(Navigate):
                 print "Somewhere failed to sell"
 
     def save_bought_items(self):
+        print(inspect.stack()[0][3])
         for i in range(1, 5):
             type(Key.ESC)
             try:
@@ -508,10 +522,12 @@ class Actions(Navigate):
                 print "Unknown state after purchases"
 
     def buy_contracts(self, pages):
+        print(inspect.stack()[0][3])
         print "Going to search for %s pages" % pages
         bought_items = 0
         expired_items = 0
         type("d")
+        #pdb.set_trace()
         if self.fifa_window_size.exists(Buttons.page, 5) is not None:
             for page in range(1, pages):
                 count_bad_click = 0
@@ -624,10 +640,10 @@ class Actions(Navigate):
                     self.fifa_window_size.wait(Buttons.s_manually_adjust_price, 2)
                     type("c")
                     sleep(random.uniform(0.3, 0.6))
-        elif self.fifa_window_size.wait(Messages.message_nothing_found, 4) is not None:
+        elif self.fifa_window_size.exists(Messages.message_nothing_found, 3) is not None:
             Waiters.wait_and_click(self, Buttons.ok_selected)
             print "Nothing found in search results"
-        elif self.fifa_window_size.wait(Messages.problem_communicating_ea_server, 2) is not None:
+        elif self.fifa_window_size.exists(Messages.problem_communicating_ea_server, 2) is not None:
             Waiters.wait_and_click(self, Buttons.ok_selected)
             print "Looks that EA blocked access, waiting for 10 mins"
             sleep(600)
@@ -637,8 +653,10 @@ class Actions(Navigate):
             self.go_to_home_sceen()
 
     def buy_players(self):
+        print(inspect.stack()[0][3])
         self.fifa_window_size.wait(Buttons.d_search, 1)
         type('d')
+
         if self.fifa_window_size.exists(Buttons.actions, 2) is not None:
             type(Key.ENTER)
             Waiters.click_first_found_picture(self, (Buttons.buy_now, Buttons.buy_now_selected), 1)
@@ -652,17 +670,22 @@ class Actions(Navigate):
                 try:
                     Waiters.click_first_found_picture(self, (Buttons.arrow_selected, Buttons.yes_selected), 3)
                     print "player bought!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!! "
+                    try:
+                        Waiters.click_any_first_found_picture(self, (Buttons.arrow_selected, Buttons.yes_selected), 4)
+                    except FindFailed:
+                        pass
                 except FindFailed:
                     type(Key.ESC)
             except FindFailed:
                 print "Nothing found, or expired"
-                Waiters.click_any_first_found_picture(self, (Buttons.arrow_selected, Buttons.yes_selected), 2)
-        elif self.fifa_window_size.wait(Messages.problem_communicating_ea_server, 1) is not None:
+                Waiters.click_any_first_found_picture(self, (Buttons.arrow_selected, Buttons.yes_selected), 4)
+        elif self.fifa_window_size.exists(Messages.problem_communicating_ea_server, 1) is not None:
             Waiters.wait_and_click(self, Buttons.ok_selected)
             print "Looks that EA blocked access, waiting for 10 mins"
             sleep(600)
             return
         else:
+
             print "Player not found"
             Waiters.click_any_first_found_picture(self, (Buttons.arrow_selected, Buttons.yes_selected), 1)
             sleep(random.uniform(0.1, 5.0))
@@ -677,6 +700,7 @@ if __name__ == '__main__':
 
     def buy_player_func(name, price):
         try:
+
             try:
                 name = random.choice(name)
             except KeyError:
@@ -707,7 +731,7 @@ if __name__ == '__main__':
                 except:
                     pass
 
-                price = price - float((name_for_exc[name][0]))*0.30
+                price = price - float((name_for_exc[name][0]))*0.20
                 price = int(float(price))
 
             print "!!!!! Going to search for: " + name + " for: " + str(price)
@@ -726,15 +750,17 @@ if __name__ == '__main__':
             # file_name = open(file_name, 'w')
             # with open(str(file_name), "a") as myfile: myfile.write(str(name))
             # file_name.close()
+            Sell.buy_players()
 
             #pdb.set_trace()
 
-            Sell.buy_players()
+
 
 
             #sleep(random.uniform(1, 3))
         except FindFailed:
             print "Failed with buy player"
+
 
     def buy_contract():
         try:
@@ -791,13 +817,17 @@ if __name__ == '__main__':
         #     # Navigation.go_to_icons()
         #     # Navigation.set_pricing(150000)
         #     # Sell.buy_players()
-        #     #buy_player_func(Tabs.Transfers.Players.Names.EightyThree.Rate_83_1, 1500)
-        #     buy_player_func(Tabs.Transfers.Players.Names.EightyFour.Rate_84_1, 3000)
+        buy_player_func(Tabs.Transfers.Players.Names.EightyFour.Rate_84_1, 4000)
+        buy_player_func(Tabs.Transfers.Players.Names.EightyThree.Rate_83_1, 1000)
+        buy_player_func(Tabs.Transfers.Players.Names.EightyFour.Rate_84_1, 4000)
+        buy_player_func(Tabs.Transfers.Players.Names.EightyFour.Rate_84_1, 4000)
 
-        buy_player_func(players.Exceptional.around20, None)
-        buy_player_func(players.Exceptional.around10, None)
+
+        # buy_player_func(players.Exceptional.around20, None)
+        # buy_player_func(players.Exceptional.around10, None)
 
         #     buy_player_func(Tabs.Transfers.Players.Names.Exceptional.around100, None)
         #     # buy_player_func(Tabs.Transfers.Players.Names.Exceptional.around200, None)
-        buy_contract()
-        Service.initiate_market_wipe(first_hour, run='yes')
+        #Service.initiate_market_wipe(first_hour, run='yes')
+        #buy_contract()
+

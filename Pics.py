@@ -24,7 +24,7 @@ class Buttons(object):
     yes_selected = Pattern("yes_selected.png").similar(0.80)
 
     ok_selected = Pattern("ok_selected.png").similar(0.90)
-    arrow_selected = Pattern("arrow_selected.png").similar(0.90)
+    arrow_selected = Pattern("arrow_selected.png").similar(0.80)
     s_manually_adjust_price = Pattern("s_manually_adjust_price.png").similar(0.90)
     d_search = Pattern("d_search.png").similar(0.95)
     c_next_page = Pattern("c_next_page.png").similar(0.90)
@@ -51,6 +51,8 @@ class Buttons(object):
     page = Pattern("page.png").similar(0.90).targetOffset(0, -200)
 
     expired_cross = Pattern("expired_cross.png").similar(0.90)
+
+    team_viewer_ok = Pattern("team_viewer_ok.png").similar(0.90)
 
 
 class Messages(object):
@@ -146,12 +148,12 @@ class Tabs(object):
                                  'Valero', 'Lemar', 'Pastore']
 
                 class EightyFour(object):
-                    Rate_84_1 = ['Dzeko',  'Bernardo Silva', 'Dani Alves', 'Timo Horn', 'Dimitri Payet', 'Kevin Strootman',
-                                 'Aduriz', 'Sergio Asenjo', 'Alejandro Gomez', 'Dani Alves', 'Mauro Icardi', 'Roman Burki',
-                                 'Julian Draxler', 'Koke', 'Ralf F', 'Bruno', 'Laporte', 'Kalidou Kouli', 'Shkodran Must',
-                                 'Kostas', 'Khedira', 'Alejandro G', 'Ivan Peri', 'Gary Cahil', 'Mauro Icard', 'Morata',
-                                 'Pedro', 'Mata', 'Asensio', 'Herrera', 'Benatia', 'Falcao', 'Carvajal']
-
+                    Rate_84_1 = ['Dzeko',  'Bernardo Silva', 'Dani Alves', 'Dimitri Payet', 'Kevin Strootman',
+                                 'Aduriz', 'Sergio Asenjo', 'Alejandro Gomez', 'Dani Alves',
+                                 'Julian Draxler', 'Koke', 'Bruno', 'Laporte', 'Kalidou Kouli', 'Shkodran Must',
+                                 'Kostas', 'Khedira', 'Alejandro G', 'Ivan Peri', 'Gary Cahil',  'Morata',
+                                 'Pedro', 'Mata', 'Asensio', 'Herrera', 'Benatia', 'Carvajal']
+                    #'Falcao','Roman Burki', 'Ralf F','Timo Horn', 'Mauro Icardi',
 
     class MyClub(object):
         my_club = Pattern("my_club.png").similar(0.90)
