@@ -55,6 +55,7 @@ class Page(object):
         try:
             #os.system("taskkill /im chrome.exe")
             os.system("taskkill /f /im  chrome.exe")
+            sleep(5)
         except:
              pass
         self.sent = []
@@ -65,6 +66,7 @@ class Page(object):
         #self.driver = webdriver.Chrome(executable_path="geckodriver.exe")
         self.driver = webdriver.Chrome(chrome_options=options)
         self.driver.get(player_link)
+        sleep(5)
         #self.driver.implicitly_wait(5)
 
     def get_lowest_player_price(self, time=10, ):
@@ -91,11 +93,12 @@ class Service(object):
 
     @staticmethod
     def initiate_market_wipe(first_hour, run='no'):
-        print(first_hour)
+        #print(first_hour)
         current_hour = datetime.datetime.strftime(datetime.datetime.now(), '%Y-%m-%d %H')
-        print(current_hour)
+        #print(current_hour)
+        sleep(1)
         if first_hour != current_hour or run == 'yes':
-            print("doing market WIPE")
+            print("doing market WIPE!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!")
             first_hour = current_hour
             # Re-list contract
             try:
@@ -105,16 +108,14 @@ class Service(object):
             except FindFailed:
                 print "Failed with sell re-list or clear"
             # Sell contract
-            # try:
-            #     Navigation = Navigate()
-            #     Sell = Actions()
-            #     Navigation.go_to_my_club()
-            #     Navigation.select_contracts_to_sell()
-            #     Sell.sell_contracts(200, 250)
-            # except FindFailed:
-            #     print "Failed with sell contract"
-
-            #first_hour = current_hour
+            try:
+                Navigation = Navigate()
+                Sell = Actions()
+                Navigation.go_to_my_club()
+                Navigation.select_contracts_to_sell()
+                Sell.sell_contracts(200, 250)
+            except FindFailed:
+                print "Failed with sell contract"
         else:
             pass
         return first_hour
@@ -665,14 +666,16 @@ class Actions(Navigate):
                 self.fifa_window_size.wait(Messages.message_successful_purchase, 3)
                 Waiters.click_first_found_picture(self, (Buttons.assign_now_after_buy, Buttons.assign_now_after_buy_selected), 2)
                 self.fifa_window_size.wait(Buttons.place_on_transfer_list, 3)
-                sleep(2)
+                sleep(3)
                 type('d')
                 try:
                     Waiters.click_first_found_picture(self, (Buttons.arrow_selected, Buttons.yes_selected), 3)
                     print "player bought!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!! "
+                    sleep(3)
                     try:
-                        Waiters.click_any_first_found_picture(self, (Buttons.arrow_selected, Buttons.yes_selected), 4)
+                        Waiters.click_first_found_picture(self, (Buttons.arrow_selected, Buttons.yes_selected), 3)
                     except FindFailed:
+                        print "power"
                         pass
                 except FindFailed:
                     type(Key.ESC)
@@ -698,7 +701,7 @@ if __name__ == '__main__':
     Navigation = Navigate()
     Sell = Actions()
 
-    def buy_player_func(name, price):
+    def buy_player_func(name, price, percentage=0.5):
         try:
 
             try:
@@ -709,9 +712,10 @@ if __name__ == '__main__':
 
                 print "Opening WEB of FUTBIN for latest price...  "
                 Futbin = Page(name_for_exc[name][1])
+                #pdb.set_trace()
+
                 price = Futbin.get_lowest_player_price()
                 Futbin.driver.quit()
-                #pdb.set_trace()
 
                 if price == '0' or price == None:
                     price = name_for_exc[name][0]
@@ -731,7 +735,9 @@ if __name__ == '__main__':
                 except:
                     pass
 
-                price = price - float((name_for_exc[name][0]))*0.20
+                #price = price - float((name_for_exc[name][0]))*percentage
+                price = price - (price * percentage)
+
                 price = int(float(price))
 
             print "!!!!! Going to search for: " + name + " for: " + str(price)
@@ -804,30 +810,43 @@ if __name__ == '__main__':
                 # return x_position, y_position
 
     first_hour = datetime.datetime.strftime(datetime.datetime.now(), '%Y-%m-%d %H')
-    # Service.initiate_market_wipe(first_hour, run='yes')
+    # Service.initiate_market_wipe(first_hour, run='yes')q
 
     #pdb.set_trace()
     while True:
 
         #sys.exit()
         #
-        # first_hour = Service.initiate_market_wipe(first_hour)
+        #first_hour = Service.initiate_market_wipe(first_hour)
         # for i in range(1, 3):
         #     print 'power'
         #     # Navigation.go_to_icons()
         #     # Navigation.set_pricing(150000)
         #     # Sell.buy_players()
-        buy_player_func(Tabs.Transfers.Players.Names.EightyFour.Rate_84_1, 4000)
-        buy_player_func(Tabs.Transfers.Players.Names.EightyThree.Rate_83_1, 1000)
-        buy_player_func(Tabs.Transfers.Players.Names.EightyFour.Rate_84_1, 4000)
-        buy_player_func(Tabs.Transfers.Players.Names.EightyFour.Rate_84_1, 4000)
+        #first_hour = Service.initiate_market_wipe(first_hour, run='yes')
 
-
+        #buy_player_func(Tabs.Transfers.Players.Names.EightyThree.Rate_83_1, 1500)
+        #buy_player_func(Tabs.Transfers.Players.Names.EightyFour.Rate_84_1, 3000)
+        #
+        #
         # buy_player_func(players.Exceptional.around20, None)
-        # buy_player_func(players.Exceptional.around10, None)
+        # buy_player_func(players.Exceptional.around20, None)
+        #
+
+        buy_player_func(players.Exceptional.around10, None, 0.15)
+
 
         #     buy_player_func(Tabs.Transfers.Players.Names.Exceptional.around100, None)
         #     # buy_player_func(Tabs.Transfers.Players.Names.Exceptional.around200, None)
-        #Service.initiate_market_wipe(first_hour, run='yes')
+
+        first_hour = Service.initiate_market_wipe(first_hour)
+
         #buy_contract()
+        #buy_contract()
+
+
+        #first_hour = Service.initiate_market_wipe(first_hour, run='yes')
+        #print("Sleeping to 10 min")
+        #sleep(random.uniform(60, 300))
+
 

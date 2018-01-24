@@ -8,33 +8,34 @@ class Exceptional(object):
                  'Romelu Lukaku': 100000,
                  'David Alaba': 150000}
 
-    around50 = {'Ousmane Demb': 25000, 'David Silva': 30000, 'Martial': 40000, 'Ilkai': 20000,
-                'Kyle Walker': 40000, 'Thiago': 40000}
+    around50 = {'Ousmane Demb': 10000, 'David Silva': 15000, 'Martial': 10000, 'Ilkai': 10000,
+                'Kyle Walker': 20000, 'Thiago': 20000}
 
     around10 = {'Ander Herrera': [8000, 'https://www.futbin.com/18/player/240/Ander%20Herrera/'],
-                'Willian': [7000, 'https://www.futbin.com/18/player/233/Willian/'],
+                # 'Willian': [7000, 'https://www.futbin.com/18/player/233/Willian/'],
                 'Bernd Leno': [8000, 'https://www.futbin.com/18/player/197/Bernd%20Leno/'],
                 'Keylor Navas': [8000, 'https://www.futbin.com/18/player/200/Keylor%20Navas/'],
-                'Leon Goretzka': [8000, 'https://www.futbin.com/18/player/415/Leon%20Goretzka/'],
+                # 'Leon Goretzka': [8000, 'https://www.futbin.com/18/player/415/Leon%20Goretzka/'],
                 'Marcus Rashford': [7000, 'https://www.futbin.com/18/player/827/Marcus%20Rashford/'],
-                'Leroy Sane': [6000, 'https://www.futbin.com/18/player/427/Leroy%20San%C3%A9/'],
+                # 'Leroy Sane': [6000, 'https://www.futbin.com/18/player/427/Leroy%20San%C3%A9/'],
                 'Laurent Koscielny': [5000, 'https://www.futbin.com/18/player/225/Laurent%20Koscielny/'],
-                'Bakayoko': [5000, 'https://www.futbin.com/18/player/426/Ti%C3%A9mou%C3%A9%20Bakayoko/'],
-                'Moussa Demb': [8000, 'https://www.futbin.com/18/player/337/Moussa%20Demb%C3%A9l%C3%A9/'],
-                'Bruno': [4000, 'https://www.futbin.com/18/player/236/Bruno/'],
-
+                # 'Bakayoko': [5000, 'https://www.futbin.com/18/player/426/Ti%C3%A9mou%C3%A9%20Bakayoko/'],
+                # 'Moussa Demb': [8000, 'https://www.futbin.com/18/player/337/Moussa%20Demb%C3%A9l%C3%A9/'],
+                # 'Bruno': [4000, 'https://www.futbin.com/18/player/236/Bruno/'],
+                #
                 'Mohamed Salah': [5000, 'https://www.futbin.com/18/player/315/Mohamed%20Salah/'],
                 'Roberto Firmino': [5000, 'https://www.futbin.com/18/player/307/Roberto%20Firmino/'],
-                'Carvajal': [5000, 'https://www.futbin.com/18/player/249/Carvajal/'],
-                'Kostas Manolas': [3500, 'https://www.futbin.com/18/player/242/Kostas%20Manolas/'],
-                'Sami Khedira': [4000, 'https://www.futbin.com/18/player/232/Sami%20Khedira/'],
-                'Kalidou Koulibaly': [4000, 'https://www.futbin.com/18/player/245/Kalidou%20Koulibaly/'],
-                'Koke': [4000, 'https://www.futbin.com/18/player/243/Koke/'],
-                'Ederson': [4000, 'https://www.futbin.com/18/player/317/Ederson/'],
-                'Alejandro Gomez': [3500, 'https://www.futbin.com/18/player/222/Alejandro%20G%C3%B3mez/'],
+                # 'Carvajal': [5000, 'https://www.futbin.com/18/player/249/Carvajal/'],
+                # 'Kostas Manolas': [3500, 'https://www.futbin.com/18/player/242/Kostas%20Manolas/'],
+                # 'Sami Khedira': [4000, 'https://www.futbin.com/18/player/232/Sami%20Khedira/'],
+                # 'Kalidou Koulibaly': [4000, 'https://www.futbin.com/18/player/245/Kalidou%20Koulibaly/'],
+                # 'Koke': [4000, 'https://www.futbin.com/18/player/243/Koke/'],
+                # 'Ederson': [4000, 'https://www.futbin.com/18/player/317/Ederson/'],
+                # 'Alejandro Gomez': [3500, 'https://www.futbin.com/18/player/222/Alejandro%20G%C3%B3mez/'],
+                'Virgil van Dijk': [5000, 'https://www.futbin.com/18/player/308/Virgil%20van%20Dijk/'],
+
                 #85 rated
                 'Lorenzo Insigne': [8000, 'https://www.futbin.com/18/player/202/Lorenzo%20Insigne/'],
-                'Virgil van Dijk': [10000, 'https://www.futbin.com/18/player/308/Virgil%20van%20Dijk/'],
                 'Andrea Barzagli': [9000, 'https://www.futbin.com/18/player/183/Andrea%20Barzagli/'],
                 'Vincent Kompany': [10000, 'https://www.futbin.com/18/player/184/Vincent%20Kompany/'],
                 'Jan Vertonghen': [10000, 'https://www.futbin.com/18/player/188/Jan%20Vertonghen/'],

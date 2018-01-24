@@ -150,8 +150,10 @@ class Tabs(object):
                 class EightyFour(object):
                     Rate_84_1 = ['Dzeko',  'Bernardo Silva', 'Dani Alves', 'Dimitri Payet', 'Kevin Strootman',
                                  'Aduriz', 'Sergio Asenjo', 'Alejandro Gomez', 'Dani Alves',
+                                 'Falcao', 'Roman Burki', 'Ralf F', 'Timo Horn', 'Mauro Icardi',
                                  'Julian Draxler', 'Koke', 'Bruno', 'Laporte', 'Kalidou Kouli', 'Shkodran Must',
                                  'Kostas', 'Khedira', 'Alejandro G', 'Ivan Peri', 'Gary Cahil',  'Morata',
+                                 'Ralf F', 'Timo Horn', 'Mauro Icardi',
                                  'Pedro', 'Mata', 'Asensio', 'Herrera', 'Benatia', 'Carvajal']
                     #'Falcao','Roman Burki', 'Ralf F','Timo Horn', 'Mauro Icardi',
 
