@@ -18,13 +18,15 @@ class Buttons(object):
     select_back = Pattern("button_select_back.png").similar(0.90)
     relist_all = Pattern("relist_all.png").similar(0.80)
     w_clear_sold_items = Pattern("w_clear_sold_items.png").similar(0.90)
-    yes = Pattern("yes.png").similar(0.80)
+    yes = Pattern("yes.png").similar(0.90)
     no = Pattern("no.png").similar(0.90)
     no_selected = Pattern("no_selected.png").similar(0.80)
     yes_selected = Pattern("yes_selected.png").similar(0.95)
 
     ok_selected = Pattern("ok_selected.png").similar(0.90)
-    arrow_selected = Pattern("arrow_selected.png").similar(0.95)
+    arrow_selected = Pattern("arrow_selected.png").similar(0.90)
+    arrow_ok_selected = Pattern("arrow_ok_selected.png").similar(0.90)
+
     s_manually_adjust_price = Pattern("s_manually_adjust_price.png").similar(0.90)
     d_search = Pattern("d_search.png").similar(0.95)
     c_next_page = Pattern("c_next_page.png").similar(0.90)
@@ -58,7 +60,7 @@ class Buttons(object):
 class Messages(object):
     message_exit_ut = Pattern("message_exit_from_UT.png").similar(0.90)
     problem_communicating_ea_server = Pattern("problem_communicating_ea_server.png").similar(0.90)
-    message_successful_purchase = Pattern("message_successful_purchase.png").similar(0.80)
+    message_successful_purchase = Pattern("message_successful_purchase.png").similar(0.85)
     message_sorry_expired = Pattern("message_sorry_expired.png").similar(0.90)
     message_send_all_items_to_club = Pattern("message_send_all_items_to_club.png").similar(0.80)
     message_send_all_items_to_club_selected = Pattern("message_send_all_items_to_club_selected.png").similar(0.80)
@@ -70,7 +72,7 @@ class Messages(object):
 
 class Tabs(object):
     # main_panel = Pattern("main_panel.png").similar(0.99)
-    main_panel = Pattern("main_panel.png").similar(0.80)
+    main_panel = Pattern("main_panel.png").similar(0.75)
     main_panel_buttons = Pattern("main_panel_buttons.png").similar(0.85)
 
     tab_transfers = Pattern("Tab_transfers.png").similar(0.80)
@@ -81,8 +83,7 @@ class Tabs(object):
 
     ultimate_team_2 = Pattern("ultimate_team_2.png").similar(0.90)
     ultimate_team_selected_2 = Pattern("ultimate_team_2_selected.png").similar(0.90)
-    search_results_tab = Pattern("search_results_tab.png").similar(0.95)
-
+    search_results_tab = Pattern("search_results_tab.png").similar(0.90)
 
     class Transfers(object):
         transfer_market_selected = Pattern("transfer_market_selected.png").similar(0.90)
@@ -223,13 +224,11 @@ class Tabs(object):
                                     'Hradecky','Jonas','William Carvalho', 'Neto'
                                     ]
 
-                    actual_85 = ['Miranda', 'Sami Khedira', 'Yacine Brahimi', 'Edin D', 'Kompany', 'Arturo Vidal',
-                                 'Pepe', 'Franck Rib', 'Diego Costa']
+                    price_85 = ['Aspas', 'De Jong', 'Koke', 'Lukaku', 'Saul', 'Burki', 'Icardi', 'MATUIDI', 'HIGUA', 'allan', 'MILINKOVIC', 'IBRAHIMOVIC',
+                                 'Anthony Lopes', 'Neto', 'BRUNO FERNANDES', 'FABINHO', 'James Rodri', 'ALEX SANDRO', 'AXEL WITSEL', 'DAVID ALABA',
+                                 'NIKLAS S','VARANE','CARVAJAL','DONNARUMMA','MANOLAS']
 
-                    Price_20K_30K = ['Ivan Rakitic', 'Sergej Milinkovic', 'Thomas Lemar', 'Gianluigi Buffon',
-                                    'Geoffrey Kondogbia', 'Marcus Rashford', 'Nemanja Matic', 'Marco Asensio',
-                                    'Dele Alli', 'Ederson', 'Medhi Benatia', 'Nabil Fekir', 'Sergio Busquets',
-                                    'Joao Cancelo','Felipe Anderson']
+                    price_86 = ['Sane','KIMMICH','BONUCCI','MARQUINHOS','Parejo','Couti','Isco','Milan','Umtiti','Angel di','Szczesny','Muller','Pjanic','RAKITIC','IMMOBILE','VERRATTI','LACAZETTE','FIRMINO']
 
                     Price_30K_50K = ['Kalidou Koulibaly', 'ter Stegen', 'Thiago Silva', 'Mats Hummels',
                                      'Samir Handanovic', 'Antonio Valencia', 'Marek Hamsik', 'Kostas Manolas',
