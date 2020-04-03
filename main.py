@@ -925,7 +925,7 @@ if __name__ == '__main__':
 
             # buy_player_func(players.Exceptional.around20, None, 0.25)
             # buy_player_func(players.Exceptional.around100, None, 0.20)
-            # buy_player_func(players.Exceptional.around200, None, 0.15)
+            buy_player_func(players.Exceptional.around200, None, 0.15)
 
             # buy_player_func(Tabs.Transfers.Players.Names.Custom.custom2000, price='1200')
             # buy_player_func(Tabs.Transfers.Players.Names.Custom.custom1500, price='1000')

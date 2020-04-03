@@ -28,7 +28,7 @@ class Buttons(object):
     arrow_ok_selected = Pattern("arrow_ok_selected.png").similar(0.90)
 
     s_manually_adjust_price = Pattern("s_manually_adjust_price.png").similar(0.90)
-    d_search = Pattern("d_search.png").similar(0.95)
+    d_search = Pattern("d_search.png").similar(0.80)
     c_next_page = Pattern("c_next_page.png").similar(0.90)
     actions = Pattern("actions.png").similar(0.90)
     continue_searching = Pattern("continue_searching.png").similar(0.90)
@@ -73,7 +73,8 @@ class Messages(object):
 class Tabs(object):
     # main_panel = Pattern("main_panel.png").similar(0.99)
     main_panel = Pattern("main_panel.png").similar(0.75)
-    main_panel_buttons = Pattern("main_panel_buttons.png").similar(0.85)
+    main_panel_buttons_1 = Pattern("main_panel_buttons.png").similar(0.99)
+    main_panel_buttons_2 = Pattern("main_panel_buttons_2.png").similar(0.99)
 
     tab_transfers = Pattern("Tab_transfers.png").similar(0.80)
     tab_transfers_selected = Pattern("Tab_transfers_selected.png").similar(0.80)
@@ -138,8 +139,6 @@ class Tabs(object):
             confirm_items = Pattern("confirm_items.png").similar(0.90)
 
             duplicate_message = Pattern("duplicate_message.png").similar(0.80)
-
-
 
         class Players(object):
             Players = Pattern("Players.png").similar(0.80)
@@ -228,15 +227,32 @@ class Tabs(object):
                                  'Anthony Lopes', 'Neto', 'BRUNO FERNANDES', 'FABINHO', 'James Rodri', 'ALEX SANDRO', 'AXEL WITSEL', 'DAVID ALABA',
                                  'NIKLAS S','VARANE','CARVAJAL','DONNARUMMA','MANOLAS']
 
-                    price_86 = ['Sane','KIMMICH','BONUCCI','MARQUINHOS','Parejo','Couti','Isco','Milan','Umtiti','Angel di','Szczesny','Muller','Pjanic','RAKITIC','IMMOBILE','VERRATTI','LACAZETTE','FIRMINO']
+                    all_85 = [
+                        'Alex Sandro', 'Axel Witsel', 'James Rodriguez', 'Niklas Sule', 'Andrew Robertson',
+                              'Raphael Varane', 'Gianluigi Donnarumma', 'Allan', 'Koke', 'Jose Maria Gimenez',
+                              'Sergej Milinkovic', 'Hakim Ziyech', 'Frenkie de Jong', 'Zlatan Ibrahimovic',
+                              'Lopes', 'Blaise Matuidi', 'Romelu Lukaku', 'David Alaba', 'Fabinho', 'Marcelo',
+                              'Carvajal', 'Bruno Fernandes', 'Kostas Manolas', 'Saul', 'Rodrigo', 'Mauro Icardi',
+                              'Matthijs de Ligt', 'Alejandro Gomez', 'Gareth Bale', 'Clement Lenglet',
+                              'Gonzalo Higuain', 'Roman Burki', 'Neto', 'Zlatan Ibrahimovic',
+                              'Peter Gulacsi', 'Iago Aspas', 'Mauro Icardi',
+                        #'Andre Onana',
+                            'Bruno Fernandes']
+
+                    price_86 = ['Sane','KIMMICH','BONUCCI','MARQUINHOS','Parejo','Couti','Isco','Milan','Umtiti',
+                                'Angel di','Szczesny','Muller','Pjanic','RAKITIC','IMMOBILE','VERRATTI','LACAZETTE',
+                                'FIRMINO']
+
+                    all_87 = ['Fernandinho', 'Aymeric Laporte', 'Mats Hummels', 'Jan Vertonghen', 'Heung Min Son',
+                              'Keylor Navas', 'Lorenzo Insigne', 'Thiago Silva', 'Bernardo Silva', 'Jordi Alba',
+                              'Thiago', 'Toby Alderweireld', 'Casemiro', 'Karim Benzema', 'Dries Mertens',
+                              'Keylor Navas']
 
                     Price_30K_50K = ['Kalidou Koulibaly', 'ter Stegen', 'Thiago Silva', 'Mats Hummels',
                                      'Samir Handanovic', 'Antonio Valencia', 'Marek Hamsik', 'Kostas Manolas',
                                      'Moussa Dembele', 'Raheem Sterling', 'Marco Asensio',
                                      'Diego Godin', 'Anthony Martial', 'Fred', 'Jan Vertonghen', 'Mauro Icardi',
                                      'Fernandinho', 'Alisson', 'David Silva', 'Willian', 'Ivan Rakitic']
-
-
 
                 class Custom(object):
                     custom1 = ['Camacho', 'Bernat', 'Mere', 'Mascarell', 'Pablo Insua']

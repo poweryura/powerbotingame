@@ -15,7 +15,7 @@ from unidecode import unidecode
 # driver = webdriver.Firefox(executable_path=r'geckodriver.exe')
 driver = webdriver.Chrome(executable_path=r'chromedriver.exe')
 page = 1
-rating = 77
+rating = 87
 tuple_of_players = []
 
 def get_names():
@@ -32,9 +32,9 @@ def get_names():
         name = unidecode(name)
         tuple_of_players.append(name)
 
-for link in range(1,4,1):
+for link in range(1,2,1):
     print("page ", str(link) )
-    link = "https://www.futbin.com/19/players?page=" + str(page) + "&player_rating=" + str(rating)+ "-" + str(rating) + "&version=gold_rare&sort=Player_Rating&order=asc"
+    link = "https://www.futbin.com/20/players?page=" + str(page) + "&player_rating=" + str(rating)+ "-" + str(rating) + "&version=gold_rare&sort=Player_Rating&order=asc"
     # link = "https://www.futbin.com/players?page=" + str(page) + "&sort=ps_price&version=gold_rare&order=desc&ps_price=50000-100000"
     #link = "https://www.futbin.com/players?page=1&ps_price=30000-50000&sort=ps_price&version=gold_rare&order=desc"
     driver.get(link)
@@ -44,7 +44,6 @@ for link in range(1,4,1):
     page = page + 1
 
 print(tuple_of_players)
-pdb.set_trace()
 
 #for each in elems1: name = each.text; name = name.split("\n", 1)[0]; name = name.encode('ascii'); new_dict.append(name)
 #for each in elems1: name = each.text; name = name.split("\n", 1)[0]; name = name.encode('ascii', 'ignore'); new_dict.append(name)

@@ -3,6 +3,8 @@ import org.sikuli.script.SikulixForJython
 # from sikuli import *
 import pdb
 from Pics import *
+import players
+
 import time
 import smtplib
 import datetime
@@ -89,17 +91,16 @@ class Service(object):
             print "Current time is: %s" % current_hour
             print("doing market WIPE!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!")
             first_hour = current_hour
-
             go_home = Navigate()
-            go_home.go_to_home_sceen()
+            go_home.go_to_home_screen()
             # Re-list contract
-            # try:
-            #     relist = Actions()
-            #     relist.clear_sold()
-            #     relist.relist_all()
-            # except FindFailed:
-            #     print "Failed with sell re-list or clear"
-            # # Sell contract
+            try:
+                relist = Actions()
+                relist.relist_all()
+                relist.clear_sold()
+            except FindFailed:
+                print "Failed with sell re-list or clear"
+            # Sell contract
             # try:
             #     Navigation = Navigate()
             #     Sell = Actions()
@@ -135,78 +136,89 @@ class Service(object):
 
 
 class Navigate(Waiters):
-    def go_to_home_sceen(self):
-        print(inspect.stack()[0][3])
-        try:
-            wait(Buttons.team_viewer_ok, 1)
-            click(getLastMatch())
-        except FindFailed:
-            pass
-
+    def check_if_home_page(self):
         try:
             print "Checking if home page"
-            self.fifa_window_size.wait(Tabs.main_panel, 0)
-            # self.fifa_window_size.wait(Tabs.main_panel_buttons, 3)
-            print "Home page by default"
-            return
-        except FindFailed:
-            print "Not HOME PAGE"
-            for item in range(1, 5):
+            try:
+                self.fifa_window_size.wait(Tabs.main_panel_buttons_1, 0)
+                print "Home page by default"
+                return True
+            except FindFailed:
                 try:
-                    type(Key.ESC)
-                    sleep(1)
-                    self.fifa_window_size.wait(Tabs.main_panel_buttons, 2)
+                    self.fifa_window_size.wait(Tabs.main_panel_buttons_2, 0)
+                    print "Home page by default"
+                    return True
+                except FindFailed:
+                    print "Not HOME PAGE"
+                    return False
+        except FindFailed:
+            return False
+
+    def check_if_exit_message(self):
+        if self.fifa_window_size.exists(Messages.message_exit_ut, 1) is not None:
+            try:
+                Waiters.wait_and_click(self, Buttons.no_selected)
+            except FindFailed:
+                Waiters.wait_and_click(self, Buttons.no)
+            print "HOME PAGE"
+            return True
+
+    def go_to_home_screen(self):
+        print(inspect.stack()[0][3])
+        if self.check_if_exit_message():
+            print "HOME PAGE"
+            return
+
+        if self.check_if_home_page():
+            print "HOME PAGE"
+            return
+
+        # try:
+        #     wait(Buttons.team_viewer_ok, 1)
+        #     click(getLastMatch())
+        # except FindFailed:
+        #     pass
+
+        for item in range(1, 5):
+            try:
+                type(Key.ESC)
+                sleep(1)
+                if self.check_if_home_page():
                     print "HOME PAGE"
                     return
-                    # break
-                except FindFailed:
-                    print " Not HOME PAGE yet"
-            if self.fifa_window_size.exists(Messages.message_exit_ut, 1) is not None:
-                try:
-                    Waiters.wait_and_click(self, Buttons.no_selected)
-                except FindFailed:
-                    Waiters.wait_and_click(self, Buttons.no)
-            else:
-                pass
-
-        try:
-            Waiters.wait_and_click(self, Buttons.no_selected)
-            Waiters.click_any_first_found_picture(self, (Tabs.ultimate_team, Tabs.ultimate_team_selected))
-        except FindFailed:
-            print "Unknown location!!!!"
-            try:
-                Waiters.click_any_first_found_picture(self, (Tabs.ultimate_team, Tabs.ultimate_team_selected))
-                sleep(10)
+                # break
             except FindFailed:
-                print "Unknown location!!!!"
+                print " Not HOME PAGE yet"
 
-        try:
-            self.fifa_window_size.click(Messages.message_send_all_items_to_club)
-        except FindFailed:
-            pass
+    #
 
-        try:
-            self.fifa_window_size.click(Buttons.ok_selected)
-        except FindFailed:
-            pass
-
-        try:
-            self.fifa_window_size.click(Buttons.continue_searching_selected)
-        except FindFailed:
-            pass
+    # else:
+    #         pass
+    #  try:
+    #     Waiters.wait_and_click(self, Buttons.no_selected)
+    #     Waiters.click_any_first_found_picture(self, (Tabs.ultimate_team, Tabs.ultimate_team_selected))
+    # except FindFailed:
+    #     print "Unknown location!!!!"
+    #     try:
+    #         Waiters.click_any_first_found_picture(self, (Tabs.ultimate_team, Tabs.ultimate_team_selected))
+    #         sleep(10)
+    #     except FindFailed:
+    #         print "Unknown location!!!!"
+    #
 
     def go_to_transfer_list(self):
-        self.go_to_home_sceen()
+        self.go_to_home_screen()
         Waiters.click_first_found_picture(self, (Tabs.tab_transfers, Tabs.tab_transfers_selected))
         Waiters.click_first_found_picture(self,
-                                          (Tabs.Transfers.transfer_list_selected, Tabs.Transfers.transfer_list_logo), 1)
+                                          (Tabs.Transfers.transfer_list_selected, Tabs.Transfers.transfer_list), 1)
         self.fifa_window_size.wait(Tabs.Transfers.transfer_list_link, 3)
 
     def go_to_transfer_market(self):
-        self.go_to_home_sceen()
+        self.go_to_home_screen()
         print "Going to transfer market"
         Waiters.click_first_found_picture(self, (Tabs.tab_transfers, Tabs.tab_transfers_selected), 2)
-        Waiters.click_first_found_picture(self, (Tabs.Transfers.transfer_market, Tabs.Transfers.transfer_market_selected), 2)
+        Waiters.click_first_found_picture(self,
+                                          (Tabs.Transfers.transfer_market, Tabs.Transfers.transfer_market_selected), 2)
         self.fifa_window_size.wait(Tabs.Transfers.transfer_market_panel, 3)
 
     def go_to_consumables(self):
@@ -228,7 +240,8 @@ class Navigate(Waiters):
             return
 
         self.go_to_transfer_market()
-        Waiters.click_first_found_picture(self, (Tabs.Transfers.Players.Players_selected, Tabs.Transfers.Players.Players), 3)
+        Waiters.click_first_found_picture(self,
+                                          (Tabs.Transfers.Players.Players_selected, Tabs.Transfers.Players.Players), 3)
         self.fifa_window_size.wait(Tabs.Transfers.Players.Players_selected, 1)
         sleep(1)
         print "Reset all"
@@ -267,7 +280,7 @@ class Navigate(Waiters):
                                                  Player_name), 2)
         self.fifa_window_size.wait(Tabs.Transfers.Players.Player_pricing, 2)
 
-        Settings.TypeDelay = 0.1
+        # Settings.TypeDelay = 0.1
         type(name)
         Settings.TypeDelay = 0.1
         sleep(0.3)
@@ -276,9 +289,9 @@ class Navigate(Waiters):
         type(Key.ENTER)
 
     def go_to_my_club(self):
-        self.go_to_home_sceen()
+        self.go_to_home_screen()
         Waiters.click_first_found_picture(self, (Tabs.MyClub.my_club, Tabs.MyClub.my_club_selected), 2)
-        self.fifa_window_size.hover(Tabs.main_panel_buttons)
+        self.fifa_window_size.hover(Tabs.main_panel_buttons_1)
         Waiters.click_first_found_picture(self,
                                           (Tabs.MyClub.my_club_inside_selected, Tabs.MyClub.my_club_inside), 2)
         self.fifa_window_size.wait(Tabs.MyClub.club_search_logo, 3)
@@ -374,39 +387,38 @@ class Actions(Navigate):
             print "Looks nothing to re-list"
         sleep(4)
 
-        try:
-            if self.fifa_window_size.exists(Buttons.relist_all, 5) is not None:
-                print "Need to relist manually "
-                for page in range(1, 11):
-                    print page
-                    type("c")
-                    sleep(1)
-                    try:
-                        self.fifa_window_size.wait(Buttons.c_next_page, 3)
-                    except FindFailed:
-                        print "looks that last page"
-                        break
-                try:
-                    for items_to_re_list in range(1, 100):
-                        self.fifa_window_size.wait(Buttons.expired_cross, 1)
-                        self.fifa_window_size.wait(Buttons.button_list_on_transfer_market, 1)
-                        type(Key.ENTER)
-                        Waiters.click_first_found_picture(self, (
-                            Tabs.Transfers.TransferList.transfer_list_List_on_transfer_market,
-                            Tabs.Transfers.TransferList.transfer_list_List_on_transfer_market), 1)
-                        self.fifa_window_size.wait(Tabs.MyClub.ClubSearch.club_sent_to_transfer_message, 5)
-                        Waiters.wait_and_click(self, Buttons.arrow_selected)
-                        sleep(2)
-                except FindFailed:
-                    print "Done with manual re-listing"
-            else:
-                print "Done with re-listing"
-        except FindFailed:
-            print "Done with re-listing"
+    # try:
+    #     if self.fifa_window_size.exists(Buttons.relist_all, 5) is not None:
+    #         print "Need to relist manually "
+    #         for page in range(1, 11):
+    #             print page
+    #             type("c")
+    #             sleep(1)
+    #             try:
+    #                 self.fifa_window_size.wait(Buttons.c_next_page, 3)
+    #             except FindFailed:
+    #                 print "looks that last page"
+    #                 break
+    #         try:
+    #             for items_to_re_list in range(1, 100):
+    #                 self.fifa_window_size.wait(Buttons.expired_cross, 1)
+    #                 self.fifa_window_size.wait(Buttons.button_list_on_transfer_market, 1)
+    #                 type(Key.ENTER)
+    #                 Waiters.click_first_found_picture(self, (
+    #                     Tabs.Transfers.TransferList.transfer_list_List_on_transfer_market,
+    #                     Tabs.Transfers.TransferList.transfer_list_List_on_transfer_market), 1)
+    #                 self.fifa_window_size.wait(Tabs.MyClub.ClubSearch.club_sent_to_transfer_message, 5)
+    #                 Waiters.wait_and_click(self, Buttons.arrow_selected)
+    #                 sleep(2)
+    #         except FindFailed:
+    #             print "Done with manual re-listing"
+    #     else:
+    #         print "Done with re-listing"
+    # except FindFailed:
+    #     print "Done with re-listing"
 
     def clear_sold(self):
         print(inspect.stack()[0][3])
-
         self.go_to_transfer_list()
         try:
             sleep(2)
@@ -557,7 +569,8 @@ class Actions(Navigate):
                                 expired_items = expired_items + 1
                                 print "Expired item: %s" % str(expired_items)
                                 if expired_items == 10:
-                                    print "Too many expired items, does not make sense to continue, goig to start search again"
+                                    print "Too many expired items, does not make sense to continue," \
+                                          "goig to start search again "
                                     self.fifa_window_size.click(Buttons.ok_selected)
                                     # self.fifa_window_size.wait(Tabs.Transfers.search_results_link, 3)
                                     # type(Key.ESC)
@@ -608,7 +621,7 @@ class Actions(Navigate):
             return
         else:
             print "Dont know current stage, going home screen"
-            self.go_to_home_sceen()
+            self.go_to_home_screen()
 
     def buy_players(self, value_to_sell_if_duplicate):
         print(inspect.stack()[0][3])
@@ -618,6 +631,7 @@ class Actions(Navigate):
         if self.fifa_window_size.exists(Buttons.actions, 2) is not None:
             type(Key.ENTER)
             Waiters.click_first_found_picture(self, (Buttons.buy_now, Buttons.buy_now_selected), 1)
+            print("Player Found!!!!!!!!!!!!!!!!!!!")
             Waiters.wait_and_click(self, Buttons.yes, 3)
             try:
                 self.fifa_window_size.wait(Messages.message_successful_purchase, 3)
@@ -631,17 +645,18 @@ class Actions(Navigate):
                     sleep(5)
                     # self.fifa_window_size.click(Tabs.MyClub.ClubSearch.list_on_transfer_market, 2)
                     type('s')
-                    Waiters.click_first_found_picture(self, (Tabs.MyClub.ClubSearch.starting_price_selected,Tabs.MyClub.ClubSearch.starting_price), 2)
+                    Waiters.click_first_found_picture(self, (
+                        Tabs.MyClub.ClubSearch.starting_price_selected, Tabs.MyClub.ClubSearch.starting_price), 2)
                     self.fifa_window_size.wait(Tabs.Transfers.Pricing.set_price_form, 2)
-                    listing_price = int(value_to_sell_if_duplicate) * 1.3
+                    listing_price = int(value_to_sell_if_duplicate) * 10
                     print("listing for: " + str(listing_price))
-                    type(str(int(int(value_to_sell_if_duplicate) * 1.3)))
+                    type(str(int(int(value_to_sell_if_duplicate) * 10)))
                     type(Key.ENTER)
                     os.system("down.exe")
                     self.fifa_window_size.wait(Tabs.MyClub.ClubSearch.club_buy_now_price_selected, 2)
                     type(Key.ENTER)
                     sleep(0.5)
-                    type(str(int(int(value_to_sell_if_duplicate) * 1.3)))
+                    type(str(int(int(value_to_sell_if_duplicate) * 10)))
                     sleep(0.5)
                     type(Key.ENTER)
                     self.fifa_window_size.click(Buttons.sell_list_on_transfer_market, 2)
@@ -694,16 +709,16 @@ class Actions(Navigate):
 class Page(object):
 
     def __init__(self, player_link):
-        try:
-            # os.system("taskkill /im chrome.exe")
-            os.system("taskkill /f /im  chrome.exe")
-            sleep(5)
-        except:
-            pass
-        self.sent = []
+        # try:
+        #     # os.system("taskkill /im chrome.exe")
+        #     os.system("taskkill /f /im  chrome.exe")
+        #     sleep(5)
+        # except:
+        #     pass
+        # self.sent = []
 
         options = webdriver.ChromeOptions()
-        options.add_argument(r"user-data-dir=C:\Users\power.DESKTOP-J1SIG46\AppData\Local\Google\Chrome\User Data")
+        options.add_argument(r"user-data-dir=c:\Users\power\AppData\Local\Google\Chrome\User Data")
 
         # self.driver = webdriver.Chrome(executable_path="geckodriver.exe")
         try:
@@ -726,68 +741,78 @@ class Page(object):
             return None
 
 
-def buy_player_func(name, price=None, percentage=0.5, futbin='yes', custom_name=None, random_price = None):
+def buy_player_func(name, price=None, percentage=0.5, futbin='yes', random_name=True, random_price=None):
+    try:
         try:
-            try:
+            if random_name:
                 name = random.choice(name)
-            except KeyError:
-                name_for_exc = name
-                name = random.choice(list(name))
+        except KeyError:
+            name_for_exc = name
+            name = random.choice(list(name))
 
-                if futbin == 'yes':
-                    print "Opening WEB of FUTBIN for latest price...  "
-                    Futbin = Page(name_for_exc[name][1])
-                    price = Futbin.get_lowest_player_price()
-                    Futbin.driver.quit()
-                    print 'FUTBIN price: ' + name + ': ' + price
+            if futbin == 'yes':
+                print "Opening WEB of FUTBIN for latest price...  "
+                Futbin = Page(name_for_exc[name][1])
+                price = Futbin.get_lowest_player_price()
+                Futbin.driver.quit()
+                print 'FUTBIN price: ' + name + ': ' + price
 
-                    if price == '0' or price is None:
-                        price = name_for_exc[name][0]
-                        print "Taking default price from script " + str(price)
-                        price = str(price)
-                    elif "," in price:
-                        price = int(price.replace(",", ""))
-                    else:
-                        pass
+                if price == '0' or price is None:
+                    price = name_for_exc[name][0]
+                    print "Taking default price from script " + str(price)
+                    price = str(price)
+                elif "," in price:
+                    price = int(price.replace(",", ""))
+                else:
+                    pass
 
-                    price = price - (price * percentage)
-                    price = int(float(price))
-                    # round to 500
-                    price = (price + 250) // 500 * 500
+                price = price - (price * percentage)
+                price = int(float(price))
+                # round to 500
+                price = (price + 250) // 500 * 500
 
-                # price_range = random.randrange(0, int(name_for_exc[name][0])/20, 100)
-                # print price_range
+            # price_range = random.randrange(0, int(name_for_exc[name][0])/20, 100)
+            # print price_range
 
-            if price is None:
-                price = name_for_exc[name][0]
+        if price is None:
+            price = name_for_exc[name][0]
 
-            if random_price is True:
-                price = int(price) * random.uniform(0.7, 1)
-                price = format(int(price), 'd')
+        if random_price is True:
+            price = int(price) * random.uniform(0.8, 1)
+            price = format(int(price), 'd')
 
-            print "!!!!! Going to search for: " + name + " for: " + str(price)
+        print "!!!!! Going to search for: " + name + " for: " + str(price)
 
-            navigation.go_to_players()
-            navigation.set_player_name(name)
-            navigation.set_pricing(price)
-            navigation.buy_players(price)
+        navigation.go_to_players()
+        navigation.set_player_name(name)
+        navigation.set_pricing(price)
+        navigation.buy_players(price)
 
-        except FindFailed:
-            print "Failed with buy player"
+    except FindFailed:
+        print "Failed with buy player"
+        type(Key.ESC)
 
 
 if __name__ == '__main__':
     navigation = Actions()
     first_hour = datetime.datetime.strftime(datetime.datetime.now(), '%Y-%m-%d %H')
+
     while True:
         try:
-            buy_player_func(Tabs.Transfers.Players.Names.Rare.price_85, price='8000', random_price=True)
-            sleep(random.uniform(1, 5))
-            #buy_player_func(Tabs.Transfers.Players.Names.Rare.price_86, price='16000', random_price=True)
-            #sleep(random.uniform(1, 5))
+            # buy_player_func(Tabs.Transfers.Players.Names.Rare.price_85, price='6000', random_price=True)
+            # for each in Tabs.Transfers.Players.Names.Rare.all_85:
+            #     buy_player_func([each], price='6000', random_price=True)
 
-            #first_hour = Service.initiate_market_wipe(first_hour, run='no', contracts="no")
+            buy_player_func(Tabs.Transfers.Players.Names.Rare.all_85, price='6000', random_price=True)
+            sleep(random.uniform(1, 3))
+            buy_player_func(Tabs.Transfers.Players.Names.Rare.price_86, price='15000', random_price=True)
+            sleep(random.uniform(1, 3))
+            buy_player_func(Tabs.Transfers.Players.Names.Rare.all_87, price='20000', random_price=True)
 
+            # buy_player_func(['Hummels'], price='3000')
+            buy_player_func(players.Exceptional.From50to100, None, 0.25)
+            buy_player_func(players.Exceptional.From100to200, None, 0.25)
+            first_hour = Service.initiate_market_wipe(first_hour, run='no', contracts="no")
+            sleep(random.uniform(1, 3))
         except Exception as error:
             print error
-
