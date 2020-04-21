@@ -190,21 +190,19 @@ class Navigate(Waiters):
             except FindFailed:
                 print " Not HOME PAGE yet"
 
-    #
+        if self.check_if_exit_message():
+            return
 
-    # else:
-    #         pass
-    #  try:
-    #     Waiters.wait_and_click(self, Buttons.no_selected)
-    #     Waiters.click_any_first_found_picture(self, (Tabs.ultimate_team, Tabs.ultimate_team_selected))
-    # except FindFailed:
-    #     print "Unknown location!!!!"
-    #     try:
-    #         Waiters.click_any_first_found_picture(self, (Tabs.ultimate_team, Tabs.ultimate_team_selected))
-    #         sleep(10)
-    #     except FindFailed:
-    #         print "Unknown location!!!!"
-    #
+        self.check_if_main_menu()
+
+    def check_if_main_menu(self):
+        try:
+            self.fifa_window_size.exists(Messages.message_exit_game, 1)
+            Waiters.wait_and_click(self, Buttons.no_selected)
+            Waiters.click_any_first_found_picture(self, (Tabs.ultimate_team, Tabs.ultimate_team_selected))
+            sleep(90)
+        except FindFailed:
+            print "Unknown location!!!!"
 
     def go_to_transfer_list(self):
         self.go_to_home_screen()
@@ -453,7 +451,8 @@ class Actions(Navigate):
                 type(str(start_price))
                 type(Key.ENTER)
 
-                # Waiters.click_first_found_picture(self, (Tabs.MyClub.ClubSearch.club_buy_now_price, Tabs.MyClub.ClubSearch.club_buy_now_selected), 1)
+                # Waiters.click_first_found_picture(self, (Tabs.MyClub.ClubSearch.club_buy_now_price,
+                # Tabs.MyClub.ClubSearch.club_buy_now_selected), 1)
                 Waiters.wait_and_click(self, Tabs.MyClub.ClubSearch.club_buy_now_price)
                 self.fifa_window_size.wait(Tabs.MyClub.ClubSearch.club_set_price_form, 3)
                 type(str(buy_now_price))
@@ -461,7 +460,8 @@ class Actions(Navigate):
 
                 sleep(random.uniform(0.1, 1.0))
                 Waiters.wait_and_click(self, Tabs.MyClub.ClubSearch.list_on_transfer_market, 2)
-                # Waiters.click_first_found_picture(self, (Tabs.MyClub.ClubSearch.list_on_transfer_market, Tabs.MyClub.ClubSearch.list_on_transfer_market_selected), 1)
+                # Waiters.click_first_found_picture(self, (Tabs.MyClub.ClubSearch.list_on_transfer_market,
+                # Tabs.MyClub.ClubSearch.list_on_transfer_market_selected), 1)
 
                 self.fifa_window_size.wait(Tabs.MyClub.ClubSearch.club_sent_to_transfer_message, 5)
                 Waiters.wait_and_click(self, Buttons.arrow_selected)
@@ -639,6 +639,7 @@ class Actions(Navigate):
                                                   (Buttons.assign_now_after_buy_selected, Buttons.assign_now_after_buy),
                                                   2)
                 print("Player BOUGHT!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!")
+                import pdb; pdb.set_trace()
 
                 if self.fifa_window_size.exists(Tabs.Transfers.BoughtItems.duplicate_message, 3) is not None:
                     print('Duplicated item!!')
@@ -708,14 +709,14 @@ class Actions(Navigate):
 
 class Page(object):
 
-    def __init__(self, player_link):
-        # try:
-        #     # os.system("taskkill /im chrome.exe")
-        #     os.system("taskkill /f /im  chrome.exe")
-        #     sleep(5)
-        # except:
-        #     pass
-        # self.sent = []
+    def __init__(self):
+        try:
+            # os.system("taskkill /im chrome.exe")
+            os.system("taskkill /f /im  chrome.exe")
+            sleep(5)
+        except:
+            pass
+        self.sent = []
 
         options = webdriver.ChromeOptions()
         options.add_argument(r"user-data-dir=c:\Users\power\AppData\Local\Google\Chrome\User Data")
@@ -723,11 +724,13 @@ class Page(object):
         # self.driver = webdriver.Chrome(executable_path="geckodriver.exe")
         try:
             self.driver = webdriver.Chrome(chrome_options=options)
-            self.driver.get(player_link)
             # sleep(2)
             self.driver.implicitly_wait(5)
         except:
             pass
+
+    def open_link(self, player_link):
+        self.driver.get(player_link)
 
     def get_lowest_player_price(self, time=10, ):
         # price = self.driver.find_element_by_id("pc-lowest-5")
@@ -752,9 +755,10 @@ def buy_player_func(name, price=None, percentage=0.5, futbin='yes', random_name=
 
             if futbin == 'yes':
                 print "Opening WEB of FUTBIN for latest price...  "
-                Futbin = Page(name_for_exc[name][1])
+
+                Futbin.open_link(name_for_exc[name][1])
                 price = Futbin.get_lowest_player_price()
-                Futbin.driver.quit()
+                # Futbin.driver.quit()
                 print 'FUTBIN price: ' + name + ': ' + price
 
                 if price == '0' or price is None:
@@ -796,6 +800,7 @@ def buy_player_func(name, price=None, percentage=0.5, futbin='yes', random_name=
 if __name__ == '__main__':
     navigation = Actions()
     first_hour = datetime.datetime.strftime(datetime.datetime.now(), '%Y-%m-%d %H')
+    Futbin = Page()
 
     while True:
         try:
@@ -803,16 +808,23 @@ if __name__ == '__main__':
             # for each in Tabs.Transfers.Players.Names.Rare.all_85:
             #     buy_player_func([each], price='6000', random_price=True)
 
-            buy_player_func(Tabs.Transfers.Players.Names.Rare.all_85, price='6000', random_price=True)
-            sleep(random.uniform(1, 3))
-            buy_player_func(Tabs.Transfers.Players.Names.Rare.price_86, price='15000', random_price=True)
-            sleep(random.uniform(1, 3))
-            buy_player_func(Tabs.Transfers.Players.Names.Rare.all_87, price='20000', random_price=True)
-
-            # buy_player_func(['Hummels'], price='3000')
+            # buy_player_func(Tabs.Transfers.Players.Names.Rare.all_85, price='9000', random_price=True)
+            # sleep(random.uniform(1, 3))
+            # buy_player_func(Tabs.Transfers.Players.Names.Rare.price_86, price='14000', random_price=True)
+            # sleep(random.uniform(1, 3))
+            # buy_player_func(Tabs.Transfers.Players.Names.Rare.all_87, price='18000', random_price=True)
+            # # buy_player_func(['Hummels'], price='3000')
+            buy_player_func(players.Exceptional.From30to50, None, 0.30)
+            buy_player_func(players.Exceptional.From30to50, None, 0.30)
+            buy_player_func(players.Exceptional.From30to50, None, 0.30)
+            buy_player_func(players.Exceptional.From30to50, None, 0.30)
+            buy_player_func(players.Exceptional.From30to50, None, 0.30)
             buy_player_func(players.Exceptional.From50to100, None, 0.25)
             buy_player_func(players.Exceptional.From100to200, None, 0.25)
+            buy_player_func(players.Exceptional.From200to1M, None, 0.20)
+            #
+            #
             first_hour = Service.initiate_market_wipe(first_hour, run='no', contracts="no")
-            sleep(random.uniform(1, 3))
+            #sleep(random.uniform(1, 3))
         except Exception as error:
             print error

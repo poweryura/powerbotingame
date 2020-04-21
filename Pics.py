@@ -59,6 +59,7 @@ class Buttons(object):
 
 class Messages(object):
     message_exit_ut = Pattern("message_exit_from_UT.png").similar(0.90)
+    message_exit_game = Pattern("message_exit_from_game.png").similar(0.90)
     problem_communicating_ea_server = Pattern("problem_communicating_ea_server.png").similar(0.90)
     message_successful_purchase = Pattern("message_successful_purchase.png").similar(0.85)
     message_sorry_expired = Pattern("message_sorry_expired.png").similar(0.90)
@@ -236,7 +237,7 @@ class Tabs(object):
                               'Matthijs de Ligt', 'Alejandro Gomez', 'Gareth Bale', 'Clement Lenglet',
                               'Gonzalo Higuain', 'Roman Burki', 'Neto', 'Zlatan Ibrahimovic',
                               'Peter Gulacsi', 'Iago Aspas', 'Mauro Icardi',
-                        #'Andre Onana',
+                              #'Andre Onana',
                             'Bruno Fernandes']
 
                     price_86 = ['Sane','KIMMICH','BONUCCI','MARQUINHOS','Parejo','Couti','Isco','Milan','Umtiti',
